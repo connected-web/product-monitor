@@ -1,0 +1,47 @@
+<!-- Fixed navbar -->
+<script type="template" id="navigation-template">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Product Monitor</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</script>
+
+<script type="text/javascript">
+(function() {
+
+  var Navigation = function(element)
+  {
+    this.element = element;
+    var template = document.getElementById('navigation-template');
+    var templateBody = template.innerHTML;
+
+    this.element.innerHTML = templateBody;
+  };
+
+	function setup()
+	{
+		var elements = document.getElementsByTagName("navigation");
+		for(var i=0; i<elements.length; i++)
+		{
+			var element = elements[i];
+			new Navigation(element);
+		}
+	}
+
+	setup();
+})();
+</script>

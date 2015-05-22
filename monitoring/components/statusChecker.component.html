@@ -1,0 +1,62 @@
+<script type="template" id="status-checker-template">
+  <div class="row">
+    <div class="col-md-4">
+      <span class="label label-${buttonType}">${name}</span>
+    </div>
+    <div class="col-md-8">${url}</div>
+  </div>
+</script>
+
+<style>
+statusChecker {
+  font-size: 30px;
+}
+</style>
+
+<script type="text/javascript">
+(function() {
+
+  var StatusChecker = function(element)
+  {
+    var template = document.getElementById('status-checker-template');
+    var templateBody = template.innerHTML;
+
+    var urlName = element.innerHTML;
+    var urlToCheck = element.getAttribute('data-url');
+
+    function doesUrlReturn200(url) {
+      $.get(url, {}, function(data, textStatus) {
+        renderTemplate(true);
+      }).fail(function() {
+        renderTemplate(false);
+      });
+    }
+
+    function renderTemplate(urlReturns200)
+    {
+      var buttonType = urlReturns200 ? 'success' : 'danger';
+
+      var result = templateBody;
+      result = result.replace('${name}', urlName);
+      result = result.replace('${url}', urlToCheck);
+      result = result.replace('${buttonType}', buttonType);
+
+      element.innerHTML = result;
+    }
+
+    doesUrlReturn200(urlToCheck);
+  };
+
+	function setup()
+	{
+		var elements = document.getElementsByTagName("statusChecker");
+		for(var i=0; i<elements.length; i++)
+		{
+			var element = elements[i];
+			new StatusChecker(element);
+		}
+	}
+
+	setup();
+})();
+</script>

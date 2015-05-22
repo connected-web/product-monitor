@@ -1,0 +1,32 @@
+<!-- Fixed navbar -->
+<script type="template" id="jumbotron-template">
+<div class="jumbotron">${BODY}</div>
+</script>
+
+<script type="text/javascript">
+(function() {
+
+  var Jumbotron = function(element)
+  {
+    this.element = element;
+    var template = document.getElementById('jumbotron-template');
+    var templateBody = template.innerHTML;
+
+    var result = templateBody.replace('${BODY}', this.element.innerHTML);
+
+    this.element.innerHTML = result;
+  };
+
+	function setup()
+	{
+		var elements = document.getElementsByTagName("jumbotron");
+		for(var i=0; i<elements.length; i++)
+		{
+			var element = elements[i];
+			new Jumbotron(element);
+		}
+	}
+
+	setup();
+})();
+</script>
