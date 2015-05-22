@@ -1,17 +1,16 @@
 <script type="template" id="status-checker-template">
   <div class="row">
     <div class="col-md-4">
-      <span class="label label-${buttonType}">${name}</span>
+      <div class="alert alert-default" role="alert">
+        <span class="glyphicon glyphicon-off"></span>
+        ${name}
+      </div>
     </div>
-    <div class="col-md-8">${url}</div>
+    <div class="col-md-8">
+      <div class="alert alert-${alertType}" role="alert">${url}</div>
+    </div>
   </div>
 </script>
-
-<style>
-statusChecker {
-  font-size: 30px;
-}
-</style>
 
 <script type="text/javascript">
 (function() {
@@ -39,7 +38,7 @@ statusChecker {
       var result = templateBody;
       result = result.replace('${name}', urlName);
       result = result.replace('${url}', urlToCheck);
-      result = result.replace('${buttonType}', buttonType);
+      result = result.replace('${alertType}', buttonType);
 
       element.innerHTML = result;
     }
@@ -49,7 +48,7 @@ statusChecker {
 
 	function setup()
 	{
-		var elements = document.getElementsByTagName("statusChecker");
+		var elements = document.getElementsByTagName("status-checker");
 		for(var i=0; i<elements.length; i++)
 		{
 			var element = elements[i];

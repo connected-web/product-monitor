@@ -18,45 +18,11 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body role="document">
+<body role="document" class="{ENVIRONMENT}">
 
   <div class="container theme-showcase" role="main">
 
-    <navigation></navigation>
-
-    <jumbotron>
-      <h1>Product Monitor</h1>
-
-      <h3>Environment</h3>
-      <p>Current Environment: ${ENVIRONMENT}</p>
-
-      <h2>Live status</h2>
-      <p>Updated every minute</p>
-
-      <h3>Endpoints</h3>
-      <statusChecker data-url="http://localhost:8080/">Product Monitor</statusChecker>
-
-      <statusChecker data-url="http://localhost/ait/launch.aitx">AIT Endpoint</statusChecker>
-      <statusChecker data-url="http://localhost/ait/isSupported">isSupported Endpoint</statusChecker>
-      <statusChecker data-url="http://localhost/">Index Generation Endpoint</statusChecker>
-      <statusChecker data-url="http://localhost:7080/status">Status Page</statusChecker>
-
-    </jumbotron>
-
-    <h3>User statistics</h3>
-    <p>How are users interacting with the service?</p>
-
-    <h3>Endpoints</h3>
-    <p>Valid endpoints to test:</p>
-
-
-    <h2>Integration Tests</h2>
-    <p>Test results for integration tests.</p>
-    <ol></ol>
-
-    <h3>Unit Tests</h3>
-    <p>Test results for unit tests.</p>
-    <ol></ol>
+    ${PAGE_CONTENT}
 
   </div>
 

@@ -4,7 +4,8 @@
  */
 
 var serverPort = 8080;
-var templates = 'monitoring/components/';
+var componentsPath = 'monitoring/components/';
+var contentPath = 'monitoring/content/';
 
 var express = require('express');
 var url = require('url');
@@ -13,19 +14,35 @@ var fs = require('fs');
 // Create server
 var server = express();
 
-// Create index route
-server.get('/', function (req, res) {
-	var templatePath = templates + 'index.html';
+// Permit CORS access to this server
+server.use(function(req, res, next) {
+  var origin = req.get('origin');
+  res.header('Access-Control-Allow-Origin', origin);
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
+  next();
+});
+
+// Render content
+function renderPageContent(req, res) {
+
+	var environment = req.params.environment ? req.params.environment : 'index';
+
+	var templatePath = componentsPath + 'page-template.html';
 	var response = '';
 
 	function loadComponent(name) {
-		return fs.readFileSync(templates + name);
+		return fs.readFileSync(componentsPath + name);
+	}
+
+	function loadContent(name) {
+		return fs.readFileSync(contentPath + name);
 	}
 
 	function loadComponents(path) {
 
 		var components = [];
-		var files = fs.readdirSync(templates).filter(function(file) {
+		var files = fs.readdirSync(componentsPath).filter(function(file) {
 			return file.match(/.*component.html/);
 		});
 
@@ -36,24 +53,46 @@ server.get('/', function (req, res) {
 		return components;
 	}
 
-	fs.readFile(templatePath, {encoding: "UTF-8"}, function(err, data) {
-		if(data) {
-			var template = data;
-			template = template.replace('${ENVIRONMENT}', 'development');
+	// Load page template
+	try {
+		var template = fs.readFileSync(templatePath, {encoding: "UTF-8"});
+	}
+	catch(e) {
+		return res.status(500).send('Template file not found: ' + templatePath + '. If this is your server, please create this file.');
+	}
 
-			var components = loadComponents(templates);
+	// Load components
+	try {
+		var components = loadComponents(componentsPath);
+	}
+	catch(e) {
+		return res.status(500).send('Error loading components. If this is your server, please check that the component directory exists.');
+	}
 
-			template = template.replace('${COMPONENTS}', components.join("\n"));
-			response = template;
-		}
-		else {
-			response = 'Template not found: ' + templatePath;
-		}
-		res.send(response);
-	});
-});
+	// Load page content
+	var contentFile = environment + '.content.html';
+	try {
+		var pageContent = loadContent(contentFile);
+	}
+	catch(e) {
+		return res.status(500).send('Content file not found: ' + contentFile + '. If this is your server, please create this file.');
+	}
 
-server.use('/monitoring', express.static('monitoring'));
+	// Replace variables in template
+	template = template.replace('${COMPONENTS}', components.join("\n"));
+	template = template.replace('${PAGE_CONTENT}', pageContent);
+	template = template.replace('${ENVIRONMENT}', environment);
+
+	response = template;
+
+	res.send(response);
+}
+
+// Create index route
+server.get('/', renderPageContent);
+
+// Create content route
+server.get('/environment/:environment', renderPageContent);
 
 // Starting listening for requests...
 server.listen(serverPort, function() {
