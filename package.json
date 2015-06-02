@@ -6,7 +6,11 @@
   "contributors": [
     {
       "name": "John Beech",
-      "email": "john.beech@bbc.co.uk"
+      "email": "john.beech@bbc.co.uk",
+    },
+    {
+      "name": "Markavian",
+      "email": "github@mkv25.net",
     }
   ],
   "repository": {
@@ -23,9 +27,6 @@
     "fs": "0.0.2",
     "url": "^0.10.3"
   },
-  "dependencies": {
-    "del": "^1.1.1"
-  },
   "analyze": true,
-  "license": "None"
+  "license": "ISC"
 }
