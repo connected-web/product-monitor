@@ -6,17 +6,23 @@ var server = monitor().listen();
 ```
 Then run ```node server.js```
 */
-module.exports = function() {
+module.exports = function(config) {
 
   var instance = {};
-
-  var serverPort = 8080;
-  var componentsPath = 'monitoring/components/';
-  var contentPath = 'monitoring/content/';
-
+  var merge = require('utils-merge');
   var express = require('express');
   var url = require('url');
   var fs = require('fs');
+
+  var config = merge({
+    "serverPort": 8080,
+    "componentsPath": "node_modules/product-monitor/monitoring/components/",
+    "contentPath": "node_modules/product-monitor/monitoring/content/"
+  }, config || {});
+
+  var serverPort = config.serverPort;
+  var componentsPath = config.componentsPath;
+  var contentPath = config.contentPath;
 
   // Create server
   var server = express();
