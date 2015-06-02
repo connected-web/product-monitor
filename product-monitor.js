@@ -102,14 +102,21 @@ module.exports = function(config) {
   }
 
   function checkStatusOf(req, res) {
-    var url = require('url').parse(req.query.url);
-    var http = require('http').get(url, function(httpRes) {
-        res.jsonp({
-            "statusCode": httpRes.statusCode,
-            "urlProvided" : url
-        });
-    });
-    http.end();
+    try {
+      var url = require('url').parse(req.query.url);
+      var http = require('http').get(url, function(httpRes) {
+          res.jsonp({
+              "statusCode": httpRes.statusCode,
+              "urlProvided" : url
+          });
+      });
+      http.end();
+    } catch(e) {
+      return res.jsonp({
+          "error": e,
+          "urlProvided" : url
+      });
+    }
   }
 
   // Create index route
