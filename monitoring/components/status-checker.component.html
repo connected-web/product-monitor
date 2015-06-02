@@ -23,27 +23,39 @@
     var urlName = element.innerHTML;
     var urlToCheck = element.getAttribute('data-url');
 
-    function doesUrlReturn200(url) {
-      $.get(url, {}, function(data, textStatus) {
-        renderTemplate(true);
+    function checkStatusCodeOf(url) {
+      $.ajax({
+        url: "/api/statusOf/?url=" + url,
+        dataType: "jsonp",
+        success: function(data, textStatus) {
+          if(data.statusCode) {
+            renderTemplate(data.statusCode);
+          }
+          else {
+            renderTemplate(500, "/api/statusOf endpoint returned unexpected data.");
+          }
+        }
       }).fail(function() {
-        renderTemplate(false);
+        renderTemplate(500, "/api/statusOf endpoint failed to return data.");
       });
     }
 
-    function renderTemplate(urlReturns200)
+    function renderTemplate(statusCode, message)
     {
-      var buttonType = urlReturns200 ? 'success' : 'danger';
+      var alertType = (statusCode == 200) ? 'success' : 'danger';
+      var message = message | '';
 
       var result = templateBody;
       result = result.replace('${name}', urlName);
       result = result.replace('${url}', urlToCheck);
-      result = result.replace('${alertType}', buttonType);
+      result = result.replace('${alertType}', alertType);
+      result = result.replace('${statusCode}', statusCode);
+      result = result.replace('${message}', message);
 
       element.innerHTML = result;
     }
 
-    doesUrlReturn200(urlToCheck);
+    checkStatusCodeOf(urlToCheck);
   };
 
 	function setup()

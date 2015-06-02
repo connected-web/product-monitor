@@ -101,11 +101,25 @@ module.exports = function(config) {
   	res.send(response);
   }
 
+  function checkStatusOf(req, res) {
+    var url = require('url').parse(req.query.url);
+    var http = require('http').get(url, function(httpRes) {
+        res.jsonp({
+            "statusCode": httpRes.statusCode,
+            "urlProvided" : url
+        });
+    });
+    http.end();
+  }
+
   // Create index route
   server.get('/', renderPageContent);
 
   // Create content route
   server.get('/environment/:environment', renderPageContent);
+
+  // Create statusOf route
+  server.get('/api/statusOf', checkStatusOf);
 
   // Public API
   instance.server = server;
