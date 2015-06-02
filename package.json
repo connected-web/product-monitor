@@ -28,5 +28,9 @@
     "url": "^0.10.3"
   },
   "analyze": true,
-  "license": "ISC"
+  "license": "ISC",
+  "files": [
+    "product-monitor.js",
+    "monitoring"
+  ]
 }
