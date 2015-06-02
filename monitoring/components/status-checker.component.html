@@ -3,11 +3,14 @@
     <div class="col-md-4">
       <div class="alert alert-default" role="alert">
         <span class="glyphicon glyphicon-off"></span>
-        ${name}
+          <name>${name}</name>
+          (<status>${statusCode}</status>)
       </div>
     </div>
     <div class="col-md-8">
-      <div class="alert alert-${alertType}" role="alert">${url}</div>
+      <div class="alert alert-${alertType}" role="alert">
+        <message>${message}</message>
+      </div>
     </div>
   </div>
 </script>
@@ -24,12 +27,15 @@
     var urlToCheck = element.getAttribute('data-url');
 
     function checkStatusCodeOf(url) {
+
+      renderTemplate(0, 'Checking url: ' + urlToCheck);
+
       $.ajax({
         url: "/api/statusOf/?url=" + url,
         dataType: "jsonp",
         success: function(data, textStatus) {
           if(data.statusCode) {
-            renderTemplate(data.statusCode);
+            renderTemplate(data.statusCode, "Checked url: " + urlToCheck);
           }
           else {
             renderTemplate(500, "/api/statusOf endpoint returned unexpected data.");
@@ -42,13 +48,17 @@
 
     function renderTemplate(statusCode, message)
     {
-      var alertType = (statusCode == 200) ? 'success' : 'danger';
-      var message = message | '';
+      var alertType = ({
+        "0": 'info',
+        "200": 'success'
+      })[statusCode] || 'danger';
+
+      var message = message || '';
 
       var result = templateBody;
       result = result.replace('${name}', urlName);
       result = result.replace('${url}', urlToCheck);
-      result = result.replace('${alertType}', alertType);
+      result = result.replace(/\${alertType}/g, alertType);
       result = result.replace('${statusCode}', statusCode);
       result = result.replace('${message}', message);
 
