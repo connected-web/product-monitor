@@ -6,6 +6,6 @@
   "author": "John Beech",
   "license": "None",
   "dependencies": {
-    "product-monitor": "^1.0.2"
+    "product-monitor": "^1.0.3"
   }
 }
