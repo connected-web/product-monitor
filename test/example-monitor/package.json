@@ -1,0 +1,11 @@
+{
+  "name": "example-monitor",
+  "version": "1.0.0",
+  "description": "An example product monitor using the product monitor node module.",
+  "main": "index.js",
+  "author": "John Beech",
+  "license": "None",
+  "dependencies": {
+    "product-monitor": "^1.0.0"
+  }
+}
