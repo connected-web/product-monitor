@@ -1,116 +1,132 @@
 /*
- * Start this server using node.js using the command:
- * node product-monitor.js
- */
+To use this module, create an server.js file containing:
+```js
+var monitor = require('product-monitor');
+var server = monitor().listen();
+```
+Then run ```node server.js```
+*/
+module.exports = function() {
 
-var serverPort = 8080;
-var componentsPath = 'monitoring/components/';
-var contentPath = 'monitoring/content/';
+  var instance = {};
 
-var express = require('express');
-var url = require('url');
-var fs = require('fs');
+  var serverPort = 8080;
+  var componentsPath = 'monitoring/components/';
+  var contentPath = 'monitoring/content/';
 
-// Create server
-var server = express();
+  var express = require('express');
+  var url = require('url');
+  var fs = require('fs');
 
-// Permit CORS access to this server
-server.use(function(req, res, next) {
-  var origin = req.get('origin');
-  res.header('Access-Control-Allow-Origin', origin);
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  // Create server
+  var server = express();
 
-  next();
-});
+  // Permit CORS access to this server
+  server.use(function(req, res, next) {
+    var origin = req.get('origin');
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 
-// Render content
-function renderPageContent(req, res) {
+    next();
+  });
 
-	var environment = req.params.environment ? req.params.environment : 'index';
+  // Render content
+  function renderPageContent(req, res) {
 
-	var templatePath = componentsPath + 'page-template.html';
-	var response = '';
+  	var environment = req.params.environment ? req.params.environment : 'index';
 
-	function loadComponent(name) {
-		return fs.readFileSync(componentsPath + name);
-	}
+  	var templatePath = componentsPath + 'page-template.html';
+  	var response = '';
 
-	function loadContent(name) {
-		return fs.readFileSync(contentPath + name);
-	}
+  	function loadComponent(name) {
+  		return fs.readFileSync(componentsPath + name);
+  	}
 
-	function loadComponents(path) {
+  	function loadContent(name) {
+  		return fs.readFileSync(contentPath + name);
+  	}
 
-		var components = [];
-		var files = fs.readdirSync(componentsPath).filter(function(file) {
-			return file.match(/.*component.html/);
-		});
+  	function loadComponents(path) {
 
-		components = files.map(function(file) {
-			return loadComponent(file);
-		});
+  		var components = [];
+  		var files = fs.readdirSync(componentsPath).filter(function(file) {
+  			return file.match(/.*component.html/);
+  		});
 
-		return components;
-	}
+  		components = files.map(function(file) {
+  			return loadComponent(file);
+  		});
 
-	// Load page template
-	try {
-		var template = fs.readFileSync(templatePath, {encoding: "UTF-8"});
-	}
-	catch(e) {
-		return res.status(500).send('Template file not found: ' + templatePath + '. If this is your server, please create this file.');
-	}
+  		return components;
+  	}
 
-	// Load components
-	try {
-		var components = loadComponents(componentsPath);
-	}
-	catch(e) {
-		return res.status(500).send('Error loading components. If this is your server, please check that the component directory exists.');
-	}
+  	// Load page template
+  	try {
+  		var template = fs.readFileSync(templatePath, {encoding: "UTF-8"});
+  	}
+  	catch(e) {
+  		return res.status(500).send('Template file not found: ' + templatePath + '. If this is your server, please create this file.');
+  	}
 
-	// Load page content
-	var contentFile = environment + '.content.html';
-	try {
-		var pageContent = loadContent(contentFile);
-	}
-	catch(e) {
-		return res.status(500).send('Content file not found: ' + contentFile + '. If this is your server, please create this file.');
-	}
+  	// Load components
+  	try {
+  		var components = loadComponents(componentsPath);
+  	}
+  	catch(e) {
+  		return res.status(500).send('Error loading components. If this is your server, please check that the component directory exists.');
+  	}
 
-	// Replace variables in template
-	template = template.replace('${COMPONENTS}', components.join("\n"));
-	template = template.replace('${PAGE_CONTENT}', pageContent);
-	template = template.replace('${ENVIRONMENT}', environment);
+  	// Load page content
+  	var contentFile = environment + '.content.html';
+  	try {
+  		var pageContent = loadContent(contentFile);
+  	}
+  	catch(e) {
+  		return res.status(500).send('Content file not found: ' + contentFile + '. If this is your server, please create this file.');
+  	}
 
-	response = template;
+  	// Replace variables in template
+  	template = template.replace('${COMPONENTS}', components.join("\n"));
+  	template = template.replace('${PAGE_CONTENT}', pageContent);
+  	template = template.replace('${ENVIRONMENT}', environment);
 
-	res.send(response);
-}
+  	response = template;
 
-// Create index route
-server.get('/', renderPageContent);
-
-// Create content route
-server.get('/environment/:environment', renderPageContent);
-
-// Starting listening for requests...
-server.listen(serverPort, function() {
-	console.log(
-		'Product monitor available on ' +
-		url.format({
-			protocol: 'http',
-			hostname: 'localhost',
-			query: '',
-			pathname: '',
-			port: serverPort
-		})
-	);
-})
-.on('error', function (e) {
-	console.log('Could not start server: ');
-  if (e.code == 'EADDRINUSE') {
-    console.log(' Port address already in use.');
+  	res.send(response);
   }
-	console.log('  ' + e);
-});
+
+  // Create index route
+  server.get('/', renderPageContent);
+
+  // Create content route
+  server.get('/environment/:environment', renderPageContent);
+
+  // Public API
+  instance.server = server;
+
+  instance.listen = function()
+  {
+    // Starting listening for requests...
+    server.listen(serverPort, function() {
+    	console.log(
+    		'Product monitor available on ' +
+    		url.format({
+    			protocol: 'http',
+    			hostname: 'localhost',
+    			query: '',
+    			pathname: '',
+    			port: serverPort
+    		})
+    	);
+    })
+    .on('error', function (e) {
+    	console.log('Could not start server: ');
+      if (e.code == 'EADDRINUSE') {
+        console.log(' Port address already in use.');
+      }
+    	console.log('  ' + e);
+    });
+  }
+
+  return instance;
+}

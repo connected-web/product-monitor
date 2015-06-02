@@ -8,7 +8,7 @@ Uses a pattern of HTML/JavaScript components which can be created and customised
 How to get started
 ------------------
 
-1. Check out this project
-2. From the project root, run: npm install
-3. Run node product-monitor.js to start the monitor
-4. Visit http://localhost:8080
+1.	Check out this project
+2.	From the project root, run: npm install
+3.	Run node server.js to start the monitor
+4.	Visit http://localhost:8080
