@@ -27,25 +27,14 @@
 <script type="text/javascript">
 (function() {
 
-  var Navigation = function(element)
+  var Navigation = Component.create("navigation");
+
+  Navigation.prototype.render = function()
   {
-    this.element = element;
-    var template = document.getElementById('navigation-template');
-    var templateBody = template.innerHTML;
+    var templateBody = this.template.innerHTML;
 
     this.element.innerHTML = templateBody;
   };
 
-	function setup()
-	{
-		var elements = document.getElementsByTagName("navigation");
-		for(var i=0; i<elements.length; i++)
-		{
-			var element = elements[i];
-			new Navigation(element);
-		}
-	}
-
-	setup();
 })();
 </script>
