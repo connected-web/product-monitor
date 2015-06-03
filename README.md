@@ -5,10 +5,39 @@ A HTML/JavaScript template for monitoring a product by encouraging product devel
 
 Uses a pattern of HTML/JavaScript components which can be created and customised in order to use your own declarative XML tags to create a monitor customised to your project's needs.
 
+What it looks like out of the box
+---------------------------------
+
+![Product Monitor Example](images/product-monitor-example.png)
+
 How to get started
 ------------------
 
-1.	Check out this project
+### Checkout from github
+
+1.	Check out (or fork) this project
 2.	From the project root, run: `npm install`
 3.	Run `node server.js` to start the monitor
 4.	Visit http://localhost:8080
+
+### Using product monitor via NPM
+
+To use the latest realease of `product-monitor` from NPM (https://www.npmjs.com/package/product-monitor) you can create your own NodeJS project as follows
+1. Run `npm init`
+2. Run `npm install product-monitor --save`
+3. Create your own server.js file:
+```js
+    var monitor = require('./lib/product-monitor');
+    var server = monitor({
+      "serverPort": 8080,
+      "contentPath": "monitoring/content/"
+    }).listen();
+```
+4.	Create your own index content fragment in `monitoring/content/`
+```html
+  <h3>Endpoints</h3>
+  <status-checker data-url="http://localhost:8080/">Product Monitor</status-checker>
+  <status-checker data-url="http://localhost:8080/some/404">404 Example</status-checker>
+```
+5.	Run `node server.js` to run your monitor server
+6.	Visit http://localhost:8080 to see your monitor in action
