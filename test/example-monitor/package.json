@@ -7,5 +7,9 @@
   "license": "None",
   "dependencies": {
     "product-monitor": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnbeech/product-monitor/blob/master/test/example-monitor/"
   }
 }
