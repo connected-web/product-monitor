@@ -18,13 +18,11 @@
 <script type="text/javascript">
 (function() {
 
-  var StatusChecker = Component.create("status-checker");
+  var StatusChecker = Component.create("status-checker").refreshTime(5);
 
   StatusChecker.prototype.init = function() {
-    var element = this.element;
-
-    this.urlName = element.innerHTML;
-    this.urlToCheck = element.getAttribute('data-url');
+    this.urlName = this.content;
+    this.urlToCheck = this.element.getAttribute('data-url');
 
     this.checkStatusCodeOf(this.urlToCheck);
   }
@@ -69,8 +67,6 @@
     result = result.replace(/\${alertType}/g, alertType);
     result = result.replace('${statusCode}', statusCode);
     result = result.replace('${message}', message);
-
-    console.log("Alert type: " + alertType)
 
     this.element.innerHTML = result;
   }

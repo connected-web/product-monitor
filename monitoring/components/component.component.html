@@ -8,8 +8,10 @@ var Component = (function() {
     var ComponentClass = function(element) {
       this.element = element;
       this.template = document.getElementById(this.templateName);
+      this.content = element.innerHTML;
 
       this.init();
+      this.refresh();
     }
 
     ComponentClass.prototype.elementName = elementName;
@@ -20,9 +22,31 @@ var Component = (function() {
       this.render();
     }
 
+    ComponentClass.prototype.refreshTimeSeconds = 0;
+    ComponentClass.refreshTime = function(seconds) {
+      ComponentClass.prototype.refreshTimeSeconds = seconds;
+      return ComponentClass;
+    }
+
     ComponentClass.prototype.render = function() {
       // roll your own, default: set the innerHTML of your tag to the the template
       element.innerHTML = this.template;
+    }
+
+    ComponentClass.prototype.refresh = function() {
+      // Prevent timeout leaks
+      if(this.refreshTimeoutId) {
+        clearTimeout(this.refreshTimeoutId);
+      }
+
+      // loop
+      var self = this;
+      this.refreshTimeoutId = setTimeout(function() {
+        self.refresh();
+      }, this.refreshTimeSeconds * 1000 + Math.random() * 500);
+
+      // Re-initialise the component
+      this.init();
     }
 
     function setup() {
