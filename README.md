@@ -41,3 +41,16 @@ To use the latest realease of `product-monitor` from NPM (https://www.npmjs.com/
 ```
 5.	Run `node server.js` to run your monitor server
 6.	Visit http://localhost:8080 to see your monitor in action
+
+Library Credits
+---------------
+Supplied via CDN:
+- [Bootstrap](http://getbootstrap.com/) - basic styling and layout for client-side components
+- [jQuery](https://jquery.com/) - for remote calls to server to drive components
+- [Node.js](https://nodejs.org/) - for package management and running the server instance
+
+Supplied via Node Package Manager:
+- [Express](http://expressjs.com/) - for defining the server, the api endpoints, and serving up the client
+- [md5-node](https://www.npmjs.com/package/md5-node) - for hashing keys in an in-memory cache
+- [request](https://www.npmjs.com/package/request) - for making server side requests to remote domains
+- [utils-merge](https://www.npmjs.com/package/utils-merge) - for merging configuration together with the default config
