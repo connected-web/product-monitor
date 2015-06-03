@@ -38,17 +38,19 @@
       dataType: "jsonp",
       success: function(data, textStatus) {
         if(data.statusCode) {
-          self.render(data.statusCode, "Checked url: " + urlToCheck);
+          var age = data.timestamp ? Math.floor((Date.now() - data.timestamp) / 1000) : 0;
+          var cached = age ? "(cached " +  age + " seconds)" : "";
+          self.render(data.statusCode, "Checked url: " + urlToCheck + " " + cached);
         }
         else if(data.error) {
           self.render(500, "Error checking url: " + urlToCheck + " : " + JSON.stringify(data.error));
         }
         else {
-          self.render(500, "/api/statusOf endpoint returned unexpected data.");
+          self.render(500, "/api/statusOf endpoint returned unexpected data : " + JSON.stringify(data));
         }
       }
     }).fail(function() {
-      self.render(500, "/api/statusOf endpoint failed to return data.");
+      self.render(500, "/api/statusOf endpoint failed to return any kind of data.");
     });
   }
 
