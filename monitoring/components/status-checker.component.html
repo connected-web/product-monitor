@@ -18,66 +18,56 @@
 <script type="text/javascript">
 (function() {
 
-  var StatusChecker = function(element)
-  {
-    var template = document.getElementById('status-checker-template');
-    var templateBody = template.innerHTML;
+  var StatusChecker = Component.create("status-checker");
 
-    var urlName = element.innerHTML;
-    var urlToCheck = element.getAttribute('data-url');
+  StatusChecker.prototype.init = function() {
+    var element = this.element;
 
-    function checkStatusCodeOf(url) {
+    this.urlName = element.innerHTML;
+    this.urlToCheck = element.getAttribute('data-url');
 
-      renderTemplate(0, 'Checking url: ' + urlToCheck);
+    this.checkStatusCodeOf(this.urlToCheck);
+  }
 
-      $.ajax({
-        url: "/api/statusOf/?url=" + url,
-        dataType: "jsonp",
-        success: function(data, textStatus) {
-          if(data.statusCode) {
-            renderTemplate(data.statusCode, "Checked url: " + urlToCheck);
-          }
-          else {
-            renderTemplate(500, "/api/statusOf endpoint returned unexpected data.");
-          }
+  StatusChecker.prototype.checkStatusCodeOf = function(urlToCheck) {
+    var self = this;
+    self.render(0, 'Checking url: ' + urlToCheck);
+
+    $.ajax({
+      url: "/api/statusOf/?url=" + urlToCheck,
+      dataType: "jsonp",
+      success: function(data, textStatus) {
+        if(data.statusCode) {
+          self.render(data.statusCode, "Checked url: " + urlToCheck);
         }
-      }).fail(function() {
-        renderTemplate(500, "/api/statusOf endpoint failed to return data.");
-      });
-    }
+        else {
+          self.render(500, "/api/statusOf endpoint returned unexpected data.");
+        }
+      }
+    }).fail(function() {
+      self.render(500, "/api/statusOf endpoint failed to return data.");
+    });
+  }
 
-    function renderTemplate(statusCode, message)
-    {
-      var alertType = ({
-        "0": 'info',
-        "200": 'success'
-      })[statusCode] || 'danger';
+  StatusChecker.prototype.render = function(statusCode, message) {
+    var statusCode = statusCode || 0;
+    var message = message || '';
 
-      var message = message || '';
+    var alertType = ({
+      "0": 'info',
+      "200": 'success'
+    })[statusCode] || 'danger';
 
-      var result = templateBody;
-      result = result.replace('${name}', urlName);
-      result = result.replace('${url}', urlToCheck);
-      result = result.replace(/\${alertType}/g, alertType);
-      result = result.replace('${statusCode}', statusCode);
-      result = result.replace('${message}', message);
+    var result = this.template.innerHTML;
+    result = result.replace('${name}', this.urlName);
+    result = result.replace('${url}', this.urlToCheck);
+    result = result.replace(/\${alertType}/g, alertType);
+    result = result.replace('${statusCode}', statusCode);
+    result = result.replace('${message}', message);
 
-      element.innerHTML = result;
-    }
+    console.log("Alert type: " + alertType)
 
-    checkStatusCodeOf(urlToCheck);
-  };
-
-	function setup()
-	{
-		var elements = document.getElementsByTagName("status-checker");
-		for(var i=0; i<elements.length; i++)
-		{
-			var element = elements[i];
-			new StatusChecker(element);
-		}
-	}
-
-	setup();
+    this.element.innerHTML = result;
+  }
 })();
 </script>

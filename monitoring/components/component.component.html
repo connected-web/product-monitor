@@ -1,0 +1,43 @@
+<script type="text/javascript">
+var Component = (function() {
+
+  var Class = function() { }
+
+  Class.create = function(elementName) {
+
+    var ComponentClass = function(element) {
+      this.element = element;
+      this.template = document.getElementById(this.templateName);
+
+      this.init();
+    }
+
+    ComponentClass.prototype.elementName = elementName;
+    ComponentClass.prototype.templateName = elementName + '-template';
+
+    ComponentClass.prototype.init = function() {
+      // roll your own
+      this.render();
+    }
+
+    ComponentClass.prototype.render = function() {
+      // roll your own, default: set the innerHTML of your tag to the the template
+      element.innerHTML = this.template;
+    }
+
+    function setup() {
+      var elements = document.getElementsByTagName(elementName);
+      for(var i=0; i<elements.length; i++) {
+        var element = elements[i];
+        new ComponentClass(element);
+      }
+    }
+
+    $(window).load(setup);
+
+    return ComponentClass;
+  }
+
+  return Class;
+})();
+</script>
