@@ -33,7 +33,7 @@ To use the latest realease of `product-monitor` from NPM (https://www.npmjs.com/
       "contentPath": "monitoring/content/"
     }).listen();
 ```
-4.	Create your own index content fragment in `monitoring/content/`
+4.	Create your own `index.content.html` content fragment in `monitoring/content/`
 ```html
   <h3>Endpoints</h3>
   <status-checker data-url="http://localhost:8080/">Product Monitor</status-checker>
