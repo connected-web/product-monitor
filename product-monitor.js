@@ -10,7 +10,6 @@ module.exports = function(config) {
 
   var instance = {};
   var merge = require('utils-merge');
-  var request = require('request');
   var url = require('url');
   var fs = require('fs');
   var express = require('express');
@@ -102,24 +101,6 @@ module.exports = function(config) {
   	res.send(response);
   }
 
-  function checkStatusOf(req, res) {
-    var url = req.query.url;
-    request(url, function(error, response, body) {
-      if(!error) {
-        res.jsonp({
-            "statusCode": response.statusCode,
-            "urlProvided" : url
-        });
-      }
-      else {
-        res.jsonp({
-            "error": error,
-            "urlProvided" : url
-        });
-      }
-    });
-  }
-
   // Create index route
   server.get('/', renderPageContent);
 
@@ -127,7 +108,8 @@ module.exports = function(config) {
   server.get('/environment/:environment', renderPageContent);
 
   // Create statusOf route
-  server.get('/api/statusOf', checkStatusOf);
+  var statusOf = require('./lib/api/statusOf');
+  server.get('/api/statusOf', statusOf);
 
   // Public API
   instance.server = server;
