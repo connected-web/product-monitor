@@ -10,9 +10,10 @@ module.exports = function(config) {
 
   var instance = {};
   var merge = require('utils-merge');
-  var express = require('express');
+  var request = require('request');
   var url = require('url');
   var fs = require('fs');
+  var express = require('express');
 
   var config = merge({
     "serverPort": 8080,
@@ -102,21 +103,21 @@ module.exports = function(config) {
   }
 
   function checkStatusOf(req, res) {
-    try {
-      var url = require('url').parse(req.query.url);
-      var http = require('http').get(url, function(httpRes) {
-          res.jsonp({
-              "statusCode": httpRes.statusCode,
-              "urlProvided" : url
-          });
-      });
-      http.end();
-    } catch(e) {
-      return res.jsonp({
-          "error": e,
-          "urlProvided" : url
-      });
-    }
+    var url = req.query.url;
+    request(url, function(error, response, body) {
+      if(!error) {
+        res.jsonp({
+            "statusCode": response.statusCode,
+            "urlProvided" : url
+        });
+      }
+      else {
+        res.jsonp({
+            "error": error,
+            "urlProvided" : url
+        });
+      }
+    });
   }
 
   // Create index route

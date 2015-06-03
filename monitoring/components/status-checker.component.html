@@ -40,6 +40,9 @@
         if(data.statusCode) {
           self.render(data.statusCode, "Checked url: " + urlToCheck);
         }
+        else if(data.error) {
+          self.render(500, "Error checking url: " + urlToCheck + " : " + JSON.stringify(data.error));
+        }
         else {
           self.render(500, "/api/statusOf endpoint returned unexpected data.");
         }
