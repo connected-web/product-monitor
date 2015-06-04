@@ -37,7 +37,8 @@
       success: function(data, textStatus) {
         if(data.statusCode) {
           var age = data.timestamp ? Math.floor((Date.now() - data.timestamp) / 1000) : 0;
-          var cached = age ? "(cached " +  age + " seconds)" : "";
+          var ageLimit = data.cacheAgeLimitInSeconds || 0;
+          var cached = age ? "(cached " +  age + " seconds, limit: " + ageLimit + " seconds)" : "";
           self.render(data.statusCode, "Checked url: " + urlToCheck + " " + cached);
         }
         else if(data.error) {
