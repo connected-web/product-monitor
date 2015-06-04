@@ -11,7 +11,7 @@
   Jumbotron.prototype.render = function() {
     var templateBody = this.template.innerHTML;
 
-    var result = templateBody.replace('${BODY}', this.element.innerHTML);
+    var result = templateBody.replace('${BODY}', this.content);
 
     this.element.innerHTML = result;
   };
