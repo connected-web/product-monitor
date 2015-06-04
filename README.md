@@ -22,7 +22,7 @@ How to get started
 
 ### Using product monitor via NPM
 
-To use the latest realease of `product-monitor` from NPM (https://www.npmjs.com/package/product-monitor) you can create your own NodeJS project as follows  
+To use the latest release of `product-monitor` from NPM (https://www.npmjs.com/package/product-monitor) you can create your own NodeJS project as follows  
 1\. Run `npm init`  
 2\. Run `npm install product-monitor --save`  
 3\. Create your own server.js file:  
