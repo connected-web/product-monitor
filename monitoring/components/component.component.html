@@ -41,9 +41,11 @@ var Component = (function() {
 
       // loop
       var self = this;
-      this.refreshTimeoutId = setTimeout(function() {
-        self.refresh();
-      }, this.refreshTimeSeconds * 1000 + Math.random() * 500);
+      if(this.refreshTimeSeconds) {
+        this.refreshTimeoutId = setTimeout(function() {
+          self.refresh();
+        }, this.refreshTimeSeconds * 1000 + Math.random() * 500);
+      }
 
       // Re-initialise the component
       this.init();
