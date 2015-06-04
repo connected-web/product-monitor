@@ -1,0 +1,55 @@
+<script type="template" id="monitor-status-template">
+  <div class="alert alert-{{alertType}} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4>Monitor Status</h4>
+    <p>Server Age: <label>{{serverAgeInSeconds}}</label> seconds</p>
+    <p>Monitor Hash: <label>{{monitorHash}}</label></p>
+  </div>
+</script>
+
+<script type="text/javascript">
+(function() {
+
+  var MonitorStatus = Component.create("monitor-status").refreshTime(60);
+
+  MonitorStatus.prototype.init = function() {
+    this.urlName = this.content;
+    this.urlToCheck = this.element.getAttribute('data-url');
+
+    this.checkStatusCodeOf(this.urlToCheck);
+  }
+
+  MonitorStatus.prototype.checkStatusCodeOf = function(urlToCheck) {
+    var self = this;
+    self.render(0, 'Checking url: ' + urlToCheck);
+
+    $.ajax({
+      url: "/api/monitorStatus",
+      dataType: "jsonp",
+      success: function(data, textStatus) {
+        if(data.monitorHash) {
+          var serverAgeInSeconds = data.serverAgeInSeconds || 0;
+          self.render(data.serverAgeInSeconds, data.monitorHash, "info");
+        }
+        else {
+          self.render(500, "/api/monitorStatus endpoint returned unexpected data : " + JSON.stringify(data), "warning");
+        }
+      }
+    }).fail(function() {
+      self.render(500, "/api/monitorStatus endpoint failed to return any kind of data.", "danger");
+    });
+  }
+
+  MonitorStatus.prototype.render = function(serverAgeInSeconds, monitorHash, alertType) {
+    var result = this.template.innerHTML;
+
+    var alertType = alertType || "info";
+
+    result = result.replace('{{alertType}}', alertType);
+    result = result.replace('{{serverAgeInSeconds}}', serverAgeInSeconds);
+    result = result.replace('{{monitorHash}}', monitorHash);
+
+    this.element.innerHTML = result;
+  }
+})();
+</script>
