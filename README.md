@@ -30,7 +30,8 @@ To use the latest realease of `product-monitor` from NPM (https://www.npmjs.com/
     var monitor = require('product-monitor');
     var server = monitor({
       "serverPort": 8080,
-      "contentPath": "monitoring/content/"
+      "contentPath": "monitoring/content/",
+      "statusCacheTimeInSeconds": 60  //optional
     }).listen();
 ```
 4\.	Create your own `index.content.html` content fragment in `monitoring/content/`  
