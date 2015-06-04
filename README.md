@@ -23,9 +23,9 @@ How to get started
 ### Using product monitor via NPM
 
 To use the latest realease of `product-monitor` from NPM (https://www.npmjs.com/package/product-monitor) you can create your own NodeJS project as follows  
-1. Run `npm init`  
-2. Run `npm install product-monitor --save`  
-3. Create your own server.js file:  
+1\. Run `npm init`  
+2\. Run `npm install product-monitor --save`  
+3\. Create your own server.js file:  
 ```js
     var monitor = require('./lib/product-monitor');
     var server = monitor({
@@ -33,14 +33,14 @@ To use the latest realease of `product-monitor` from NPM (https://www.npmjs.com/
       "contentPath": "monitoring/content/"
     }).listen();
 ```
-4.	Create your own `index.content.html` content fragment in `monitoring/content/`  
+4\.	Create your own `index.content.html` content fragment in `monitoring/content/`  
 ```html
   <h3>Endpoints</h3>
   <status-checker data-url="http://localhost:8080/">Product Monitor</status-checker>
   <status-checker data-url="http://localhost:8080/some/404">404 Example</status-checker>
 ```
-5.	Run `node server.js` to run your monitor server  
-6.	Visit http://localhost:8080 to see your monitor in action  
+5\.	Run `node server.js` to run your monitor server  
+6\.	Visit http://localhost:8080 to see your monitor in action  
 
 Library Credits
 ---------------
