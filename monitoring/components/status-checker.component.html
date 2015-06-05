@@ -3,13 +3,13 @@
     <div class="col-md-4">
       <div class="alert alert-default" role="alert">
         <span class="glyphicon glyphicon-off"></span>
-          <name>${name}</name>
-          (<status>${statusCode}</status>)
+          <name>{{name}}</name>
+          (<status>{{statusCode}}</status>)
       </div>
     </div>
     <div class="col-md-8">
-      <div class="alert alert-${alertType}" role="alert">
-        <message>${message}</message>
+      <div class="alert alert-{{alertType}}" role="alert">
+        <message>{{message}}</message>
       </div>
     </div>
   </div>
@@ -63,11 +63,11 @@
     })[statusCode] || 'danger';
 
     var result = this.template.innerHTML;
-    result = result.replace('${name}', this.urlName);
-    result = result.replace('${url}', this.urlToCheck);
-    result = result.replace(/\${alertType}/g, alertType);
-    result = result.replace('${statusCode}', statusCode);
-    result = result.replace('${message}', message);
+    result = result.replace('{{name}}', this.urlName);
+    result = result.replace('{{url}}', this.urlToCheck);
+    result = result.replace(/\{{alertType}}/g, alertType);
+    result = result.replace('{{statusCode}}', statusCode);
+    result = result.replace('{{message}}', message);
 
     this.element.innerHTML = result;
   }
