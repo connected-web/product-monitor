@@ -3,7 +3,7 @@
     <div class="col-md-4">
       <div class="alert alert-default" role="alert">
         <span class="glyphicon glyphicon-off"></span>
-          <name>{{name}}</name>
+          <name>{{content}}</name>
           (<status>{{statusCode}}</status>)
       </div>
     </div>
@@ -63,11 +63,11 @@
     })[statusCode] || 'danger';
 
     var result = this.template.innerHTML;
-    result = result.replace('{{name}}', this.urlName);
     result = result.replace('{{url}}', this.urlToCheck);
     result = result.replace(/\{{alertType}}/g, alertType);
     result = result.replace('{{statusCode}}', statusCode);
     result = result.replace('{{message}}', message);
+    result = result.replace('{{content}}', this.content);
 
     this.element.innerHTML = result;
   }

@@ -1,20 +1,8 @@
 <!-- Fixed navbar -->
 <script type="template" id="jumbotron-template">
-<div class="jumbotron">${BODY}</div>
+  <div class="jumbotron">{{content}}</div>
 </script>
 
 <script type="text/javascript">
-(function() {
-
-  var Jumbotron = Component.create('jumbotron');
-
-  Jumbotron.prototype.render = function() {
-    var templateBody = this.template.innerHTML;
-
-    var result = templateBody.replace('${BODY}', this.content);
-
-    this.element.innerHTML = result;
-  };
-
-})();
+(function() { var Jumbotron = Component.create('jumbotron'); })();
 </script>

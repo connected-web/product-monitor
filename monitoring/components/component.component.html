@@ -10,12 +10,21 @@ var Component = (function() {
       this.template = document.getElementById(this.templateName);
       this.content = element.innerHTML;
 
+      this.copyAttributes();
       this.init();
       this.refresh();
     }
 
     ComponentClass.prototype.elementName = elementName;
     ComponentClass.prototype.templateName = elementName + '-template';
+
+    ComponentClass.prototype.copyAttributes = function() {
+      var element = this.element;
+      for(var i=0; i < element.attributes.length; i++) {
+        var attribute = element.attributes[i];
+        this[attribute.name] = attribute.value;
+      }
+    }
 
     ComponentClass.prototype.init = function() {
       // roll your own
@@ -29,8 +38,14 @@ var Component = (function() {
     }
 
     ComponentClass.prototype.render = function() {
-      // roll your own, default: set the innerHTML of your tag to the the template
-      element.innerHTML = this.template;
+        var expandedTemplate = this.template.innerHTML;
+        for(var property in this) {
+          var matcher = new RegExp("{{x}}".replace("x", property), "g");
+          var value = this[property] || '';
+          expandedTemplate = expandedTemplate.replace(matcher, value);
+        }
+
+        this.element.innerHTML = expandedTemplate;
     }
 
     ComponentClass.prototype.refresh = function() {

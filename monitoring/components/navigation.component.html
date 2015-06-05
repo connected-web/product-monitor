@@ -14,27 +14,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="active"><a href="/environment/development">Development</a></li>
-        <li class="active"><a href="/environment/integration">Integration</a></li>
-        <li class="active"><a href="/environment/test">Test</a></li>
-        <li class="active"><a href="/environment/live">Live</a></li>
+        <li class="active"><a href="/environment/components">Components</a></li>
       </ul>
     </div>
   </div>
 </nav>
 </script>
 
-
 <script type="text/javascript">
-(function() {
-
-  var Navigation = Component.create("navigation");
-
-  Navigation.prototype.render = function()
-  {
-    var templateBody = this.template.innerHTML;
-
-    this.element.innerHTML = templateBody;
-  };
-
-})();
+(function() { var Navigation = Component.create("navigation"); })();
 </script>

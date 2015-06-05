@@ -4,6 +4,7 @@
     <h4>Monitor Status</h4>
     <p>Server Age: <label>{{serverAgeInSeconds}}</label> seconds</p>
     <p>Monitor Hash: <label>{{monitorHash}}</label></p>
+    {{content}}
   </div>
 </script>
 
@@ -48,6 +49,7 @@
     result = result.replace('{{alertType}}', alertType);
     result = result.replace('{{serverAgeInSeconds}}', serverAgeInSeconds);
     result = result.replace('{{monitorHash}}', monitorHash);
+    result = result.replace('{{content}}', this.content);
 
     this.element.innerHTML = result;
   }
