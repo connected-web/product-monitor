@@ -27,6 +27,17 @@
     this.checkStatusCodeOf(this.urlToCheck);
   }
 
+  StatusChecker.prototype.showData = function(statusCode, message) {
+    this.statusCode = statusCode || 0;
+    this.message = message;
+    this.alertType = ({
+      "0": 'info',
+      "200": 'success'
+    })[statusCode] || 'danger';
+
+    this.render();
+  }
+
   StatusChecker.prototype.checkStatusCodeOf = function(urlToCheck) {
     var self = this;
     self.render(0, 'Checking url: ' + urlToCheck);
@@ -39,37 +50,18 @@
           var age = data.timestamp ? Math.floor((Date.now() - data.timestamp) / 1000) : 0;
           var ageLimit = data.cacheAgeLimitInSeconds || 0;
           var cached = age ? "(cached " +  age + " seconds, limit: " + ageLimit + " seconds)" : "";
-          self.render(data.statusCode, "Checked url: " + urlToCheck + " " + cached);
+          self.showData(data.statusCode, "Checked url: " + urlToCheck + " " + cached);
         }
         else if(data.error) {
-          self.render(500, "Error checking url: " + urlToCheck + " : " + JSON.stringify(data.error));
+          self.showData(500, "Error checking url: " + urlToCheck + " : " + JSON.stringify(data.error));
         }
         else {
-          self.render(500, "/api/statusOf endpoint returned unexpected data : " + JSON.stringify(data));
+          self.showData(500, "/api/statusOf endpoint returned unexpected data : " + JSON.stringify(data));
         }
       }
     }).fail(function() {
-      self.render(500, "/api/statusOf endpoint failed to return any kind of data.");
+      self.showData(500, "/api/statusOf endpoint failed to return any kind of data.");
     });
-  }
-
-  StatusChecker.prototype.render = function(statusCode, message) {
-    var statusCode = statusCode || 0;
-    var message = message || '';
-
-    var alertType = ({
-      "0": 'info',
-      "200": 'success'
-    })[statusCode] || 'danger';
-
-    var result = this.template.innerHTML;
-    result = result.replace('{{url}}', this.urlToCheck);
-    result = result.replace(/\{{alertType}}/g, alertType);
-    result = result.replace('{{statusCode}}', statusCode);
-    result = result.replace('{{message}}', message);
-    result = result.replace('{{content}}', this.content);
-
-    this.element.innerHTML = result;
   }
 })();
 </script>
