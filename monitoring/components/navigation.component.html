@@ -13,6 +13,9 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+        <template repeat="{{item in navigationItems}}">
+          <li class="active"><a href="{{item.href}}">{{item.linkText}}</a></li>
+        </template>
         <li class="active"><a href="/development">Development</a></li>
         <li class="active"><a href="/component-showcase">Components</a></li>
       </ul>
@@ -21,9 +24,6 @@
 </nav>
 </script>
 
-<script type="template" id="navigation-item-template">
-  <li class="active"><a href="{{path}}">{{name}}</a></li>
-</script>
 
 <script type="text/javascript">
 (function() { var Navigation = Component.create("navigation"); })();
