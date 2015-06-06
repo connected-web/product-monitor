@@ -1,6 +1,9 @@
 <script type="template" id="status-button-template">
   <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}">
-    <button type="button" class="btn btn-{{alertType}}">{{content}}</button>
+    <button type="button" class="btn btn-{{alertType}}">
+      <span class="glyphicon glyphicon-{{glyph-icon}}"></span>
+      <span>{{content}}</span>
+    </button>
   </a>
 </script>
 
