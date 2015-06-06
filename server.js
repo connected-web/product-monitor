@@ -5,5 +5,6 @@ var server = monitor({
   "componentsPath": "monitoring/components/",
   "contentPath": "monitoring/content/",
   "templatesPath": "monitoring/templates/",
+  "imagesPath": "images/",
   "statusCacheTimeInSeconds": 60
 }).listen();
