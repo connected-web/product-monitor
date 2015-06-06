@@ -2,9 +2,17 @@
 
 <example name="Status Checker">
   <status-checker data-url="http://localhost:8080/">Can monitor its own server</status-checker>
-  <status-checker data-url="http://google.com?s=product-monitor/">Can monitor google</status-checker>
-  <status-checker data-url="http://localhost:8080/api/generate/404">Can monitor for 404's</status-checker>
+  <status-checker data-url="https://google.com?#safe=off&q=product-monitor">Can monitor google</status-checker>
+  <status-checker data-url="http://localhost:8080/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
   <status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
+</example>
+
+<example name="Status Button">
+  <p>A button form of the Status Checker, which can be clicked to view the link in a new window.</p>
+    <status-button data-url="http://localhost:8080/">Monitor {{statusCode}}</status-button>
+    <status-button data-url="https://google.com?#safe=off&q=product-monitor">Google {{statusCode}}</status-button>
+    <status-button data-url="http://localhost:8080/api/generateStatusCode?statusCode=404">Not Found? {{statusCode}}</status-button>
+    <status-button data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button>
 </example>
 
 <example name="Navigation">
@@ -31,3 +39,36 @@
     <status-checker data-url="https://www.google.com?s=nested-status-checker">Nested status checker</status-checker>
   </example>
 </example>
+
+<example name="Simple Custom Components">
+  <p>Here are some on-the-fly components, which copy their own properties:</p>
+  <component data-name="John" data-surname="Beech"><b>{{data-name}}</b> <b>{{data-surname}}</b></component>
+  <component data-name="James"><b>{{data-name}}</b></component>,
+  <component data-name="Charlotte"><b>{{data-name}}</b></component>,
+  <component data-name="Henrietta"><b>{{data-name}}</b></component>,
+  <component data-name="Fate"><b>{{data-name}}</b></component>
+</example>
+
+<example name="Data Aware Custom Components">
+  <p><b>Warning</b>: Data aware components don't currently play well when nested inside other components...</p>
+</example>
+
+<h3>Data Aware Component with data-source-url</h3>
+<p>Here is an example of a data-aware component, that populates itself from the supplied data-source-url:</p>
+<component data-source-url="/api/generateStatusCode?statusCode=117">
+  <ul>
+    <li>Status code: {{statusCode}}</li>
+    <li>Message: {{message}}</li>
+  </ul>
+  <pre>{{dataSourceData}}</pre>
+</component>
+
+<h3>Data Aware Component with data-source-template</h3>
+<p>Here's the same component as above, but this time using a data-source-template to create its own data-source-url:</p>
+<component data-source-template="/api/generateStatusCode?statusCode={{property-to-send}}" property-to-send="117">
+  <ul>
+    <li>Status code: {{statusCode}}</li>
+    <li>Message: {{message}}</li>
+  </ul>
+  <pre>{{dataSourceData}}</pre>
+</component>

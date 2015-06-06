@@ -11,7 +11,7 @@ var Component = (function() {
       this.content = element.innerHTML;
 
       this.copyAttributes();
-      this.init();
+      this.requestDataFromSource();
       this.refresh();
     }
 
@@ -27,7 +27,7 @@ var Component = (function() {
     }
 
     ComponentClass.prototype.init = function() {
-      // roll your own
+      // Reload any data if applicable
       this.render();
     }
 
@@ -50,10 +50,16 @@ var Component = (function() {
     ComponentClass.prototype.requestDataFromSource = function() {
       var self = this;
 
-      this.dataSourceUrl = ComponentClass.expandTemplate(self, self.dataSourceTemplate);
+      this.dataSourceTemplate = this.dataSourceTemplate || this["data-source-template"] || false;
+      this.dataSourceUrl = this["data-source-url"] || ComponentClass.expandTemplate(this, this.dataSourceTemplate);
       this.dataSourceDataType = "jsonp";
       this.dataSourceData = false;
       this.dataSourceError = false;
+
+      if(!this.dataSourceUrl) {
+        return false;
+      }
+
       this.reportDataSourceStatus('Waiting for server response');
 
       $.ajax({
@@ -83,6 +89,7 @@ var Component = (function() {
     }
 
     ComponentClass.prototype.reportDataSourceStatus = function(message) {
+      console.log(this.element.tagName + ", " + message);
       this.dataSourceStatus = message;
       this.render();
     }
@@ -90,18 +97,29 @@ var Component = (function() {
     ComponentClass.prototype.render = function() {
       this.preRenderStep();
 
-      var element = document.createElement("template");
-      element.innerHTML = ComponentClass.expandTemplate(this, this.template.innerHTML);
+      var expandedTemplate = document.createElement("template");
+      expandedTemplate.innerHTML = ComponentClass.expandTemplate(this, this.template.innerHTML);
 
-      this.element.innerHTML = element.innerHTML;
+      this.element.innerHTML = expandedTemplate.innerHTML;
     }
 
     ComponentClass.expandTemplate = function(data, template) {
       var expandedTemplate = template;
 
+      expandedTemplate = ComponentClass.expandProperty("content", data.content, expandedTemplate);
+
       for(var property in data) {
+        expandedTemplate = ComponentClass.expandProperty(property, data[property], expandedTemplate);
+      }
+
+      return expandedTemplate;
+    }
+
+    ComponentClass.expandProperty = function(property, value, template) {
+      var expandedTemplate = template;
+
+      if(expandedTemplate) {
         var matcher = new RegExp("{{x}}".replace("x", property), "g");
-        var value = data[property] || '';
         expandedTemplate = expandedTemplate.replace(matcher, value);
       }
 
@@ -142,4 +160,10 @@ var Component = (function() {
 
   return Class;
 })();
+</script>
+
+<script type="template" id="component-template">{{content}}</script>
+
+<script type="text/javascript">
+(function() { Component.create('component'); })();
 </script>
