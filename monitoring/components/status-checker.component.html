@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-8">
       <div class="alert alert-{{alertType}}" role="alert">
-        <message>{{message}}</message>
+        <message><b>{{message}}</b> : {{data-url}}</message>
       </div>
     </div>
   </div>
@@ -18,50 +18,36 @@
 <script type="text/javascript">
 (function() {
 
-  var StatusChecker = Component.create("status-checker").refreshTime(25);
+  var StatusChecker = Component.create("status-checker").dataSource('/api/statusOf/?url={{data-url}}').refreshTime(25);
 
   StatusChecker.prototype.init = function() {
+    this.statusCode = 0;
     this.urlName = this.content;
-    this.urlToCheck = this.element.getAttribute('data-url');
 
-    this.checkStatusCodeOf(this.urlToCheck);
+    this.requestDataFromSource();
   }
 
-  StatusChecker.prototype.showData = function(statusCode, message) {
-    this.statusCode = statusCode || 0;
-    this.message = message;
-    this.alertType = ({
+  StatusChecker.prototype.selectMessage = function(statusCode) {
+    return ({
+      "0": 'Checking server',
+      "200": 'URL Seems OK',
+      "404": "File not found",
+      "502": "The server encountered a problem: " + JSON.stringify(this.dataSourceError)
+    })[statusCode] || this.dataSourceStatus;
+  }
+
+  StatusChecker.prototype.selectAlertType = function(statusCode) {
+    return ({
       "0": 'info',
-      "200": 'success'
-    })[statusCode] || 'danger';
-
-    this.render();
+      "200": 'success',
+      "404": 'danger',
+      "502": 'warning'
+    })[this.statusCode] || 'danger';
   }
 
-  StatusChecker.prototype.checkStatusCodeOf = function(urlToCheck) {
-    var self = this;
-    self.render(0, 'Checking url: ' + urlToCheck);
-
-    $.ajax({
-      url: "/api/statusOf/?url=" + urlToCheck,
-      dataType: "jsonp",
-      success: function(data, textStatus) {
-        if(data.statusCode) {
-          var age = data.timestamp ? Math.floor((Date.now() - data.timestamp) / 1000) : 0;
-          var ageLimit = data.cacheAgeLimitInSeconds || 0;
-          var cached = age ? "(cached " +  age + " seconds, limit: " + ageLimit + " seconds)" : "";
-          self.showData(data.statusCode, "Checked url: " + urlToCheck + " " + cached);
-        }
-        else if(data.error) {
-          self.showData(500, "Error checking url: " + urlToCheck + " : " + JSON.stringify(data.error));
-        }
-        else {
-          self.showData(500, "/api/statusOf endpoint returned unexpected data : " + JSON.stringify(data));
-        }
-      }
-    }).fail(function() {
-      self.showData(500, "/api/statusOf endpoint failed to return any kind of data.");
-    });
+  StatusChecker.prototype.preRenderStep = function() {
+    this.alertType = this.selectAlertType(this.statusCode);
+    this.message = this.selectMessage(this.statusCode);
   }
 })();
 </script>

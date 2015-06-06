@@ -31,21 +31,81 @@ var Component = (function() {
       this.render();
     }
 
+    ComponentClass.prototype.preRenderStep = function() {
+      // roll your own
+    }
+
     ComponentClass.prototype.refreshTimeSeconds = 0;
     ComponentClass.refreshTime = function(seconds) {
       ComponentClass.prototype.refreshTimeSeconds = seconds;
       return ComponentClass;
     }
 
-    ComponentClass.prototype.render = function() {
-        var expandedTemplate = this.template.innerHTML;
-        for(var property in this) {
-          var matcher = new RegExp("{{x}}".replace("x", property), "g");
-          var value = this[property] || '';
-          expandedTemplate = expandedTemplate.replace(matcher, value);
-        }
+    ComponentClass.prototype.dataSourceTemplate = false;
+    ComponentClass.dataSource = function(dataSourceTemplate) {
+      ComponentClass.prototype.dataSourceTemplate = dataSourceTemplate;
+      return ComponentClass;
+    }
 
-        this.element.innerHTML = expandedTemplate;
+    ComponentClass.prototype.requestDataFromSource = function() {
+      var self = this;
+
+      this.dataSourceUrl = ComponentClass.expandTemplate(self, self.dataSourceTemplate);
+      this.dataSourceDataType = "jsonp";
+      this.dataSourceData = false;
+      this.dataSourceError = false;
+      this.reportDataSourceStatus('Waiting for server response');
+
+      $.ajax({
+        url: this.dataSourceUrl,
+        dataType: this.dataSourceDataType,
+        success: function(data, textStatus) {
+          self.dataSourceData = JSON.stringify(data);
+          if(data !== null && typeof data === 'object') {
+            for(var property in data) {
+              self[property] = data[property];
+            }
+            if(data.error) {
+              self.dataSourceError = data.error;
+              self.reportDataSourceStatus("Error checking url: " + self.dataSourceUrl + " : " + JSON.stringify(data.error));
+            }
+            else {
+              self.reportDataSourceStatus("Server responded OK.");
+            }
+          }
+          else {
+            self.reportDataSourceStatus(self.dataSourceUrl + " : Endpoint returned unexpected data : " + JSON.stringify(data));
+          }
+        }
+      }).fail(function() {
+        self.reportDataSourceStatus(self.dataSourceUrl + " : Endpoint failed to return any kind of data.");
+      });
+    }
+
+    ComponentClass.prototype.reportDataSourceStatus = function(message) {
+      this.dataSourceStatus = message;
+      this.render();
+    }
+
+    ComponentClass.prototype.render = function() {
+      this.preRenderStep();
+
+      var element = document.createElement("template");
+      element.innerHTML = ComponentClass.expandTemplate(this, this.template.innerHTML);
+
+      this.element.innerHTML = element.innerHTML;
+    }
+
+    ComponentClass.expandTemplate = function(data, template) {
+      var expandedTemplate = template;
+
+      for(var property in data) {
+        var matcher = new RegExp("{{x}}".replace("x", property), "g");
+        var value = data[property] || '';
+        expandedTemplate = expandedTemplate.replace(matcher, value);
+      }
+
+      return expandedTemplate;
     }
 
     ComponentClass.prototype.refresh = function() {
@@ -66,6 +126,7 @@ var Component = (function() {
       this.init();
     }
 
+    // Scan the document for components
     function setup() {
       var elements = document.getElementsByTagName(elementName);
       for(var i=0; i<elements.length; i++) {
