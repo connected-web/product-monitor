@@ -1,5 +1,5 @@
 <script type="template" id="status-button-template">
-  <a href="{{data-url}}" target="_statusButtonLink" title="{{dataSourceData}}">
+  <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}">
     <button type="button" class="btn btn-{{alertType}}">{{content}}</button>
   </a>
 </script>
@@ -28,5 +28,7 @@
   StatusButton.prototype.preRenderStep = function() {
     this.alertType = this.selectAlertType(this.statusCode);
   }
+
+  StatusButton.setup();
 })();
 </script>

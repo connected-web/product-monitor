@@ -5,7 +5,8 @@
     <p>Server Age: <label>{{serverAgeInSeconds}}</label> seconds</p>
     <p>Client Hash: <label>{{clientHash}}</label></p>
     <p>Server Hash: <label>{{serverHash}}</label></p>
-    <p>Message: <label>{{message}}</label></p>
+    <p>Response Data: <pre>{{dataSourceData}}</pre></p>
+    <p>Response Status: <label>{{dataSourceStatus}}</label></p>
     {{content}}
   </div>
 </script>
@@ -16,85 +17,61 @@
   var MonitorStatus = Component.create("monitor-status").refreshTime(15);
 
   MonitorStatus.prototype.init = function() {
+    this.serverAgeInSeconds = this.serverAgeInSeconds || 0;
     this.clientHash = this.clientHash || false;
-    this.urlName = this.content;
-
-    this.checkStatusCodeOf();
+    this.serverHash = this.serverHash || false;
   }
 
-  MonitorStatus.prototype.checkStatusCodeOf = function() {
+  MonitorStatus.prototype.showAlert = function() {
+    var element = this.element;
+    $(element).find("div.alert").slideDown(500);
+    element.style.display = "block";
+  }
+
+  MonitorStatus.prototype.hideAlert = function() {
+    var element = this.element;
+    $(element).find("div.alert").slideUp(500, function() {
+      element.style.display = "none";
+    });
+  }
+
+  MonitorStatus.prototype.reportErrorAndContinueToMonitor = function() {
+    this.alertType = "danger";
+    this.showAlert();
+  }
+
+  MonitorStatus.prototype.reportRestartThenRestart = function() {
+    this.alertType = "warning";
+    this.dataSourceStatus = "Monitor server has restarted, updating client shortly.";
+    this.showAlert();
+
+    setTimeout(function() {
+      location.reload(true);
+    }, 10000);
+  }
+
+  MonitorStatus.prototype.reportStatusThenHide = function() {
+    this.alertType = "info";
+
     var self = this;
-
-    if(self.clientHash == false) {
-      showData(0, "info", "Contacting server...");
-    }
-
-    function handleSuccess(data, textStatus) {
-      if(data.monitorHash) {
-        self.serverHash = data.monitorHash;
-        if(self.clientHash == false) {
-          self.clientHash = self.serverHash;
-          reportStatusThenHide(data);
-        }
-        else if(self.clientHash && self.clientHash != self.serverHash) {
-          reportRestartThenRestart(data);
-        }
-      }
-      else {
-        handleBadData();
-      }
-    }
-
-    function handleBadData(data) {
-      showData(500, "warning", "/api/monitorStatus is alive, but returned unexpected data : " + JSON.stringify(data));
-    }
-
-    function reportRestartThenRestart(data) {
-        showData(data.serverAgeInSeconds, "warning", "Monitor server has restarted, updating client shortly.");
-
-        setTimeout(function() {
-          location.reload(true);
-        }, 10000);
-    }
-
-    function reportStatusThenHide(data) {
-        var serverAgeInSeconds = data.serverAgeInSeconds || 0;
-        showData(data.serverAgeInSeconds, "info", "Contacted monitor OK.");
-
-        setTimeout(hideAlert, 5000);
-    }
-
-    function handleFail() {
-      showData(500, "danger", "/api/monitorStatus endpoint failed to return any kind of data.");
-    }
-
-    function showAlert() {
-      $(self.element).find("div.alert").slideDown(500, function() {
-        $(self.element).find("div.alert").alert('close');
-      });
-    }
-
-    function hideAlert() {
-      $(self.element).find("div.alert").slideUp(500, function() {
-        $(self.element).find("div.alert").alert('close');
-      });
-    }
-
-    function showData(serverAgeInSeconds, alertType, message) {
-      self.message = message || "";
-      self.serverAgeInSeconds = serverAgeInSeconds;
-      self.alertType = alertType;
-
-      showAlert();
-
-      self.render();
-    }
-
-    $.ajax({
-      url: "/api/monitorStatus",
-      dataType: "jsonp",
-      success: handleSuccess
-    }).fail(handleFail);
+    setTimeout(function() { self.hideAlert(); }, 5000);
   }
+
+  MonitorStatus.prototype.preRenderStep = function() {
+    this.serverHash = this.monitorHash || false;
+
+    if(this.dataSourceError !== false) {
+      this.reportErrorAndContinueToMonitor();
+    }
+    else if(this.clientHash == false) {
+      this.clientHash = this.serverHash || false;
+      this.reportStatusThenHide();
+    }
+    else if(this.clientHash && this.clientHash != this.serverHash) {
+      this.reportRestartThenRestart();
+    }
+  }
+
+  MonitorStatus.setup();
 })();
 </script>

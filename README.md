@@ -49,9 +49,33 @@ Supplied via CDN:
 - [Bootstrap](http://getbootstrap.com/) - basic styling and layout for client-side components
 - [jQuery](https://jquery.com/) - for remote calls to server to drive components
 - [Node.js](https://nodejs.org/) - for package management and running the server instance
+- [Strapdown.js](http://strapdownjs.com/) - for markdown rendering via `<markdown></markdown>` tags
 
 Supplied via Node Package Manager:
 - [Express](http://expressjs.com/) - for defining the server, the api endpoints, and serving up the client
 - [md5-node](https://www.npmjs.com/package/md5-node) - for hashing keys in an in-memory cache
 - [request](https://www.npmjs.com/package/request) - for making server side requests to remote domains
 - [utils-merge](https://www.npmjs.com/package/utils-merge) - for merging configuration together with the default config
+
+Compatability
+----------------
+### Server
+
+| NodeJS on | Support                       |
+|-----------|-------------------------------|
+| Windows 8 | Excellent                     |
+| Mac OSX   | Excellent                     |
+
+### Client
+
+| Browser  | Support                        |
+|----------|--------------------------------|
+| Chrome   | Excellent                      |
+| Chromium | Unknown                        |
+| Opera    | Flakey, but not as bad as IE11 |
+| IE11     | Flakey at best                 |
+| Firefox  | Unknown                        |
+
+### Why is client support so bad?
+
+Its because I'm currently using slightly mad JQuery HTML imports to bring in the Script and Templates required to rewrite the HTML in the page on the fly. Please host a server, view source in the client, then start scratching your head.

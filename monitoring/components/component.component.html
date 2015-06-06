@@ -1,3 +1,5 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 <script type="text/javascript">
 var Component = (function() {
 
@@ -10,8 +12,14 @@ var Component = (function() {
       this.template = document.getElementById(this.templateName);
       this.content = element.innerHTML;
 
+      if(!this.template) {
+        console.log("Could not find template for " + this.templateName);
+        this.template = document.createElement("template");
+        this.template.innerHTML = "{{content}}";
+      }
+
       this.copyAttributes();
-      this.requestDataFromSource();
+      this.init();
       this.refresh();
     }
 
@@ -84,12 +92,13 @@ var Component = (function() {
           }
         }
       }).fail(function() {
+        self.dataSourceError = true;
         self.reportDataSourceStatus(self.dataSourceUrl + " : Endpoint failed to return any kind of data.");
       });
     }
 
     ComponentClass.prototype.reportDataSourceStatus = function(message) {
-      console.log(this.element.tagName + ", " + message);
+      // console.log(this.element.tagName + ", " + message);
       this.dataSourceStatus = message;
       this.render();
     }
@@ -140,20 +149,18 @@ var Component = (function() {
         }, this.refreshTimeSeconds * 1000 + Math.random() * 500);
       }
 
-      // Re-initialise the component
-      this.init();
+      // Re-load data for the component
+      this.requestDataFromSource();
     }
 
     // Scan the document for components
-    function setup() {
+    ComponentClass.setup = function() {
       var elements = document.getElementsByTagName(elementName);
       for(var i=0; i<elements.length; i++) {
         var element = elements[i];
         new ComponentClass(element);
       }
     }
-
-    $(window).load(setup);
 
     return ComponentClass;
   }
@@ -162,8 +169,6 @@ var Component = (function() {
 })();
 </script>
 
-<script type="template" id="component-template">{{content}}</script>
-
 <script type="text/javascript">
-(function() { Component.create('component'); })();
+(function() { Component.create('component').setup(); })();
 </script>
