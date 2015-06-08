@@ -48,27 +48,3 @@
   <component data-name="Henrietta"><b>{{data-name}}</b></component>,
   <component data-name="Fate"><b>{{data-name}}</b></component>
 </example>
-
-<example name="Data Aware Custom Components">
-  <p><b>Warning</b>: Data aware components don't currently play well when nested inside other components...</p>
-</example>
-
-<h3>Data Aware Component with data-source-url</h3>
-<p>Here is an example of a data-aware component, that populates itself from the supplied data-source-url:</p>
-<component data-source-url="/api/generateStatusCode?statusCode=117">
-  <ul>
-    <li>Status code: {{statusCode}}</li>
-    <li>Message: {{message}}</li>
-  </ul>
-  <pre>{{dataSourceData}}</pre>
-</component>
-
-<h3>Data Aware Component with data-source-template</h3>
-<p>Here's the same component as above, but this time using a data-source-template to create its own data-source-url:</p>
-<component data-source-template="/api/generateStatusCode?statusCode={{property-to-send}}" property-to-send="117">
-  <ul>
-    <li>Status code: {{statusCode}}</li>
-    <li>Message: {{message}}</li>
-  </ul>
-  <pre>{{dataSourceData}}</pre>
-</component>

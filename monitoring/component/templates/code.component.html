@@ -1,0 +1,9 @@
+<script type="text/javascript">
+var replaceHtmlEntities = function() {
+  return String($(this).html()).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+$('pre[code]').html(replaceHtmlEntities);
+$('code').html(replaceHtmlEntities);
+
+</script>

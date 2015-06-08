@@ -1,0 +1,99 @@
+<h1>Custom Components Guide</h1>
+
+<h3>Create your own template</h3>
+<p>By defining a component tag, you can template data variables into the page, for example:
+<pre code>
+  <component my-data-greeting="Hello" my-data-name="Product!" my-icon="flag">
+    <span class="glyphicon glyphicon-{{my-icon}}"></span>
+    <b>{{my-data-greeting}}</b> <i>{{my-data-name}}</i>
+  </component>
+</pre>
+
+<p>Turns into:</o>
+  <div class="alert alert-success">
+  <component my-data-greeting="Hello" my-data-name="Product!" my-icon="flag">
+    <span class="glyphicon glyphicon-{{my-icon}}"></span>
+    <b>{{my-data-greeting}}</b> <i>{{my-data-name}}</i>
+  </component>
+</div>
+
+<p>Now, this isn't much use on its own - you may as well just write those values out into the right places.</p>
+
+<div class="alert alert-info">
+  <p><span class="glyphicon glyphicon-star"></span> <b>Coming soon:</b> proper templates that will can be defined once, and then reused throughout the page.</p>
+</div>
+
+<h3>Data Aware Component with data-source-url</h3>
+<p>Here is an example of a data-aware component, that populates itself from the supplied data-source-url:</p>
+<pre code>
+  <component data-source-url="/api/generateStatusCode?statusCode=117">
+    <ul>
+      <li>Status code: <b>{{statusCode}}</b></li>
+      <li>Message: <b>{{message}}</b></li>
+    </ul>
+  </component>
+</pre>
+
+<p>Turns into:</p>
+<div class="alert alert-success">
+  <component data-source-url="/api/generateStatusCode?statusCode=117">
+    <ul>
+      <li>Status code: <b>{{statusCode}}</b></li>
+      <li>Message: <b>{{message}}</b></li>
+    </ul>
+  </component>
+</div>
+
+<div class="alert alert-warning">
+  <p><span class="glyphicon glyphicon-fire"></span> <b>Works great!</b> Data Aware Components should be super easy to connect up data from a server, and render it how and where you want it, without arduous templating.</p>
+</div>
+
+<h3>Accessing Hidden Data</h3>
+<p>Behind the scenes, the component is going off and making AJAX calls using jQuery to load the data. If there's a problem, you can find out through dataSource variables locked on to the object.</p>
+<p>If for example, you change the template to include these values:</p>
+<pre code>
+  <component data-source-url="/api/generateStatusCode?statusCode=117">
+    <ul>
+      <li>{{dataSourceStatus}}</li>
+      <li>{{dataSourceUrl}}</li>
+    </ul>
+  </component>
+</pre>
+
+<p>Then we get lots of information:</p>
+<div class="alert alert-success">
+  <component data-source-url="/api/generateStatusCode?statusCode=117">
+    <pre>{{dataSourceStatus}}</pre>
+    <pre>{{dataSourceUrl}}</pre>
+    <pre>{{dataSourceData}}</pre>
+  </component>
+</div>
+
+<h3>Data Aware Component with data-source-template</h3>
+<p>Here's the same component as above, but this time using a data-source-template to create its own data-source-url:</p>
+<pre code>
+  <component data-source-template="/api/generateStatusCode?statusCode={{property-to-send}}" property-to-send="117">
+    <ul>
+      <li>Status code: <b>{{statusCode}}</b></li>
+      <li>Message: <b>{{message}}</b></li>
+    </ul>
+    <pre>{{dataSourceData}}</pre>
+  </component>
+</pre>
+
+<p>Turns into:</p>
+<div class="alert alert-success">
+  <component data-source-template="/api/generateStatusCode?statusCode={{property-to-send}}" property-to-send="117">
+    <ul>
+      <li>Status code: <b>{{statusCode}}</b></li>
+      <li>Message: <b>{{message}}</b></li>
+    </ul>
+    <pre>{{dataSourceData}}</pre>
+  </component>
+</div>
+
+<div class="alert alert-warning">
+  <p><span class="glyphicon glyphicon-fire"></span> <b>Now you're thinking in templates!</b> Soon you'll be able to spin this out with custom templates to quickly build data driven components that are styled how you want them to be.</p>
+</div>
+
+<p>Where this really kicks in is when we can define data-driven templates using templates, and then you're just plugging in the minimum amount of information to grab information from the server. That's how <code><status-checker data-url="http://localhost:8080/">Status Checkers</status-checker></code> work behind the scenes.</p>
