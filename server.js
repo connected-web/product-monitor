@@ -2,7 +2,7 @@
 var monitor = require('./lib/product-monitor');
 var server = monitor({
   "serverPort": 8080,
-  "componentsPath": "monitoring/components/",
+  "componentsPath": "monitoring/component/templates/",
   "contentPath": "monitoring/content/",
   "templatesPath": "monitoring/templates/",
   "imagesPath": "images/",

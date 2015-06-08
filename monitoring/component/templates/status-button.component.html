@@ -8,7 +8,7 @@
 </script>
 
 <script type="text/javascript">
-(function() {
+$(function() {
 
   var StatusButton = Component.create("status-button").dataSource('/api/statusOf/?url={{data-url}}').refreshTime(45);
 
@@ -33,5 +33,5 @@
   }
 
   StatusButton.setup();
-})();
+});
 </script>

@@ -3,7 +3,6 @@
 <head>
   <title>Product Monitor</title>
   <product-monitor></product-monitor>
-  <link rel="import" href="/monitoring/components/component.component.html">
 </head>
 <body role="document">
   <div class="container theme-showcase" role="main">
@@ -20,8 +19,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+
   <!-- Web componenty bootstrappy stuff -->
-  <script src="/monitoring/components/component-bootstrap.js"></script>
+  <script src="/monitoring/component/component.js"></script>
+  
+  <component-templates>
+    {{COMPONENT-TEMPLATES}}
+  </component-templates>
 
 </body>
 </html>

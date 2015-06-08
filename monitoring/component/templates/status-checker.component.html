@@ -16,7 +16,7 @@
 </script>
 
 <script type="text/javascript">
-(function() {
+$(function() {
 
   var StatusChecker = Component.create("status-checker").dataSource('/api/statusOf/?url={{data-url}}').refreshTime(25);
 
@@ -49,5 +49,5 @@
   }
 
   StatusChecker.setup();
-})();
+});
 </script>
