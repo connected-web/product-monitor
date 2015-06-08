@@ -1,4 +1,4 @@
-<script type="template" id="monitor-status-template">
+<template type="component" id="monitor-status-template">
   <div class="alert alert-{{alertType}} alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h4>Monitor Status</h4>
@@ -9,7 +9,7 @@
     <p>Response Status: <label>{{dataSourceStatus}}</label></p>
     {{content}}
   </div>
-</script>
+</template>
 
 <script type="text/javascript">
 $(function() {

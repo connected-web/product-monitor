@@ -1,28 +1,28 @@
 <!-- Fixed navbar -->
-<script type="template" id="navigation-template">
-<nav class="navbar navbar-inverse navbar-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">Product Monitor</a>
+<template type="component" id="navigation-template">
+  <nav class="navbar navbar-inverse navbar-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Product Monitor</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <template repeat="{{item in navigationItems}}">
+            <li class="active"><a href="{{item.href}}">{{item.linkText}}</a></li>
+          </template>
+          <li class="active"><a href="/development">Development</a></li>
+          <li class="active"><a href="/component-showcase">Components</a></li>
+        </ul>
+      </div>
     </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <template repeat="{{item in navigationItems}}">
-          <li class="active"><a href="{{item.href}}">{{item.linkText}}</a></li>
-        </template>
-        <li class="active"><a href="/development">Development</a></li>
-        <li class="active"><a href="/component-showcase">Components</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-</script>
+  </nav>
+</template>
 
 
 <script type="text/javascript">

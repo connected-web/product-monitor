@@ -1,5 +1,5 @@
 <!-- Fixed navbar -->
-<script type="template" id="example-template">
+<template type="component" id="example-template">
   <h2>{{name}}</h2>
   <div class="panel panel-default">
     <div class="panel-heading">EXAMPLE</div>
@@ -7,7 +7,7 @@
       {{content}}
     </div>
   </div>
-</script>
+</template>
 
 <script type="text/javascript">
 $(function() { var Example = Component.create('example').setup(); });

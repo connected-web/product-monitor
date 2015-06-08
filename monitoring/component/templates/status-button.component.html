@@ -1,11 +1,11 @@
-<script type="template" id="status-button-template">
+<template type="component" id="status-button-template">
   <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}">
     <button type="button" class="btn btn-{{alertType}}">
       <span class="glyphicon glyphicon-{{glyph-icon}}"></span>
       <span>{{content}}</span>
     </button>
   </a>
-</script>
+</template>
 
 <script type="text/javascript">
 $(function() {
