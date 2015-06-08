@@ -24,7 +24,7 @@
   "dependencies": {
     "express": "^4.12.4",
     "md5-node": "^1.0.1",
-    "octo-credits": "^2.0.0",
+    "octo-credits": "*",
     "request": "^2.57.0",
     "utils-merge": "^1.0.0"
   },
