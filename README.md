@@ -10,7 +10,16 @@ What it looks like out of the box
 
 ![Product Monitor Example](images/product-monitor-example.png)
 
-And with a bit of configuration:
+Which amounts to:
+```html
+<h3>Endpoints</h3>
+<status-checker data-url="http://localhost:8080/">Product Monitor</status-checker>
+<status-checker data-url="http://stage.mkv25.net/">Stage Environment</status-checker>
+<status-checker data-url="http://mkv25.net/">Live Environment</status-checker>
+<status-checker data-url="http://mkv25.net/test/a/404">404 Tester</status-checker>
+```
+
+### And with a bit of configuration:
 ```html
 <octo-credits data-user="johnbeech" data-repo="product-monitor"></octo-credits>
 ```
