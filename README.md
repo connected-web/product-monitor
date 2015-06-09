@@ -10,6 +10,12 @@ What it looks like out of the box
 
 ![Product Monitor Example](images/product-monitor-example.png)
 
+And with a bit of configuration:
+```html
+<octo-credits data-user="johnbeech" data-repo="product-monitor"></octo-credits>
+```
+![Product Monitor Example](images/product-monitor-credits.png)
+
 How to get started
 ------------------
 
