@@ -79,7 +79,8 @@ $(function() {
           url: this.dataSourceUrl,
           dataType: this.dataSourceDataType,
           success: function(data, textStatus) {
-            self.dataSourceData = JSON.stringify(data);
+            self.data = data;
+            self.dataSourceData = JSON.stringify(self.data);
             if(data !== null && typeof data === 'object') {
               for(var property in data) {
                 self[property] = data[property];
@@ -123,7 +124,7 @@ $(function() {
           if(data.content) {
             template = template.replace(/{{content}}/g, data.content);
           }
-          
+
           // apply handlebar template based on context
           var handlebarsTemplate = Handlebars.compile(template);
           var expandedTemplate = handlebarsTemplate(data);
