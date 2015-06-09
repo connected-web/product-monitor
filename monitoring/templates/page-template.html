@@ -32,7 +32,7 @@
   <!-- Bootstrap compiled and minified JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
 
   <!-- Web componenty bootstrappy stuff -->
   <script src="/monitoring/component/component.js"></script>
@@ -40,6 +40,24 @@
   <span class="component templates">
     {{COMPONENT-TEMPLATES}}
   </span>
+
+  <template id="entry-template">
+    <div class="entry">
+      <h1>{{title}}</h1>
+      <div class="body">
+        {{body}}
+      </div>
+    </div>
+  </template>
+
+  <script>
+  <!-- Basic test of handlebars -->
+  var source   = $("#entry-template").html();
+  var template = Handlebars.compile(source);
+  var context = {title: "My New Handlebars Template", body: "This is my first post!"};
+  var html    = template(context);
+  document.write(html);
+  </script>
 
 </body>
 </html>
