@@ -80,17 +80,18 @@ Compatability
 |-----------|-------------------------------|
 | Windows 8 | Excellent                     |
 | Mac OSX   | Excellent                     |
+| Raspian   | Seems good                    |
 
 ### Client
 
 | Browser  | Support                        |
 |----------|--------------------------------|
 | Chrome   | Excellent                      |
-| Chromium | Unknown                        |
+| Chromium | Seems good                     |
 | Opera    | Flakey, but not as bad as IE11 |
 | IE11     | Flakey at best                 |
-| Firefox  | Unknown                        |
+| Firefox  | Plays nice sometimes           |
 
 ### Why is client support so bad?
 
-Its because I'm currently using slightly mad JQuery HTML imports to bring in the Script and Templates required to rewrite the HTML in the page on the fly. Please host a server, view source in the client, then start scratching your head.
+Client support is bad because the order of component rewrites is out of order from the declaration order of the tags. A better, nested, walk-through of the tree should solve this problem, but nested data-loading components may not be desirable in the long run. The simplicity comes from having familiar, easy-to-template, data-driven templates that you can reuse right away.
