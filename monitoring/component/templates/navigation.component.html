@@ -1,5 +1,5 @@
 <!-- Fixed navbar -->
-<template type="component" id="navigation-template">
+<template type="component" id="navigation-template" data-source-url="/api/navigation">
   <nav class="navbar navbar-inverse navbar-top">
     <div class="container">
       <div class="navbar-header">
@@ -13,12 +13,9 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <template repeat="{{item in navigationItems}}">
-            <li class="active"><a href="{{item.href}}">{{item.linkText}}</a></li>
-          </template>
-          <li class="active"><a href="/development">Development</a></li>
-          <li class="active"><a href="/component-showcase">Components</a></li>
-          <li class="active"><a href="/custom-components-guide">Custom Components</a></li>
+          {{#each navigationItems}}
+            <li class="active"><a href="{{href}}">{{linkText}}</a></li>
+          {{/each}}
         </ul>
       </div>
     </div>
@@ -27,5 +24,5 @@
 
 
 <script type="text/javascript">
-$(function() { var Navigation = Component.create("navigation").setup(); });
+$(function() { var Navigation = Component.create("navigation").refreshTime(125).setup(); });
 </script>

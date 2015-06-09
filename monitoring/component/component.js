@@ -10,16 +10,17 @@ $(function() {
 
       var ComponentClass = function(element) {
         this.element = element;
-        this.template = document.getElementById(this.templateName);
-        this.content = element.innerHTML;
+        this.content = $(element).html();
+        this.template = document.getElementById(this.templateName) || false;
 
         if(!this.template) {
-          console.log("Could not find template for " + this.templateName);
+          console.log("Could not find template for " + this.templateName + " using: " + this.content + " instead.");
           this.template = document.createElement("template");
-          this.template.innerHTML = "{{content}}";
+          $(this.template).html(this.content);
         }
 
-        this.copyAttributes();
+        this.copyAttributesFrom(this.template);
+        this.copyAttributesFrom(this.element);
         this.init();
         this.refresh();
       }
@@ -27,11 +28,12 @@ $(function() {
       ComponentClass.prototype.elementName = elementName;
       ComponentClass.prototype.templateName = elementName + '-template';
 
-      ComponentClass.prototype.copyAttributes = function() {
-        var element = this.element;
-        for(var i=0; i < element.attributes.length; i++) {
-          var attribute = element.attributes[i];
-          this[attribute.name] = attribute.value;
+      ComponentClass.prototype.copyAttributesFrom = function(element) {
+        if(element && element.attributes) {
+          for(var i=0; i < element.attributes.length; i++) {
+            var attribute = element.attributes[i];
+            this[attribute.name] = attribute.value;
+          }
         }
       }
 
@@ -60,10 +62,12 @@ $(function() {
         var self = this;
 
         this.dataSourceTemplate = this.dataSourceTemplate || this["data-source-template"] || false;
-        this.dataSourceUrl = this["data-source-url"] || ComponentClass.expandTemplate(this, this.dataSourceTemplate);
+        this.dataSourceUrl = this["data-source-url"] || ComponentClass.expandTemplate(this, this.dataSourceTemplate) || false;
         this.dataSourceDataType = this["data-source-type"] || "jsonp";
         this.dataSourceData = false;
         this.dataSourceError = false;
+
+        console.log("Loading data for " + this.dataSourceUrl);
 
         if(!this.dataSourceUrl) {
           return false;
@@ -107,21 +111,23 @@ $(function() {
       ComponentClass.prototype.render = function() {
         this.preRenderStep();
 
-        var expandedTemplate = document.createElement("template");
-        expandedTemplate.innerHTML = ComponentClass.expandTemplate(this, this.template.innerHTML);
+        var expandedTemplate = ComponentClass.expandTemplate(this, $(this.template).html());
 
-        this.element.innerHTML = expandedTemplate.innerHTML;
+        $(this.element).html(expandedTemplate);
       }
 
       ComponentClass.expandTemplate = function(data, template) {
-        var expandedTemplate = template;
+        if(template) {
 
-        expandedTemplate = ComponentClass.expandProperty("content", data.content, expandedTemplate);
-
-        for(var property in data) {
-          expandedTemplate = ComponentClass.expandProperty(property, data[property], expandedTemplate);
+          // substitute element content into template
+          if(data.content) {
+            template = template.replace(/{{content}}/g, data.content);
+          }
+          
+          // apply handlebar template based on context
+          var handlebarsTemplate = Handlebars.compile(template);
+          var expandedTemplate = handlebarsTemplate(data);
         }
-
         return expandedTemplate;
       }
 
@@ -137,6 +143,7 @@ $(function() {
       }
 
       ComponentClass.prototype.refresh = function() {
+        console.log("Refreshing " + this.element.tagName);
         // Prevent timeout leaks
         if(this.refreshTimeoutId) {
           clearTimeout(this.refreshTimeoutId);
