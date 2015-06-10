@@ -1,4 +1,4 @@
-<template type="component" id="status-button-template">
+<template tagName="status-button" data-source-template="/api/statusOf/?url={{data-url}}" glyph-icon="flag">
   <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}">
     <button type="button" class="btn btn-{{alertType}}">
       <span class="glyphicon glyphicon-{{glyph-icon}}"></span>
@@ -10,11 +10,7 @@
 <script type="text/javascript">
 $(function() {
 
-  var StatusButton = Component.create("status-button").dataSource('/api/statusOf/?url={{data-url}}').refreshTime(45);
-
-  StatusButton.prototype.init = function() {
-    this.statusCode = 0;
-  }
+  var StatusButton = Component.configure("status-button");
 
   StatusButton.prototype.selectAlertType = function(statusCode) {
     var severity = Math.round(statusCode / 100) * 100;
@@ -28,10 +24,9 @@ $(function() {
     })[severity] || 'danger';
   }
 
-  StatusButton.prototype.preRenderStep = function() {
+  StatusButton.prototype.preRenderStep(function() {
     this.alertType = this.selectAlertType(this.statusCode);
-  }
+  });
 
-  StatusButton.setup();
 });
 </script>

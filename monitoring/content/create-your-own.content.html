@@ -1,0 +1,38 @@
+<h1>Create your own...</h1>
+
+<make title="pages">
+  <panel-body>
+    Its as easy as...
+  </panel-body>
+  <ul class="list-group">
+    <li class="list-group-item">Step 1: Find the <b>monitoring/content/</b> folder in your server.</li>
+    <li class="list-group-item">Step 2: Create a new HTML file with the name format: <i>page-name.content.html</i></li>
+    <li class="list-group-item">Step 3: Add a mixture of HTML tags and custom components - to monitor the status of your product.</li>
+  </ul>
+</make>
+
+<make title="data endpoints">
+  <panel-body>
+    Still working this out... you should be able to drop your server javascript into a folder in the same way as content.
+  </panel-body>
+</make>
+
+<make title="custom components">
+  <panel-body>
+    On the fly, as part of your page content. Wired up to data, or just as templates for your content.
+  </panel-body>
+</make>
+
+<!-- Custom templates for this page -->
+<template tagName="make">
+  <h2>Make your own {{title}}</h2>
+  <div class="panel panel-default">
+    {{content}}
+  </div>
+</template>
+
+<template tagName="panel-body">
+  <div class="panel-body">
+    {{content}}
+  </div>
+</template>

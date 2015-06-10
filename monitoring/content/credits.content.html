@@ -1,30 +1,19 @@
-<h1>Credits</h1>
+<h1>Project Credits</h1>
 
 <octo-credits data-user="johnbeech" data-repo="product-monitor"></octo-credits>
+<octo-credits data-user="subsidel" data-repo="octo-credits"></octo-credits>
 
-<template id="octo-credits-template" data-source-template="/api/octoCredits/{{data-user}}/{{data-repo}}" refresh-time="300">
+<template tagName="octo-credits" data-source-template="/api/octoCredits/{{data-user}}/{{data-repo}}" refresh-time="300">
+  <p>Credits for <b>{{data-user}}</b>/<b>{{data-repo}}</b> : </p>
+  <p>
   {{#each data}}
-  <a href="{{html_url}}">
-    <button class="btn btn-primary">
-      <img src="{{avatar}}" alt="{{name}}" style="max-height: 30px;" />
-      {{name}}
-      <span class="badge">{{commits}}</span>
-    </button>
-  </a>
+    <a href="{{html_url}}">
+      <button class="btn btn-primary">
+        <img src="{{avatar}}" alt="{{name}}" style="max-height: 30px;" />
+        {{name}}
+        <span class="badge">{{commits}}</span>
+      </button>
+    </a>
   {{/each}}
+  </p>
 </template>
-
-<!-- TODO: Autoscan the above template, and populate the octo-credits tag -->
-
-<component id="octo-credits-example" data-source-template="/api/octoCredits/{{data-user}}/{{data-repo}}" data-user="johnbeech" data-repo="product-monitor">
-  <p>For repository: <strong>{{data-user}}/{{data-repo}}</strong></p>
-  {{#each data}}
-  <a href="{{html_url}}">
-    <button class="btn btn-primary">
-      <img src="{{avatar}}" alt="{{name}}" style="max-height: 30px;" />
-      {{name}}
-      <span class="badge">{{commits}}</span>
-    </button>
-  </a>
-  {{/each}}
-</component>

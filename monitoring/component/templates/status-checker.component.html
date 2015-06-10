@@ -1,4 +1,4 @@
-<template type="component" id="status-checker-template">
+<template tagName="status-checker" data-source-template="/api/statusOf/?url={{data-url}}" refresh-time="25">
   <div class="row">
     <div class="col-md-4">
       <div class="alert alert-default" role="alert">
@@ -18,12 +18,7 @@
 <script type="text/javascript">
 $(function() {
 
-  var StatusChecker = Component.create("status-checker").dataSource('/api/statusOf/?url={{data-url}}').refreshTime(25);
-
-  StatusChecker.prototype.init = function() {
-    this.statusCode = 0;
-    this.urlName = this.content;
-  }
+  var StatusChecker = Component.configure("status-checker");
 
   StatusChecker.prototype.selectMessage = function(statusCode) {
     return ({
@@ -43,11 +38,10 @@ $(function() {
     })[this.statusCode] || 'danger';
   }
 
-  StatusChecker.prototype.preRenderStep = function() {
+  StatusChecker.prototype.preRenderStep(function() {
     this.alertType = this.selectAlertType(this.statusCode);
     this.message = this.selectMessage(this.statusCode);
-  }
+  });
 
-  StatusChecker.setup();
 });
 </script>

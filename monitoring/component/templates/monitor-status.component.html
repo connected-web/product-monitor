@@ -1,4 +1,4 @@
-<template type="component" id="monitor-status-template">
+<template tagName="monitor-status" refresh-time="15">
   <div class="alert alert-{{alertType}} alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h4>Monitor Status</h4>
@@ -14,13 +14,11 @@
 <script type="text/javascript">
 $(function() {
 
-  var MonitorStatus = Component.create("monitor-status").refreshTime(15);
+  var MonitorStatus = Component.configure("monitor-status");
 
-  MonitorStatus.prototype.init = function() {
-    this.serverAgeInSeconds = this.serverAgeInSeconds || 0;
-    this.clientHash = this.clientHash || false;
-    this.serverHash = this.serverHash || false;
-  }
+  MonitorStatus.prototype.serverAgeInSeconds = 0;
+  MonitorStatus.prototype.clientHash = false;
+  MonitorStatus.prototype.serverHash = false;
 
   MonitorStatus.prototype.showAlert = function() {
     var element = this.element;
@@ -31,8 +29,13 @@ $(function() {
   MonitorStatus.prototype.hideAlert = function() {
     var element = this.element;
     $(element).find("div.alert").slideUp(500, function() {
-      element.style.display = "none";
+      this.hideNow();
     });
+  }
+
+  MonitorStatus.prototype.hideNow = function() {
+    var element = this.element;
+    element.style.display = "none";
   }
 
   MonitorStatus.prototype.reportErrorAndContinueToMonitor = function() {
@@ -57,7 +60,7 @@ $(function() {
     setTimeout(function() { self.hideAlert(); }, 5000);
   }
 
-  MonitorStatus.prototype.preRenderStep = function() {
+  MonitorStatus.prototype.preRenderStep(function() {
     this.serverHash = this.monitorHash || false;
 
     if(this.dataSourceError !== false) {
@@ -65,13 +68,11 @@ $(function() {
     }
     else if(this.clientHash == false) {
       this.clientHash = this.serverHash || false;
-      this.reportStatusThenHide();
+      this.hideNow();
     }
     else if(this.clientHash && this.clientHash != this.serverHash) {
       this.reportRestartThenRestart();
     }
-  }
-
-  MonitorStatus.setup();
+  });
 });
 </script>

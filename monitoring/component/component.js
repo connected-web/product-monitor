@@ -6,15 +6,38 @@ $(function() {
 
     var Class = function() { }
 
-    Class.create = function(elementName) {
+    Class.registeredComponents = {
+      component: Class
+    };
+
+    Class.configure = function(tagName) {
+      var ComponentClass = Class.registeredComponents[tagName] || false;
+      if(ComponentClass) {
+        return ComponentClass;
+      }
+      else {
+        ComponentClass = Class.registerComponent(tagName);
+      }
+      return ComponentClass;
+    }
+
+    Class.registerComponent = function(tagName, template) {
+      console.log("Registering component template " + tagName);
+      var ComponentClass = Component.create(tagName, template);
+      Class.registeredComponents[tagName] = ComponentClass;
+      return ComponentClass;
+    }
+
+    Class.create = function(elementName, templateElement) {
 
       var ComponentClass = function(element) {
         this.element = element;
         this.content = $(element).html();
-        this.template = document.getElementById(this.templateName) || false;
+        this.templateKey = "template[tagName={{tagName}}]".replace('{{tagName}}', elementName);
+        this.template = templateElement || $(this.templateKey)[0] || false;
 
         if(!this.template) {
-          console.log("Could not find template for " + this.templateName + " using: " + this.content + " instead.");
+          console.log("Could not find template for " + this.templateKey + ", using: " + this.content + " instead.");
           this.template = document.createElement("template");
           $(this.template).html(this.content);
         }
@@ -42,32 +65,39 @@ $(function() {
         this.render();
       }
 
-      ComponentClass.prototype.preRenderStep = function() {
-        // roll your own
-      }
+      ComponentClass.prototype.preRenderSteps = [];
+      ComponentClass.prototype.preRenderStep = function(fn) {
+        // Add your own using:
+        // Component.register("tagName").preRenderStep(function() { ... });
 
-      ComponentClass.prototype.refreshTimeSeconds = 0;
-      ComponentClass.refreshTime = function(seconds) {
-        ComponentClass.prototype.refreshTimeSeconds = seconds;
+        var steps = ComponentClass.prototype.preRenderSteps;
+        if(fn) {
+          steps.push(fn);
+        }
+        else {
+          for(var i=0; i<steps.length; i++) {
+            var step = steps[i];
+            step.apply(this, []);
+          }
+        }
         return ComponentClass;
       }
 
-      ComponentClass.prototype.dataSourceTemplate = false;
-      ComponentClass.dataSource = function(dataSourceTemplate) {
-        ComponentClass.prototype.dataSourceTemplate = dataSourceTemplate;
+      ComponentClass.refreshTime = function(seconds) {
+        console.log("refreshTime(seconds) is deprecated for " + ComponentClass.prototype.elementName + " set a refresh-time attribute on your component template instead.");
         return ComponentClass;
       }
 
       ComponentClass.prototype.requestDataFromSource = function() {
         var self = this;
 
-        this.dataSourceTemplate = this.dataSourceTemplate || this["data-source-template"] || false;
+        this.dataSourceTemplate = this["data-source-template"] || false;
         this.dataSourceUrl = this["data-source-url"] || ComponentClass.expandTemplate(this, this.dataSourceTemplate) || false;
         this.dataSourceDataType = this["data-source-type"] || "jsonp";
         this.dataSourceData = false;
         this.dataSourceError = false;
 
-        console.log("Loading data for " + this.dataSourceUrl);
+        //console.log("Loading data for " + this.dataSourceUrl);
 
         if(!this.dataSourceUrl) {
           return false;
@@ -114,7 +144,9 @@ $(function() {
 
         var expandedTemplate = ComponentClass.expandTemplate(this, $(this.template).html());
 
-        $(this.element).html(expandedTemplate);
+        $(this.element).html(expandedTemplate).attr('rendered', true);
+
+        Class.scanForComponents(this.element);
       }
 
       ComponentClass.expandTemplate = function(data, template) {
@@ -144,14 +176,15 @@ $(function() {
       }
 
       ComponentClass.prototype.refresh = function() {
-        console.log("Refreshing " + this.element.tagName);
+        // console.log("Refreshing " + this.element.tagName);
         // Prevent timeout leaks
         if(this.refreshTimeoutId) {
           clearTimeout(this.refreshTimeoutId);
         }
 
-        // loop
+        // Loop
         var self = this;
+        this.refreshTimeSeconds = this["refresh-time"] || 0;
         if(this.refreshTimeSeconds) {
           this.refreshTimeoutId = setTimeout(function() {
             self.refresh();
@@ -164,18 +197,44 @@ $(function() {
 
       // Scan the document for components
       ComponentClass.setup = function() {
-        var elements = document.getElementsByTagName(elementName);
-        for(var i=0; i<elements.length; i++) {
-          var element = elements[i];
-          new ComponentClass(element);
-        }
+        console.log("Setup is deprecated for " + ComponentClass.prototype.elementName + ", this function will be handled by Component.scanForComponents(document.body).");
       }
 
       return ComponentClass;
     }
 
+    Class.registerTemplates = function() {
+      var templates = $('template[tagName]').each(function() {
+        var template = $(this)[0];
+        var tagName = $(this).attr('tagName');
+
+        Class.registerComponent(tagName, template);
+      });
+
+      Class.registerComponent('component', false);
+
+      return this;
+    }
+
+    Class.scanForComponents = function(rootElement) {
+      for(tagName in Class.registeredComponents) {
+        var ComponentClass = Class.registeredComponents[tagName] || false;
+        if(ComponentClass) {
+          $(tagName, rootElement).each(function() {
+            if(!this.attributes.rendered) {
+              new ComponentClass(this);
+            }
+          });
+        } else {
+          throw "Component " + tagName + " has not been registered correctly.";
+        }
+      }
+
+      return this;
+    }
+
     return Class;
   })();
 
-  Component.create('component').setup();
+  Component.registerTemplates().scanForComponents(document.body);
 });

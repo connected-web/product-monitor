@@ -2,7 +2,7 @@
 body { padding-top: 70px; }
 </style>
 
-<template type="component" id="navigation-template" data-source-url="/api/navigation">
+<template tagName="navigation" data-source-url="/api/navigation" refresh-time="125">
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -24,8 +24,3 @@ body { padding-top: 70px; }
     </div>
   </nav>
 </template>
-
-
-<script type="text/javascript">
-$(function() { var Navigation = Component.create("navigation").refreshTime(125).setup(); });
-</script>
