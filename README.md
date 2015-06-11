@@ -88,10 +88,10 @@ Compatability
 |----------|--------------------------------|
 | Chrome   | Excellent                      |
 | Chromium | Seems good                     |
-| Opera    | Flakey, but not as bad as IE11 |
-| IE11     | Flakey at best                 |
-| Firefox  | Plays nice sometimes           |
+| Opera    | Works a treat                  |
+| IE11     | Seems alright                  |
+| Firefox  | Plays nice                     |
 
-### Why is client support so bad?
+### Why does my nested component not work inside X...
 
-Client support is bad because the order of component rewrites is out of order from the declaration order of the tags. A better, nested, walk-through of the tree should solve this problem, but nested data-loading components may not be desirable in the long run. The simplicity comes from having familiar, easy-to-template, data-driven templates that you can reuse right away.
+Nesting handlebar templates doesn't work. Don't do it. I've lost lots of time trying to debug this, I don't have a good solution. Having separately declared templates, and then referring them using declarative tags seems well supported though. The simplicity comes from having familiar, easy-to-template, data-driven templates that you can reuse right away. Its good fun once you get the hang of it!
