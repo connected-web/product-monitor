@@ -1,47 +1,58 @@
 <h1>Custom Components Guide</h1>
 
-<h3>Create your own template</h3>
-<p>By defining a component tag, you can template data variables into the page, for example this template:</p>
+<h3>Create your own component</h3>
+<p>Using template tags, you can declare content as variables, and have them written into your page.</p>
+<p>This template, for example:</p>
 <pre code>
-  <component my-data-greeting="Hello" my-data-name="Product!" my-icon="flag">
-    <span class="glyphicon glyphicon-{{my-icon}}"></span>
-    <b>{{my-data-greeting}}</b> <i>{{my-data-name}}</i>
-  </component>
+<template tagName="greeting" my-icon="flag">
+  <span class="glyphicon glyphicon-{{my-icon}}"></span>
+  <b>{{my-data-greeting}}</b> <i>{{my-data-name}}</i>
+</template>
 </pre>
 
-<p>Turns into:</p>
+<!-- Actual template for above example -->
+<template tagName="greeting" my-icon="flag">
+  <span class="glyphicon glyphicon-{{my-icon}}"></span>
+  <b>{{my-data-greeting}}</b> <i>{{my-data-name}}</i>
+</template>
+
+<p>Is for a <code>greeting</code> tag, and can be used by declaring:</p>
+<pre code>
+<greeting my-data-greeting="Hello" my-data-name="Product!"></greeting>
+</pre>
+
+<p>Which turns into:</p>
 <code-result>
-  <component my-data-greeting="Hello" my-data-name="Product!" my-icon="flag">
-    <span class="glyphicon glyphicon-{{my-icon}}"></span>
-    <b>{{my-data-greeting}}</b> <i>{{my-data-name}}</i>
-  </component>
+  <greeting my-data-greeting="Hello" my-data-name="Product!"></greeting>
 </code-result>
 
-<p>Now, this isn't much use on its own - you may as well just write those values out into the right places.</p>
-
 <alert type="info">
-  <p><starred>Coming soon:</starred> proper templates that will can be defined once, and then reused throughout the page.</p>
+  <p><starred>Now, this is a little tidier!</starred> With the right templates in a page, you can really simplify what you write.</p>
 </alert>
 
-<h3>Data Aware Component with data-source-url</h3>
-<p>Here is an example of a data-aware component, that populates itself from the supplied data-source-url:</p>
+<h3>Data Aware Component with <em>data-source-url</em></h3>
+<p>Here is an example of a data-aware component template, that populates used the supplied data-source-url to populate data into a component:</p>
 <pre code>
-  <component data-source-url="/api/generateStatusCode?statusCode=117">
-    <ul>
-      <li>Status code: <b>{{statusCode}}</b></li>
-      <li>Message: <b>{{message}}</b></li>
-    </ul>
-  </component>
+<template tagName="spartan" data-source-url="/api/generateStatusCode?statusCode=117">
+  <b>Status code</b> : <value>{{statusCode}}</value>,
+  <b>Message</b> : <value>{{message}}</value>
+</template>
 </pre>
 
-<p>Turns into:</p>
+<!-- Actual template for above example -->
+<template tagName="spartan" data-source-url="/api/generateStatusCode?statusCode=117">
+  <b>Status code</b> : <value>{{statusCode}}</value>,
+  <b>Message</b> : <value>{{message}}</value>
+</template>
+
+<p>With an empty <code>spartan</code> tag:
+<pre code>
+<spartan></spartan>
+</pre>
+
+<p>Fetches data from <code>/api/generateStatusCode?statusCode=117</code>, and produces: </p>
 <code-result>
-  <component data-source-url="/api/generateStatusCode?statusCode=117">
-    <ul>
-      <li>Status code: <b>{{statusCode}}</b></li>
-      <li>Message: <b>{{message}}</b></li>
-    </ul>
-  </component>
+  <spartan></spartan>
 </code-result>
 
 <alert type="warning">
@@ -52,53 +63,70 @@
 <p>Behind the scenes, the component is going off and making AJAX calls using jQuery to load the data. If there's a problem, you can find out through dataSource variables locked on to the object.</p>
 <p>If for example, you change the template to include these values:</p>
 <pre code>
-  <component data-source-url="/api/generateStatusCode?statusCode=117">
-    <ul>
-      <li>{{dataSourceStatus}}</li>
-      <li>{{dataSourceUrl}}</li>
-    </ul>
-  </component>
+  <template tagName="mjolnir" data-source-url="/api/generateStatusCode?statusCode=117">
+    <pre><b>Status</b> : {{dataSourceStatus}}</pre>
+    <pre><b>Url</b> : {{dataSourceUrl}}</pre>
+    <pre><b>Data</b> : {{dataSourceData}}</pre>
+  </template>
 </pre>
 
-<p>Then we get lots of information:</p>
+<!-- Actual template for above example -->
+<template tagName="mjolnir" data-source-url="/api/generateStatusCode?statusCode=117">
+  <pre><b>Status</b> : {{dataSourceStatus}}</pre>
+  <pre><b>Url</b> : {{dataSourceUrl}}</pre>
+  <pre><b>Data</b> : {{dataSourceData}}</pre>
+</template>
+
+<p>And we add a <code>mjolnir</code> tag:
+<pre code>
+<mjolnir></mjolnir>
+</pre>
+
+<p>Then we get lots of extra information:</p>
 <code-result>
-  <component data-source-url="/api/generateStatusCode?statusCode=117">
-    <pre>{{dataSourceStatus}}</pre>
-    <pre>{{dataSourceUrl}}</pre>
-    <pre>{{dataSourceData}}</pre>
-  </component>
+  <mjolnir></mjolnir>
 </code-result>
 
-<h3>Data Aware Component with data-source-template</h3>
-<p>Here's the same component as above, but this time using a data-source-template to create its own data-source-url:</p>
+<h3>Data Aware Component with <em>data-source-template</em></h3>
+<p>Here's the same component as the <code>spartan</code> example above, but this time using a data-source-template to create its own data-source-url:</p>
 <pre code>
-  <component data-source-template="/api/generateStatusCode?statusCode={{property-to-send}}" property-to-send="117">
-    <ul>
-      <li>Status code: <b>{{statusCode}}</b></li>
-      <li>Message: <b>{{message}}</b></li>
-    </ul>
-    <pre>{{dataSourceData}}</pre>
-  </component>
+  <template tagName="spartan-mkii" data-source-template="/api/generateStatusCode?statusCode={{status-code}}">
+    <b>Status code</b> : <value>{{statusCode}}</value>,
+    <b>Message</b> : <value>{{message}}</value>
+  </template>
 </pre>
 
-<p>Turns into:</p>
+<!-- Actual template for above example -->
+<template tagName="spartan-mkii" data-source-template="/api/generateStatusCode?statusCode={{status-code}}">
+  <b>Status code</b> : <value>{{statusCode}}</value>,
+  <b>Message</b> : <value>{{message}}</value>
+</template>
+
+<p>So now a <code>spartan-mkii</code> tag:
+<pre code>
+<spartan-mkii status-code="117"></spartan-mkii>
+</pre>
+
+<p>Can be transformed into:</p>
 <code-result>
-  <component data-source-template="/api/generateStatusCode?statusCode={{property-to-send}}" property-to-send="117">
-    <ul>
-      <li>Status code: <b>{{statusCode}}</b></li>
-      <li>Message: <b>{{message}}</b></li>
-    </ul>
-    <pre>{{dataSourceData}}</pre>
-  </component>
+  <spartan-mkii status-code="117"></spartan-mkii>
 </code-result>
 
 <alert type="warning">
   <p><fired>Now you're thinking in templates!</fired> Soon you'll be able to spin this out with custom templates to quickly build data driven components that are styled how you want them to be.</p>
 </alert>
 
-<p>Where this really kicks in is when we can define data-driven templates using templates, and then you're just plugging in the minimum amount of information to grab information from the server. That's how <code><status-checker data-url="http://localhost:8080/">Status Checkers</status-checker></code> work behind the scenes.</p>
+<p>Take a look at the page source, and see how this page was written. You'll find that <fired>Component Templates</fired> were used just about everywhere!</p>
 
 <!-- Templates go here -->
+<template tagName="worked-example">
+  <pre code>{{content}}</pre>
+  <p>Which turns into:</p>
+  <alert type="success">
+    {{content}}
+  </alert>
+</template>
+
 <template tagName="code-result">
   <div class="alert alert-success">
     {{content}}

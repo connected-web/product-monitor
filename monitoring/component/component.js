@@ -32,14 +32,13 @@ $(function() {
 
       var ComponentClass = function(element) {
         this.element = element;
-        this.content = $(element).html();
-        this.templateKey = "template[tagName={{tagName}}]".replace('{{tagName}}', elementName);
+        this.content = $(element).html().trim();
+        this.templateKey = "template[tagname={{tagname}}]".replace('{{tagname}}', elementName);
         this.template = templateElement || $(this.templateKey)[0] || false;
 
         if(!this.template) {
-          console.log("Could not find template for " + this.templateKey + ", using: " + this.content + " instead.");
-          this.template = document.createElement("template");
-          $(this.template).html(this.content);
+        this.template = this.element.cloneNode(true);
+          console.log("Could not find template for " + this.templateKey + ", using: " + $(this.template).html() + " instead.");
         }
 
         this.copyAttributesFrom(this.template);
@@ -109,6 +108,7 @@ $(function() {
           url: this.dataSourceUrl,
           dataType: this.dataSourceDataType,
           success: function(data, textStatus) {
+            console.log("Received data for: " + self.element.tagName.toLowerCase())
             self.data = data;
             self.dataSourceData = JSON.stringify(self.data);
             if(data !== null && typeof data === 'object') {
@@ -145,6 +145,8 @@ $(function() {
         var expandedTemplate = ComponentClass.expandTemplate(this, $(this.template).html());
 
         $(this.element).html(expandedTemplate).attr('rendered', true);
+
+        console.log("Rendered: " + this.element.tagName.toLowerCase() + " : " + $(this.element).html());
 
         Class.scanForComponents(this.element);
       }
@@ -204,29 +206,29 @@ $(function() {
     }
 
     Class.registerTemplates = function() {
-      var templates = $('template[tagName]').each(function() {
+      var templates = $('template[tagname]').each(function() {
         var template = $(this)[0];
-        var tagName = $(this).attr('tagName');
+        var tagName = $(this).attr('tagname');
 
         Class.registerComponent(tagName, template);
       });
-
-      Class.registerComponent('component', false);
 
       return this;
     }
 
     Class.scanForComponents = function(rootElement) {
-      for(tagName in Class.registeredComponents) {
-        var ComponentClass = Class.registeredComponents[tagName] || false;
-        if(ComponentClass) {
-          $(tagName, rootElement).each(function() {
-            if(!this.attributes.rendered) {
-              new ComponentClass(this);
-            }
-          });
-        } else {
-          throw "Component " + tagName + " has not been registered correctly.";
+
+      var items = rootElement.getElementsByTagName("*");
+      // Walk the document looking for components to create
+      for (var i = 0; i < items.length; i++) {
+        var element = items[i];
+        var tagName = element.tagName.toLowerCase();
+        if(!element.attributes.rendered) {
+          var ComponentClass = Class.registeredComponents[tagName] || false;
+          if(ComponentClass) {
+            console.log("Scanned and found: " + tagName + " as part of " + rootElement.tagName.toLowerCase());
+            new ComponentClass(element);
+          }
         }
       }
 

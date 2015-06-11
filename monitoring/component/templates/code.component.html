@@ -1,8 +1,18 @@
 <script type="text/javascript">
+
 var replaceHtmlEntities = function() {
   return String($(this).html()).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 $('pre[code], code').html(replaceHtmlEntities);
+
+$(function() {
+  var PreTags = Component.configure("pre");
+
+  PreTags.prototype.preRenderStep(function() {
+    $(this.element).html(replaceHtmlEntities);
+    this.content = $(this.element).html();
+  });
+});
 
 </script>
