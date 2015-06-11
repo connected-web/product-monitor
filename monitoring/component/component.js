@@ -22,7 +22,6 @@ $(function() {
     }
 
     Class.registerComponent = function(tagName, template) {
-      console.log("Registering component template " + tagName);
       var ComponentClass = Component.create(tagName, template);
       Class.registeredComponents[tagName] = ComponentClass;
       return ComponentClass;
@@ -82,11 +81,6 @@ $(function() {
         return ComponentClass;
       }
 
-      ComponentClass.refreshTime = function(seconds) {
-        console.log("refreshTime(seconds) is deprecated for " + ComponentClass.prototype.elementName + " set a refresh-time attribute on your component template instead.");
-        return ComponentClass;
-      }
-
       ComponentClass.prototype.requestDataFromSource = function() {
         var self = this;
 
@@ -95,8 +89,6 @@ $(function() {
         this.dataSourceDataType = this["data-source-type"] || "jsonp";
         this.dataSourceData = false;
         this.dataSourceError = false;
-
-        //console.log("Loading data for " + this.dataSourceUrl);
 
         if(!this.dataSourceUrl) {
           return false;
@@ -108,7 +100,6 @@ $(function() {
           url: this.dataSourceUrl,
           dataType: this.dataSourceDataType,
           success: function(data, textStatus) {
-            console.log("Received data for: " + self.element.tagName.toLowerCase())
             self.data = data;
             self.dataSourceData = JSON.stringify(self.data);
             if(data !== null && typeof data === 'object') {
@@ -134,7 +125,6 @@ $(function() {
       }
 
       ComponentClass.prototype.reportDataSourceStatus = function(message) {
-        // console.log(this.element.tagName + ", " + message);
         this.dataSourceStatus = message;
         this.render();
       }
@@ -145,8 +135,6 @@ $(function() {
         var expandedTemplate = ComponentClass.expandTemplate(this, $(this.template).html());
 
         $(this.element).html(expandedTemplate).attr('rendered', true);
-
-        console.log("Rendered: " + this.element.tagName.toLowerCase() + " : " + $(this.element).html());
 
         Class.scanForComponents(this.element);
       }
@@ -178,7 +166,6 @@ $(function() {
       }
 
       ComponentClass.prototype.refresh = function() {
-        // console.log("Refreshing " + this.element.tagName);
         // Prevent timeout leaks
         if(this.refreshTimeoutId) {
           clearTimeout(this.refreshTimeoutId);
@@ -195,11 +182,6 @@ $(function() {
 
         // Re-load data for the component
         this.requestDataFromSource();
-      }
-
-      // Scan the document for components
-      ComponentClass.setup = function() {
-        console.log("Setup is deprecated for " + ComponentClass.prototype.elementName + ", this function will be handled by Component.scanForComponents(document.body).");
       }
 
       return ComponentClass;
@@ -226,7 +208,6 @@ $(function() {
         if(!element.attributes.rendered) {
           var ComponentClass = Class.registeredComponents[tagName] || false;
           if(ComponentClass) {
-            console.log("Scanned and found: " + tagName + " as part of " + rootElement.tagName.toLowerCase());
             new ComponentClass(element);
           }
         }
