@@ -42,9 +42,11 @@
 
 <example name="Simple Custom Components">
   <p>Here are some on-the-fly components, which copy their own properties:</p>
-  <component data-name="John" data-surname="Beech"><b>{{data-name}}</b> <b>{{data-surname}}</b></component>
-  <component data-name="James"><b>{{data-name}}</b></component>,
-  <component data-name="Charlotte"><b>{{data-name}}</b></component>,
-  <component data-name="Henrietta"><b>{{data-name}}</b></component>,
-  <component data-name="Fate"><b>{{data-name}}</b></component>
+  <template tagName="person">
+    (<b>{{data-name}}</b> <b>{{data-surname}}</b>)
+  </template>
+  <person data-name="John" data-surname="Beech"></person>
+  <person data-name="Lucy" data-surname="Markavian"></person>
+  <person data-name="Nanoha" data-surname="Takamachi"></person>
+  <person data-name="Fate" data-surname="Testarossa"></person>
 </example>
