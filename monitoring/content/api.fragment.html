@@ -1,2 +1,10 @@
 <h1>Routes supported by this sever</h1>
 <p>This page is a self documenting template showing what service endpoints are available through this server.</p>
+
+<express-routes data-source-url="/api/expressRoutes">
+</express-routes>
+
+<template tagName="express-routes" data-source-type="json">
+  <pre>{{dataSourceStatus}}</pre>
+  <pre>{{dataSourceData}}</pre>
+</template>
