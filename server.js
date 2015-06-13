@@ -1,8 +1,9 @@
 /* Create a product monitor server with local content configuration */
 var monitor = require('./lib/product-monitor');
+var lazyLoad = require('./lib/monitor/lazyLoad');
 
 var octoCreditsConfig = {
-  accessToken: require('./secret/github-access-token.js')
+  accessToken: lazyLoad('./secret/github-access-token.js', false)
 }
 
 var server = monitor({
