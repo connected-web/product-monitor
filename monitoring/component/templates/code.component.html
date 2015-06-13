@@ -6,13 +6,4 @@ var replaceHtmlEntities = function() {
 
 $('pre[code], code').html(replaceHtmlEntities);
 
-$(function() {
-  var PreTags = Component.configure("pre");
-
-  PreTags.prototype.preRenderStep(function() {
-    $(this.element).html(replaceHtmlEntities);
-    this.content = $(this.element).html();
-  });
-});
-
 </script>
