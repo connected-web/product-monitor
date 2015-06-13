@@ -1,11 +1,15 @@
 <template tagName="status-button" data-source-template="/api/statusOf/?url={{data-url}}" glyph-icon="flag">
-  <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}">
+  <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}" class="status-button">
     <button type="button" class="btn btn-{{alertType}}">
       <span class="glyphicon glyphicon-{{glyph-icon}}"></span>
       <span>{{content}}</span>
     </button>
   </a>
 </template>
+
+<style for="status-button">
+a.status-button { text-decoration: none; }
+</style>
 
 <script type="text/javascript">
 $(function() {

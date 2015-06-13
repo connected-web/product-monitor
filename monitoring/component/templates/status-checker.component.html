@@ -1,19 +1,31 @@
 <template tagName="status-checker" data-source-template="/api/statusOf/?url={{data-url}}" refresh-time="25">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="alert alert-default" role="alert">
-        <span class="glyphicon glyphicon-off"></span>
-          <name>{{content}}</name>
-          (<status>{{statusCode}}</status>)
+  <div class="alert alert-{{alertType}}" role="alert">
+    <div class="row">
+      <div class="col-md-6">
+        <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}" class="status-checker">
+          <button type="button" class="btn btn-{{alertType}} status-checker">
+            <span class="glyphicon glyphicon-flag"></span>
+          </button>
+        </a>
+        <span class="status-description">{{content}} (<status>{{statusCode}}</status>)</span>
       </div>
-    </div>
-    <div class="col-md-8">
-      <div class="alert alert-{{alertType}}" role="alert">
-        <message><b>{{message}}</b> : {{data-url}}</message>
+      <div class="col-md-6">
+        <b>{{message}}</b> : {{data-url}}
       </div>
     </div>
   </div>
 </template>
+
+<style for="status-checker">
+span.status-description {
+  font-size: 150%; font-weight: bold;
+  vertical-align: middle;
+}
+button.status-checker {
+  margin-right: 5px;
+}
+a.status-checker { text-decoration: none; }
+</style>
 
 <script type="text/javascript">
 $(function() {
@@ -25,7 +37,7 @@ $(function() {
       "0": 'Checking server',
       "200": 'URL Seems OK',
       "404": "File not found",
-      "502": "The server encountered a problem: " + JSON.stringify(this.dataSourceError)
+      "502": "The server encountered a problem: " + JSON.stringify(this.dataSourceData)
     })[statusCode] || this.dataSourceStatus;
   }
 

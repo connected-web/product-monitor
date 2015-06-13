@@ -22,15 +22,10 @@
 </example>
 
 <example name="Monitor Status">
-  <monitor-status data-source-url="/api/monitorStatus"></monitor-status>
-  <p>The monitor status component is included in all pages by default. It dissapears after successfully talking to the server, kill your server for it to appear and report terrible things. Upon restarting your server, the client will realise it no longer recognises the server and will reload itself.</p>
-</example>
-
-<example name="Jumbotron">
-  <jumbotron>
-    <h1>Makes things really big</h1>
-    <p>Because that's useful, sometimes, right?</p>
-  </jumbotron>
+  <p><monitor-status data-source-url="/api/monitorStatus">Mommy, are you there?</monitor-status></p>
+  <p>The monitor status component is included in all pages by default. It changes colours to indicate if the client is still able to talk to the server.</p>
+  <p>When first loading the page, it'll turn blue, and then turn to green on the next check.<p>
+  <p>If kill your server it will turn red. Upon restarting your server, the monitor will turn yellow, and shortly after restart the client.</p>
 </example>
 
 <example name="Example">
