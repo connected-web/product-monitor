@@ -1,0 +1,50 @@
+<h1>Server Status</h1>
+<h2>This component monitors this server...</h2>
+
+<server-information-monitor data-source-url="/api/monitorStatus"></server-information-monitor>
+
+<template tagName="server-information-monitor" refresh-time="15">
+  <div class="alert alert-{{alertType}}" role="alert">
+    <h4>Monitor Status</h4>
+    <p>Server Age: <label>{{serverAgeInSeconds}}</label> seconds</p>
+    <p>Client Hash: <label>{{clientHash}}</label></p>
+    <p>Server Hash: <label>{{serverHash}}</label></p>
+    <p>Response Data: <pre>{{dataSourceData}}</pre></p>
+    <p>Response Status: <label>{{dataSourceStatus}}</label></p>
+    {{content}}
+  </div>
+</template>
+
+<script type="text/javascript">
+$(function() {
+
+  var ServerInformationMonitor = Component.configure("server-information-monitor");
+
+  ServerInformationMonitor.prototype.serverAgeInSeconds = 0;
+  ServerInformationMonitor.prototype.clientHash = false;
+  ServerInformationMonitor.prototype.serverHash = false;
+
+  ServerInformationMonitor.prototype.reportStatusThenHide = function() {
+    this.alertType = "info";
+  }
+
+  ServerInformationMonitor.prototype.preRenderStep(function() {
+    this.serverHash = this.monitorHash || false;
+
+    if(this.dataSourceError !== false) {
+      this.alertType = "danger";
+    }
+    else if(this.clientHash == false) {
+      this.clientHash = this.serverHash || false;
+      this.alertType = "info";
+    }
+    else if(this.clientHash && this.clientHash != this.serverHash) {
+      this.alertType = "warning";
+      this.dataSourceStatus = "Monitor server has restarted, client should update shortly.";
+    }
+    else {
+      this.alertType = "success";
+    }
+  });
+});
+</script>

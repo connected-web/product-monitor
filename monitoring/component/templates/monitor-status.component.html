@@ -1,14 +1,8 @@
 <template tagName="monitor-status" refresh-time="15">
-  <div class="alert alert-{{alertType}} alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4>Monitor Status</h4>
-    <p>Server Age: <label>{{serverAgeInSeconds}}</label> seconds</p>
-    <p>Client Hash: <label>{{clientHash}}</label></p>
-    <p>Server Hash: <label>{{serverHash}}</label></p>
-    <p>Response Data: <pre>{{dataSourceData}}</pre></p>
-    <p>Response Status: <label>{{dataSourceStatus}}</label></p>
-    {{content}}
-  </div>
+  <button type="button" class="btn btn-{{alertType}}">
+    <span class="glyphicon glyphicon-{{glyphIcon}}"></span>
+    <span>{{content}}</span>
+  </button>
 </template>
 
 <script type="text/javascript">
@@ -19,59 +13,32 @@ $(function() {
   MonitorStatus.prototype.serverAgeInSeconds = 0;
   MonitorStatus.prototype.clientHash = false;
   MonitorStatus.prototype.serverHash = false;
-
-  MonitorStatus.prototype.showAlert = function() {
-    var element = this.element;
-    $(element).find("div.alert").slideDown(500);
-    element.style.display = "block";
-  }
-
-  MonitorStatus.prototype.hideAlert = function() {
-    var element = this.element;
-    $(element).find("div.alert").slideUp(500, function() {
-      this.hideNow();
-    });
-  }
-
-  MonitorStatus.prototype.hideNow = function() {
-    var element = this.element;
-    element.style.display = "none";
-  }
-
-  MonitorStatus.prototype.reportErrorAndContinueToMonitor = function() {
-    this.alertType = "danger";
-    this.showAlert();
-  }
+  MonitorStatus.prototype.glyphIcon = 'dashboard';
 
   MonitorStatus.prototype.reportRestartThenRestart = function() {
-    this.alertType = "warning";
     this.dataSourceStatus = "Monitor server has restarted, updating client shortly.";
-    this.showAlert();
 
     setTimeout(function() {
       location.reload(true);
-    }, 10000);
-  }
-
-  MonitorStatus.prototype.reportStatusThenHide = function() {
-    this.alertType = "info";
-
-    var self = this;
-    setTimeout(function() { self.hideAlert(); }, 5000);
+    }, 1500);
   }
 
   MonitorStatus.prototype.preRenderStep(function() {
     this.serverHash = this.monitorHash || false;
 
     if(this.dataSourceError !== false) {
-      this.reportErrorAndContinueToMonitor();
+      this.alertType = "danger";
     }
     else if(this.clientHash == false) {
       this.clientHash = this.serverHash || false;
-      this.hideNow();
+      this.alertType = "info";
     }
     else if(this.clientHash && this.clientHash != this.serverHash) {
+      this.alertType = "warning"
       this.reportRestartThenRestart();
+    }
+    else {
+      this.alertType = "success";
     }
   });
 });

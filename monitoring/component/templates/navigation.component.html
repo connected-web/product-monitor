@@ -9,6 +9,8 @@ body { padding-top: 70px; }
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">Product Monitor</a>
       </div>
@@ -19,9 +21,9 @@ body { padding-top: 70px; }
             <ul class="dropdown-menu" role="menu">
               <li><a href="/index">Index</a></li>
               <li class="divider"></li>
-            {{#each navigationItems}}
+              {{#each navigationItems}}
               <li><a href="{{href}}">{{linkText}}</a></li>
-            {{/each}}
+              {{/each}}
             </ul>
           </li>
           <li class="dropdown">
@@ -33,6 +35,12 @@ body { padding-top: 70px; }
             </ul>
           </li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- No content here yet -->
+        </ul>
+        <form class="navbar-form navbar-right">
+          <a href="/status"><monitor-status data-source-url="/api/monitorStatus">Monitor Status</monitor-status></a>
+        </form>
       </div>
     </div>
   </nav>
