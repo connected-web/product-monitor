@@ -1,5 +1,9 @@
 var monitor = require('product-monitor');
 
-var server = monitor({
-  apiConfig: "goes here"
-});
+/* To use a custom config, loaded from a file, you could try:
+  var defaultConfig = {};
+  var customConfig = lazyLoad.json('myConfig.json', defaultConfig);
+  var server = monitor(customConfig);
+*/
+
+var server = monitor();
