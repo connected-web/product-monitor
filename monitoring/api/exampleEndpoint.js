@@ -20,7 +20,7 @@ instance.render = function(req, res) {
   };
 
   // send response
-  res.send(data);
+  res.jsonp(data);
 }
 
 module.exports = instance;

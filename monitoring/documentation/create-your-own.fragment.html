@@ -1,27 +1,92 @@
 <h1>Create your own...</h1>
 
+<p>To make this product monitor your own, you need to:</p>
+
 <make title="pages">
   <panel-body>
     Its as easy as...
   </panel-body>
   <ul class="list-group">
     <li class="list-group-item">Step 1: Find the <b>monitoring/content/</b> folder in your server.</li>
-    <li class="list-group-item">Step 2: Create a new HTML file with the name format: <i>page-name.content.html</i></li>
+    <li class="list-group-item">Step 2: Create a new HTML file with the name format: <b>page-name.content.html</b></li>
     <li class="list-group-item">Step 3: Add a mixture of HTML tags and custom components - to monitor the status of your product.</li>
   </ul>
 </make>
 
 <make title="data endpoints">
   <panel-body>
-    Still working this out... you should be able to drop your server javascript into a folder in the same way as content.
+    Its as easy as...
   </panel-body>
+
+  <ul class="list-group">
+    <li class="list-group-item">Step 1: Find the <b>monitoring/api/</b> folder in your server.</li>
+    <li class="list-group-item"><p>Step 2: Use this template to create a new JS file with the name format: <b>my-endpoint.js</b></p>
+      <pre code language="javascript">
+var instance = function() {}
+
+var server = false;
+
+instance.route = '/api/exampleEndpoint/:name';
+
+instance.configure = function(config) {
+  server = config.server;
+}
+
+instance.render = function(req, res) {
+  var data = {};
+
+  // read parameter from route
+  var name = req.params.name || false;
+
+  // form response
+  var data = {
+    suppliedName: name
+  };
+
+  // send response
+  res.jsonp(data);
+}
+
+module.exports = instance;</pre>
+    </li>
+    <li class="list-group-item">Step 3: Set the <code>instance.route</code> property to name your route.</li>
+    <li class="list-group-item">Step 4: Implement the <code>instance.render</code> function to return your custom data.</li>
+    <li class="list-group-item">Step 5: Use the <code>instance.configuration</code> method to pull out server configuration values defined in your <b>server.js</b> file.</li>
+  </ul>
 </make>
 
 <make title="custom components">
   <panel-body>
-    On the fly, as part of your page content. Wired up to data, or just as templates for your content.
+    <p>Custom components can render HTML on the fly, as part of your page content. They can be wired up to data, or just used as templates to make your content easy to define and read.</p>
+    <p>Learn how to create your own in the <a href="/documents/custom-components-guide">Custom Components Guide</a>.</p>
+    <p>Its as easy as...</p>
   </panel-body>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <p>Step 1: Define your own custom template, like so:</p>
+      <pre code>
+<template tagName="my-name-is" data-source-template="/api/exampleEndpoint/{{name}}" data-type="json">
+  <p>You are <b>{{suppliedName}}</b> of course!</p>
+</template></pre>
+    </li>
+    <li class="list-group-item">
+      <p>Step 2: Add your custom tag, and the template to a page, e.g. by editing <b>monitoring/content/index.html</b>:</p>
+      <pre code>
+<my-name-is name="Tim"></my-name-is></pre>
+    </li>
+    <li class="list-group-item">
+      <p>Step 3: Refresh your browser to see it in action!</p>
+      <example name="My name is:">
+        <my-name-is name="Tim"></my-name-is>
+      </example>
+    </li>
+  </ul>
 </make>
+
+<!-- Template for above example -->
+<template tagName="my-name-is" data-source-template="/api/exampleEndpoint/{{name}}" data-type="json">
+  <p>You are <b>{{suppliedName}}</b> of course!</p>
+</template>
 
 <!-- Custom templates for this page -->
 <template tagName="make">
