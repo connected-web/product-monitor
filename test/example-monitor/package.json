@@ -4,7 +4,7 @@
   "description": "An example product monitor using the product monitor node module.",
   "main": "index.js",
   "author": "John Beech",
-  "license": "None",
+  "license": "ISC",
   "dependencies": {
     "product-monitor": "*"
   },
