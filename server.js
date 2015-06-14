@@ -8,10 +8,8 @@ var octoCreditsConfig = {
 
 var server = monitor({
   "serverPort": 8080,
-  "componentsPath": "monitoring/component/",
-  "contentPath": "monitoring/content/",
-  "templatesPath": "monitoring/templates/",
-  "imagesPath": "images/",
+  "modulePath": "monitoring",
+  "userContentPath": "monitoring",
   "statusCacheTimeInSeconds": 60,
   "octoCredits": octoCreditsConfig
 }).listen();
