@@ -1,0 +1,156 @@
+<h1>Package Info</h1>
+
+<p>This page serves up information about the package.json file for the product-monitor, and gives a clue as to which version of the software is running.</p>
+
+<package-info data-source-url="/api/packageInfo"></package-info>
+
+<template tagName="package-info">
+  {{#if name}}
+  <h2>Package Name: {{name}}</h2>
+  {{/if}}
+
+  {{#unless name}}
+  <h2>No name set on package</h2>
+  {{/unless}}
+
+  <panel>
+    <package-section>
+      <h3>Summary</h3>
+      <pair key="main">{{main}}</pair>
+      <pair key="version">{{main}}</pair>
+      <pair key="description">{{main}}</pair>
+      {{#if author.name}}
+      <pair key="author">{{author.name}}</pair>
+      {{else}}
+      <pair key="author">{{author}}</pair>
+      {{/if}}
+      <pair key="analyze">{{analyze}}</pair>
+      <pair key="license">{{license}}</pair>
+    </package-section>
+
+    {{#if contributors}}
+    <package-section>
+      <h4>Contributors</h4>
+      <ul>
+      {{#each contributors}}
+        <li><a href="mailto:{{email}}">{{name}}</a></li>
+      {{/each}}
+      </ul>
+    </package-section>
+    {{/if}}
+
+    {{#if repository}}
+    <package-section>
+      <h4>Repository</h4>
+      <ul>
+        <li><pair key="{{repository.type}}"><a href="{{repository.url}}">{{repository.url}}</a></pair></li>
+      </ul>
+      {{#if gitHead}}
+      <pair key="gitHead">{{gitHead}}</pair>
+      {{/if}}
+    </package-section>
+    {{/if}}
+
+    {{#if bugs.url}}
+    <package-section>
+      <h4>Bug reporting</h4>
+      <a href="{{bugs.url}}">{{bugs.url}}</a>
+    </package-section>
+    {{/if}}
+
+    {{#if homepage}}
+    <package-section>
+      <h4>Homepage</h4>
+      <pair key="_id">{{homepage._id}}</pair>
+      <pair key="_shasum">{{homepage._shasum}}</pair>
+      <pair key="_from">{{homepage._from}}</pair>
+    </package-section>
+    {{/if}}
+
+    {{#if engines}}
+    <package-section>
+      <h4>Engines</h4>
+      <ul>
+      {{#each engines}}
+        <li><pair key="{{@key}}">{{this}}</pair></li>
+      {{/each}}
+      </ul>
+    </package-section>
+    {{/if}}
+
+    {{#if dependencies}}
+    <package-section>
+      <h4>Dependencies</h4>
+      <ul>
+      {{#each dependencies}}
+        <li><pair key="{{@key}}">{{this}}</pair></li>
+      {{/each}}
+      </ul>
+    </package-section>
+    {{/if}}
+
+    {{#if files}}
+    <package-section>
+      <h4>Files</h4>
+      <ul>
+      {{#each files}}
+        <li>{{this}}</li>
+      {{/each}}
+      </ul>
+    </package-section>
+    {{/if}}
+
+    {{#if devDependencies}}
+    <package-section>
+      <h4>Dev Dependencies</h4>
+      <ul>
+      {{#each devDependencies}}
+        <li><pair key="{{@key}}">{{this}}</pair></li>
+      {{/each}}
+      </ul>
+    </package-section>
+    {{/if}}
+
+    {{#if scripts}}
+    <package-section>
+      <h4>Scripts</h4>
+      <ul>
+      {{#each scripts}}
+        <li><pair key="{{@key}}">{{this}}</pair></li>
+      {{/each}}
+      </ul>
+    </package-section>
+    {{/if}}
+
+    {{#if readmeFilename}}
+    <package-section>
+      <pair key="readmeFilename">{{readmeFilename}}</pair>
+    </package-section>
+    {{/if}}
+  </panel>
+</template>
+
+<template tagName="pair">
+  <p><b>{{key}}</b> : <code>{{content}}</code></p>
+</template>
+
+<template tagName="panel">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      {{content}}
+    </div>
+  </div>
+</template>
+
+<style for="package-section">
+package-section {
+  display: block;
+  border-bottom: 1px solid #DDD;
+}
+package-section h4 {
+  margin-top: 10px;
+}
+panel package-section:first-of-type h3:first-of-type {
+  margin-top: 0;
+}
+</style>
