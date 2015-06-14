@@ -16,16 +16,23 @@
   <panel>
     <package-section>
       <h3>Summary</h3>
-      <pair key="main">{{main}}</pair>
-      <pair key="version">{{main}}</pair>
-      <pair key="description">{{main}}</pair>
+      {{#if main}}<pair key="main">{{main}}</pair>{{/if}}
+      {{#if version}}<pair key="version">{{version}}</pair>{{/if}}
+      {{#if description}}<pair key="description">{{description}}</pair>{{/if}}
+
       {{#if author.name}}
       <pair key="author">{{author.name}}</pair>
       {{else}}
       <pair key="author">{{author}}</pair>
       {{/if}}
-      <pair key="analyze">{{analyze}}</pair>
-      <pair key="license">{{license}}</pair>
+
+      {{#if analyze}}<pair key="analyze">{{analyze}}</pair>{{/if}}
+      {{#if license}}<pair key="license">{{license}}</pair>{{/if}}
+      {{#if readmeFilename}}<pair key="readmeFilename">{{readmeFilename}}</pair>{{/if}}
+
+      {{#if _id}}<pair key="_id">{{homepage._id}}</pair>{{/if}}
+      {{#if _shasum}}<pair key="_shasum">{{homepage._shasum}}</pair>{{/if}}
+      {{#if _from}}<pair key="_from">{{homepage._from}}</pair>{{/if}}
     </package-section>
 
     {{#if contributors}}
@@ -61,9 +68,6 @@
     {{#if homepage}}
     <package-section>
       <h4>Homepage</h4>
-      <pair key="_id">{{homepage._id}}</pair>
-      <pair key="_shasum">{{homepage._shasum}}</pair>
-      <pair key="_from">{{homepage._from}}</pair>
     </package-section>
     {{/if}}
 
@@ -119,12 +123,6 @@
         <li><pair key="{{@key}}">{{this}}</pair></li>
       {{/each}}
       </ul>
-    </package-section>
-    {{/if}}
-
-    {{#if readmeFilename}}
-    <package-section>
-      <pair key="readmeFilename">{{readmeFilename}}</pair>
     </package-section>
     {{/if}}
   </panel>
