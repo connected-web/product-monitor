@@ -34,5 +34,8 @@
     "lib",
     "monitoring",
     "images/favicon.ico"
-  ]
+  ],
+  "devDependencies": {
+    "ncp": "^2.0.0"
+  }
 }
