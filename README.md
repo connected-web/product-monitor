@@ -82,7 +82,7 @@ Product monitor started on http://localhost:8080
 3.	Run `node server.js` to start the monitor
 4.	Visit http://localhost:8080
 
-**Warning**: you might miss out on latest updated to the server and documentation if you check out this project directly from github. The recommended method for setting up a monitor is to use NPM.
+**Warning**: you might miss out on the latest updates to the server and its documentation if you check out this project directly from github. The recommended method for setting up a monitor is to use the NPM setup instructions.
 
 Library Credits
 ---------------
