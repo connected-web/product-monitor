@@ -28,35 +28,58 @@ Which amounts to:
 How to get started
 ------------------
 
-### Checkout from github
+### Instructions to create your own product monitor via NPM
+
+To use the latest release of `product-monitor` from NPM (https://www.npmjs.com/package/product-monitor) you can create your own NodeJS project as follows  
+1\. Run `npm init` and enter in your project defaults
+2\. Run `npm install product-monitor --save`  
+3\. Create your own server.js file:  
+```js
+var monitor = require('product-monitor');
+var server = monitor({
+  "serverPort": 8080
+}).listen();
+```
+4\. Run your server using the command `node server.js`, you should see the following output:
+```sh
+[Startup Check] Created user content directory: monitoring
+
+[Startup Step Finished] checkForUserDirectory
+
+[Startup Info] Creating user content directory at monitoring/content
+
+Copying path /content
+
+[Startup Info] Creating user API directory at: monitoring/api
+
+Copying path /api
+
+Copied /content done!
+
+[Startup Step Finished] checkForContentDirectory
+
+Copied /api done!
+
+[Startup Step Finished] checkForApiDirectory
+
+[All Checks Complete]
+
+Product monitor started on http://localhost:8080
+```
+5\.	Visit http://localhost:8080 to see the monitor in action
+
+6\. Now that your server is running, read the supplied documentation, and try out the examples!
+
+![Product Monitor Example](images/product-monitor-documentation-example.png)
+
+### Instructions to use a checkout from github
 
 1.	Check out (or fork) this project
 2.	From the project root, run: `npm install`
 3.	Run `node server.js` to start the monitor
 4.	Visit http://localhost:8080
 
-### Using product monitor via NPM
-
-To use the latest release of `product-monitor` from NPM (https://www.npmjs.com/package/product-monitor) you can create your own NodeJS project as follows  
-1\. Run `npm init`  
-2\. Run `npm install product-monitor --save`  
-3\. Create your own server.js file:  
-```js
-    var monitor = require('product-monitor');
-    var server = monitor({
-      "serverPort": 8080,
-      "contentPath": "monitoring/content/",
-      "statusCacheTimeInSeconds": 60  //optional
-    }).listen();
-```
-4\.	Create your own `index.content.html` content fragment in `monitoring/content/`  
-```html
-  <h3>Endpoints</h3>
-  <status-checker data-url="http://localhost:8080/">Product Monitor</status-checker>
-  <status-checker data-url="http://localhost:8080/some/404">404 Example</status-checker>
-```
-5\.	Run `node server.js` to run your monitor server  
-6\.	Visit http://localhost:8080 to see your monitor in action  
+**Warning**: you might miss out on latest updated to the server and documentation if you check out this project directly from github. The recommended method for setting up a monitor is to use NPM.
 
 Library Credits
 ---------------
@@ -71,6 +94,7 @@ Supplied via Node Package Manager:
 - [md5-node](https://www.npmjs.com/package/md5-node) - for hashing keys in an in-memory cache
 - [request](https://www.npmjs.com/package/request) - for making server side requests to remote domains
 - [utils-merge](https://www.npmjs.com/package/utils-merge) - for merging configuration together with the default config
+- [ncp](https://www.npmjs.com/package/npc) - for copying files used during setup of a new server instance
 
 Compatability
 ----------------
@@ -92,6 +116,6 @@ Compatability
 | IE11     | Seems alright                  |
 | Firefox  | Plays nice                     |
 
-### Why does my nested component not work inside X...
+### Support and Feedback
 
-Nesting handlebar templates doesn't work. Don't do it. I've lost lots of time trying to debug this, I don't have a good solution. Having separately declared templates, and then referring them using declarative tags seems well supported though. The simplicity comes from having familiar, easy-to-template, data-driven templates that you can reuse right away. Its good fun once you get the hang of it!
+Please get in touch for support and feedback by raising an issue here on this github project.
