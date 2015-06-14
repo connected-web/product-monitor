@@ -10,4 +10,4 @@ var server = monitor({
   "userContentPath": "monitoring",
   "statusCacheTimeInSeconds": 60,
   "octoCredits": octoCreditsConfig
-}).listen();
+});
