@@ -6,4 +6,10 @@ var monitor = require('product-monitor');
   var server = monitor(customConfig);
 */
 
-var server = monitor();
+var optionalServerConfig = {
+  "productInformation": {
+    "title": "Example Monitor"
+  }
+};
+
+var server = monitor(optionalServerConfig);

@@ -9,5 +9,8 @@ var server = monitor({
   "modulePath": "monitoring",
   "userContentPath": "monitoring",
   "statusCacheTimeInSeconds": 60,
-  "octoCredits": octoCreditsConfig
+  "octoCredits": octoCreditsConfig,
+  "productInformation": {
+    "title": "Dev Monitor"
+  }
 });
