@@ -6,13 +6,13 @@
 <template tagName="express-routes" data-source-type="json">
   {{#each routes}}
   {{#if route.path}}
-    <route server="http://localhost:8080" path="{{route.path}}"></route>
+    <route path="{{route.path}}"></route>
   {{/if}}
   {{/each}}
 </template>
 
 <template tagName="route" data-source-type="json">
-  <status-checker data-url="{{server}}{{path}}">{{path}}</status-checker>
+  <status-checker data-url="{{path}}">{{path}}</status-checker>
 </template>
 
 <template tagName="pair">

@@ -10,20 +10,27 @@
 <template tagName="octo-credits" data-source-template="/api/octoCredits/{{data-user}}/{{data-repo}}" refresh-time="300">
   <p>Credits for <b>{{data-user}}</b>/<b>{{data-repo}}</b> : </p>
   <p>
-  {{#unless data}}
-    <b>{{dataSourceStatus}}</b>
+  {{#unless data.error}}
+    {{#unless data}}
+      <b>{{dataSourceStatus}}</b>
+    {{/unless}}
+    {{#each data}}
+      <a href="{{html_url}}" class="octo-credits-link">
+        <button class="btn btn-primary octo-credits-button">
+          <img src="{{avatar}}" alt="{{name}}" style="max-height: 30px;" />
+          <span class="octo-credits-name">{{name}}</span>
+          <span class="badge octo-credits-commits">{{commits}}</span>
+          <span class="badge octo-credits-additions">{{additions}}</span>
+          <span class="badge octo-credits-deletions">{{deletions}}</span>
+        </button>
+      </a>
+    {{/each}}
   {{/unless}}
-  {{#each data}}
-    <a href="{{html_url}}" class="octo-credits-link">
-      <button class="btn btn-primary octo-credits-button">
-        <img src="{{avatar}}" alt="{{name}}" style="max-height: 30px;" />
-        <span class="octo-credits-name">{{name}}</span>
-        <span class="badge octo-credits-commits">{{commits}}</span>
-        <span class="badge octo-credits-additions">{{additions}}</span>
-        <span class="badge octo-credits-deletions">{{deletions}}</span>
-      </button>
-    </a>
-  {{/each}}
+
+  {{#if data.error}}
+  <b>Error: was unable to retrieve credits, you may need to refresh.</b>
+  <pre>{{dataSourceData}}</pre>
+  {{/if}}
   </p>
 </template>
 
