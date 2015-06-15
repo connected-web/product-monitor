@@ -15,7 +15,7 @@
   {{/unless}}
   {{#each data}}
     <a href="{{html_url}}" class="octo-credits-link">
-      <button class="btn btn-primary">
+      <button class="btn btn-primary octo-credits-button">
         <img src="{{avatar}}" alt="{{name}}" style="max-height: 30px;" />
         <span class="octo-credits-name">{{name}}</span>
         <span class="badge octo-credits-commits">{{commits}}</span>
@@ -33,5 +33,6 @@
   span.badge.octo-credits-additions { background-color: black; color: white; }
   span.badge.octo-credits-deletions { background-color: green; color: white; }
   a.octo-credits-link { text-decoration: none; }
+  button.octo-credits-button { margin-bottom: 5px; }
   octo-credits-key > div.well { display: inline-block; padding: 12px; }
 </style>
