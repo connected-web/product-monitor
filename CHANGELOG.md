@@ -2,12 +2,15 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* Added error catching block in `<octo-credits></octo-credits>` template
-* Improved styling of `<octo-credits></octo-credits>` for small screens
-* Fix for Issue #14, helping the `/api/statusOf` endpoint to query the local server
+* None at present
 
 Release History
 ---------------
+
+### Release 1.6.9
+* Added error catching block in `<octo-credits></octo-credits>` template
+* Improved styling of `<octo-credits></octo-credits>` for small screens
+* Fix for Issue #14, helping the `/api/statusOf` endpoint to query the local server
 
 ### Release 1.6.8
 15th June 2015
