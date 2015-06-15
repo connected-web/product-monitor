@@ -2,10 +2,18 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* None at present
+* Added error catching block in `<octo-credits></octo-credits>` template
+* Improved styling of `<octo-credits></octo-credits>` for small screens
+* Fix for Issue #14, helping the `/api/statusOf` endpoint to query the local server
 
 Release History
 ---------------
+
+### Release 1.6.8
+15th June 2015
+* Created the changelog
+* Updated `package.json` to use latest version of `octo-credits`
+* Added `deletions` and `additions` badges to `<octo-credits></octo-credits>` component
 
 ### Release 1.6.7
 15th June 2015
