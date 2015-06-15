@@ -41,7 +41,7 @@ To use the latest release of `product-monitor` from NPM (https://www.npmjs.com/p
 var monitor = require('product-monitor');
 var server = monitor({
   "serverPort": 8080
-}).listen();
+});
 ```
 4\. Run your server using the command `node server.js`, you should see the following output:
 ```sh
