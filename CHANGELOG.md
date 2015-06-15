@@ -13,8 +13,10 @@ Release History
 * Added `{{product-title}}` tag to `page-template.html` to set `<title>Page Title</title>` in HTML head
 * Added new server configuration option:
 ```js
-productInformation: {
-  title: "Product Title Goes Here
+{
+  productInformation: {
+    title: "Product Title Goes Here"
+  }
 }
 ```
 
