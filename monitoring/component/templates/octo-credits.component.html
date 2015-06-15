@@ -1,0 +1,37 @@
+<template tagName="octo-credits-key">
+  <div class="well">
+    <b>Key:</b>
+    <span class="badge octo-credits-commits">Commits</span>
+    <span class="badge octo-credits-additions">Additions</span>
+    <span class="badge octo-credits-deletions">Deletions</span>
+  </div>
+</template>
+
+<template tagName="octo-credits" data-source-template="/api/octoCredits/{{data-user}}/{{data-repo}}" refresh-time="300">
+  <p>Credits for <b>{{data-user}}</b>/<b>{{data-repo}}</b> : </p>
+  <p>
+  {{#unless data}}
+    <b>{{dataSourceStatus}}</b>
+  {{/unless}}
+  {{#each data}}
+    <a href="{{html_url}}" class="octo-credits-link">
+      <button class="btn btn-primary">
+        <img src="{{avatar}}" alt="{{name}}" style="max-height: 30px;" />
+        <span class="octo-credits-name">{{name}}</span>
+        <span class="badge octo-credits-commits">{{commits}}</span>
+        <span class="badge octo-credits-additions">{{additions}}</span>
+        <span class="badge octo-credits-deletions">{{deletions}}</span>
+      </button>
+    </a>
+  {{/each}}
+  </p>
+</template>
+
+<style for="octo-credits" and="octo-credits-key">
+  span.octo-credits-name { margin: 0 10px; }
+  span.badge.octo-credits-commits { background-color: white; color: #337ab7; }
+  span.badge.octo-credits-additions { background-color: black; color: white; }
+  span.badge.octo-credits-deletions { background-color: green; color: white; }
+  a.octo-credits-link { text-decoration: none; }
+  octo-credits-key > div.well { display: inline-block; padding: 12px; }
+</style>

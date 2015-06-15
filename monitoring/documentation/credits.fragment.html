@@ -4,21 +4,8 @@
 
 <p>Please reuse the templates on this page to create your own product credits page.</p>
 
+<octo-credits-key></octo-credits-key>
+
 <octo-credits data-user="johnbeech" data-repo="product-monitor"></octo-credits>
 <octo-credits data-user="subsidel" data-repo="octo-credits"></octo-credits>
 <octo-credits data-user="Markavian" data-repo="web-component"></octo-credits>
-
-<template tagName="octo-credits" data-source-template="/api/octoCredits/{{data-user}}/{{data-repo}}" refresh-time="300">
-  <p>Credits for <b>{{data-user}}</b>/<b>{{data-repo}}</b> : </p>
-  <p>
-  {{#each data}}
-    <a href="{{html_url}}">
-      <button class="btn btn-primary">
-        <img src="{{avatar}}" alt="{{name}}" style="max-height: 30px;" />
-        {{name}}
-        <span class="badge">{{commits}}</span>
-      </button>
-    </a>
-  {{/each}}
-  </p>
-</template>
