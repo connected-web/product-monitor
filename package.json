@@ -24,10 +24,10 @@
   "dependencies": {
     "express": "^4.12.4",
     "md5-node": "^1.0.1",
-    "octo-credits": "*",
+    "ncp": "^2.0.0",
+    "octo-credits": "^3.1.0",
     "request": "^2.57.0",
-    "utils-merge": "^1.0.0",
-    "ncp": "^2.0.0"
+    "utils-merge": "^1.0.0"
   },
   "analyze": true,
   "license": "ISC",
