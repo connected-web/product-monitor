@@ -7,6 +7,10 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 1.7.0
+* Upgraded `web-component.js` from 1.0.1 to 1.1.1 to fix memory leak issue with nested data-loading components.
+* Upgraded templates to use `for` attribute instead of `tagName` attribute to comply with deprecation warning in `web-component.js`
+
 ### Release 1.6.9
 * Added error catching block in `<octo-credits></octo-credits>` template
 * Improved styling of `<octo-credits></octo-credits>` for small screens

@@ -89,9 +89,10 @@ Library Credits
 Supplied via CDN:
 - [Bootstrap](http://getbootstrap.com/) - basic styling and layout for client-side components
 - [jQuery](https://jquery.com/) - for remote calls to server to drive components
+- [Handlebars](http://handlebarsjs.com/) - for "minimal templating on steroids"
 - [Node.js](https://nodejs.org/) - for package management and running the server instance
 - [Strapdown.js](http://strapdownjs.com/) - for markdown rendering via `<markdown></markdown>` tags
-- [web-component](https://github.com/Markavian/web-component) - for enriching the client DOM with web component templates, providing the client-side data-loading and rendering logic for the product monitor.
+- [Web Component](https://github.com/Markavian/web-component) - for enriching the client DOM with web component templates, providing the client-side data-loading and rendering logic for the product monitor.
 
 Supplied via Node Package Manager:
 - [Express](http://expressjs.com/) - for defining the server, the api endpoints, and serving up the client
