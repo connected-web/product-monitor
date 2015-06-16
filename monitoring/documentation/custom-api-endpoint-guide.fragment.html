@@ -62,46 +62,46 @@ module.exports = instance;
 <p>This data can then be wired into a custom component template, for more details on this see the <a href="/docs/custom-components-guide">Custom Components Guide</a>.</p>
 
 <!-- Templates go here -->
-<template tagName="criteria">
+<template for="criteria">
   <danger><starred>{{name}}</starred> {{content}}</danger>
 </template>
 
-<template tagName="code-result">
+<template for="code-result">
   <div class="alert alert-success">
     {{content}}
   </div>
 </template>
 
-<template tagName="danger">
+<template for="danger">
   <div class="alert alert-danger">
     {{content}}
   </div>
 </template>
 
-<template tagName="warning">
+<template for="warning">
   <div class="alert alert-warning">
     {{content}}
   </div>
 </template>
 
-<template tagName="fired">
+<template for="fired">
   <iconed icon="fire">{{content}}</iconed>
 </template>
 
-<template tagName="starred">
+<template for="starred">
   <iconed icon="star">{{content}}</iconed>
 </template>
 
-<template tagName="flagged">
+<template for="flagged">
   <iconed icon="flag">{{content}}</iconed>
 </template>
 
-<template tagName="iconed">
+<template for="iconed">
   <span class="glyphicon glyphicon-{{icon}}"></span>
   <strong>{{content}}</strong>
 </template>
 
-<template tagName="alert">
+<template for="alert">
   <div class="alert alert-{{type}}">
     {{content}}
   </div>

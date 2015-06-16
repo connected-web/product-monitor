@@ -4,14 +4,14 @@
 <p>Using template tags, you can declare content as variables, and have them written into your page.</p>
 <p>This template, for example:</p>
 <pre code>
-<template tagName="greeting" my-icon="flag">
+<template for="greeting" my-icon="flag">
   <span class="glyphicon glyphicon-{{my-icon}}"></span>
   <b>{{my-data-greeting}}</b> <i>{{my-data-name}}</i>
 </template>
 </pre>
 
 <!-- Actual template for above example -->
-<template tagName="greeting" my-icon="flag">
+<template for="greeting" my-icon="flag">
   <span class="glyphicon glyphicon-{{my-icon}}"></span>
   <b>{{my-data-greeting}}</b> <i>{{my-data-name}}</i>
 </template>
@@ -33,14 +33,14 @@
 <h3>Data Aware Component with <em>data-source-url</em></h3>
 <p>Here is an example of a data-aware component template, that populates used the supplied data-source-url to populate data into a component:</p>
 <pre code>
-<template tagName="spartan" data-source-url="/api/generateStatusCode?statusCode=117">
+<template for="spartan" data-source-url="/api/generateStatusCode?statusCode=117">
   <b>Status code</b> : <value>{{statusCode}}</value>,
   <b>Message</b> : <value>{{message}}</value>
 </template>
 </pre>
 
 <!-- Actual template for above example -->
-<template tagName="spartan" data-source-url="/api/generateStatusCode?statusCode=117">
+<template for="spartan" data-source-url="/api/generateStatusCode?statusCode=117">
   <b>Status code</b> : <value>{{statusCode}}</value>,
   <b>Message</b> : <value>{{message}}</value>
 </template>
@@ -63,7 +63,7 @@
 <p>Behind the scenes, the component is going off and making AJAX calls using jQuery to load the data. If there's a problem, you can find out through dataSource variables locked on to the object.</p>
 <p>If for example, you change the template to include these values:</p>
 <pre code>
-  <template tagName="mjolnir" data-source-url="/api/generateStatusCode?statusCode=117">
+  <template for="mjolnir" data-source-url="/api/generateStatusCode?statusCode=117">
     <pre><b>Status</b> : {{dataSourceStatus}}</pre>
     <pre><b>Url</b> : {{dataSourceUrl}}</pre>
     <pre><b>Data</b> : {{dataSourceData}}</pre>
@@ -71,7 +71,7 @@
 </pre>
 
 <!-- Actual template for above example -->
-<template tagName="mjolnir" data-source-url="/api/generateStatusCode?statusCode=117">
+<template for="mjolnir" data-source-url="/api/generateStatusCode?statusCode=117">
   <pre><b>Status</b> : {{dataSourceStatus}}</pre>
   <pre><b>Url</b> : {{dataSourceUrl}}</pre>
   <pre><b>Data</b> : {{dataSourceData}}</pre>
@@ -90,14 +90,14 @@
 <h3>Data Aware Component with <em>data-source-template</em></h3>
 <p>Here's the same component as the <code>spartan</code> example above, but this time using a data-source-template to create its own data-source-url:</p>
 <pre code>
-  <template tagName="spartan-mkii" data-source-template="/api/generateStatusCode?statusCode={{status-code}}">
+  <template for="spartan-mkii" data-source-template="/api/generateStatusCode?statusCode={{status-code}}">
     <b>Status code</b> : <value>{{statusCode}}</value>,
     <b>Message</b> : <value>{{message}}</value>
   </template>
 </pre>
 
 <!-- Actual template for above example -->
-<template tagName="spartan-mkii" data-source-template="/api/generateStatusCode?statusCode={{status-code}}">
+<template for="spartan-mkii" data-source-template="/api/generateStatusCode?statusCode={{status-code}}">
   <b>Status code</b> : <value>{{statusCode}}</value>,
   <b>Message</b> : <value>{{message}}</value>
 </template>
@@ -119,7 +119,7 @@
 <p>Take a look at the page source, and see how this page was written. You'll find that <fired>Component Templates</fired> were used just about everywhere!</p>
 
 <!-- Templates go here -->
-<template tagName="worked-example">
+<template for="worked-example">
   <pre code>{{content}}</pre>
   <p>Which turns into:</p>
   <alert type="success">
@@ -127,36 +127,36 @@
   </alert>
 </template>
 
-<template tagName="code-result">
+<template for="code-result">
   <div class="alert alert-success">
     {{content}}
   </div>
 </template>
 
-<template tagName="warning">
+<template for="warning">
   <div class="alert alert-warning">
     {{content}}
   </div>
 </template>
 
-<template tagName="fired">
+<template for="fired">
   <iconed icon="fire">{{content}}</iconed>
 </template>
 
-<template tagName="starred">
+<template for="starred">
   <iconed icon="star">{{content}}</iconed>
 </template>
 
-<template tagName="flagged">
+<template for="flagged">
   <iconed icon="flag">{{content}}</iconed>
 </template>
 
-<template tagName="iconed">
+<template for="iconed">
   <span class="glyphicon glyphicon-{{icon}}"></span>
   <strong>{{content}}</strong>
 </template>
 
-<template tagName="alert">
+<template for="alert">
   <div class="alert alert-{{type}}">
     {{content}}
   </div>

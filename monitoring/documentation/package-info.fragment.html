@@ -4,7 +4,7 @@
 
 <package-info data-source-url="/api/packageInfo"></package-info>
 
-<template tagName="package-info">
+<template for="package-info">
   {{#if name}}
   <h2>Package Name: {{name}}</h2>
   {{/if}}
@@ -129,11 +129,11 @@
   </panel>
 </template>
 
-<template tagName="pair">
+<template for="pair">
   <p><b>{{key}}</b> : <code>{{content}}</code></p>
 </template>
 
-<template tagName="panel">
+<template for="panel">
   <div class="panel panel-default">
     <div class="panel-body">
       {{content}}

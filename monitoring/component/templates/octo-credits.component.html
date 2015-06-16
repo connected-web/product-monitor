@@ -1,4 +1,4 @@
-<template tagName="octo-credits-key">
+<template for="octo-credits-key">
   <div class="well">
     <b>Key:</b>
     <span class="badge octo-credits-commits">Commits</span>
@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<template tagName="octo-credits" data-source-template="/api/octoCredits/{{data-user}}/{{data-repo}}" refresh-time="300">
+<template for="octo-credits" data-source-template="/api/octoCredits/{{data-user}}/{{data-repo}}" refresh-time="300">
   <p>Credits for <b>{{data-user}}</b>/<b>{{data-repo}}</b> : </p>
   <p>
   {{#unless data.error}}

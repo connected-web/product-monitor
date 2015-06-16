@@ -3,7 +3,7 @@
 
 <express-routes data-source-url="/api/expressRoutes"></express-routes>
 
-<template tagName="express-routes" data-source-type="json">
+<template for="express-routes" data-source-type="json">
   {{#each routes}}
   {{#if route.path}}
     <route path="{{route.path}}"></route>
@@ -11,10 +11,10 @@
   {{/each}}
 </template>
 
-<template tagName="route" data-source-type="json">
+<template for="route" data-source-type="json">
   <status-checker data-url="{{path}}">{{path}}</status-checker>
 </template>
 
-<template tagName="pair">
+<template for="pair">
   <li><b>{{name}}</b> : {{content}}</li>
 </template>

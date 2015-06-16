@@ -3,7 +3,7 @@
 
 <server-information-monitor data-source-url="/api/monitorStatus"></server-information-monitor>
 
-<template tagName="server-information-monitor" refresh-time="15">
+<template for="server-information-monitor" refresh-time="15">
   <div class="alert alert-{{alertType}}" role="alert">
     <h4>Monitor Status</h4>
     <p>Server Age: <label>{{serverAgeInSeconds}}</label> seconds</p>

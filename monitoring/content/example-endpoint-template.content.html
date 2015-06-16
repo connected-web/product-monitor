@@ -10,7 +10,7 @@
   <my-name-is name="Katie"></my-name-is>
 </example>
 
-<template tagName="my-name-is" data-source-template="/api/exampleEndpoint/{{name}}" data-type="json">
+<template for="my-name-is" data-source-template="/api/exampleEndpoint/{{name}}" data-type="json">
   <p>You are <b>{{suppliedName}}</b> of course!</p>
 
   <pre>{{dataSourceData}}</pre>

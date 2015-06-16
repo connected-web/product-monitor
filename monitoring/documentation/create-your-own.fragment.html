@@ -65,7 +65,7 @@ module.exports = instance;</pre>
     <li class="list-group-item">
       <p>Step 1: Define your own custom template, like so:</p>
       <pre code>
-<template tagName="my-name-is" data-source-template="/api/exampleEndpoint/{{name}}" data-type="json">
+<template for="my-name-is" data-source-template="/api/exampleEndpoint/{{name}}" data-type="json">
   <p>You are <b>{{suppliedName}}</b> of course!</p>
 </template></pre>
     </li>
@@ -84,19 +84,19 @@ module.exports = instance;</pre>
 </make>
 
 <!-- Template for above example -->
-<template tagName="my-name-is" data-source-template="/api/exampleEndpoint/{{name}}" data-type="json">
+<template for="my-name-is" data-source-template="/api/exampleEndpoint/{{name}}" data-type="json">
   <p>You are <b>{{suppliedName}}</b> of course!</p>
 </template>
 
 <!-- Custom templates for this page -->
-<template tagName="make">
+<template for="make">
   <h2>Make your own {{title}}</h2>
   <div class="panel panel-default">
     {{content}}
   </div>
 </template>
 
-<template tagName="panel-body">
+<template for="panel-body">
   <div class="panel-body">
     {{content}}
   </div>
