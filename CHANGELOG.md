@@ -7,6 +7,10 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 1.7.2
+18th June 2015
+* Fix for render state of Status Checker and Status Button when server goes offline.
+
 ### Release 1.7.1
 18th June 2015
 * Added apicache as middleware to all registered API endpoints
