@@ -37,8 +37,9 @@ $(function() {
       "0": 'Checking server',
       "200": 'URL Seems OK',
       "404": "File not found",
-      "500": "Server responded with an error: " + JSON.stringify(this.dataSourceData),
-      "502": "The server encountered a problem: " + JSON.stringify(this.dataSourceData)
+      "500": "Server responded with an error: " + this.dataSourceData,
+      "502": "The server encountered a problem: " + this.dataSourceData,
+      "503": "Server is unavailable"
     })[statusCode] || this.dataSourceStatus;
   }
 
@@ -48,11 +49,13 @@ $(function() {
       "200": 'success',
       "404": 'danger',
       "500": 'warning',
-      "502": 'warning'
+      "502": 'warning',
+      "503": 'danger'
     })[this.statusCode] || 'danger';
   }
 
   StatusChecker.prototype.preRenderStep(function() {
+    this.statusCode = (this.dataSourceError === false) ? this.statusCode : 503;
     this.alertType = this.selectAlertType(this.statusCode);
     this.message = this.selectMessage(this.statusCode);
   });

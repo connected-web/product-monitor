@@ -24,11 +24,13 @@ $(function() {
       "200": 'success',
       "300": 'info',
       "400": 'danger',
-      "500": 'warning'
+      "500": 'warning',
+      "503": 'danger'
     })[severity] || 'danger';
   }
 
   StatusButton.prototype.preRenderStep(function() {
+    this.statusCode = (this.dataSourceError === false) ? this.statusCode : 503;
     this.alertType = this.selectAlertType(this.statusCode);
   });
 
