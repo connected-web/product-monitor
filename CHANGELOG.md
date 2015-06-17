@@ -15,8 +15,16 @@ Release History
 18th June 2015
 * Added apicache as middleware to all registered API endpoints
 * Default caching is set to `1 hour` for all registered `/api/` routes
-* Added optional `instance.cacheDuration` property that can be set cacheDuration for individual endpoints.
+* Added optional `instance.cacheDuration` property that can be set cacheDuration for individual endpoints in the form `[length] [unit]`, e.g. `30 seconds`, `10 minutes`, `1 hour`, `1 day`, etc.
 * Fixed broken documentation link in `index.content.html` when starting a new project.
+* **Removed** config property `statusCacheTimeInSeconds` in favour of `apicache` config:
+    ```js
+    "apiCache": {
+      debug: false,
+      enabled: true,
+      defaultDuration: 3600000 // in ms, 3600 seconds, 1 hour
+   }
+   ```
 
 ### Release 1.7.0
 17th June 2015
