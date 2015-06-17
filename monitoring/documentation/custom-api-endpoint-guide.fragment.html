@@ -5,13 +5,15 @@
 
 <p>For endpoints to be compatable with the server, they must meet the following criteria:</p>
 
-<criteria name="Must return an instance object">, i.e. <code>module.exports = {}</code></criteria>
+<requirement name="Must return an instance object">, i.e. <code>module.exports = {}</code></requirement>
 
-<criteria name="Must provide a route string">, i.e. <code>instance.route = "/api/my-route";</code> - this defines the endpoint that your script will run on.</criteria>
+<requirement name="Must provide a route string">, i.e. <code>instance.route = "/api/my-route";</code> - this defines the endpoint that your script will run on.</requirement>
 
-<criteria name="Must provide a configure function">, i.e. <code>instance.configure = function(config) {...}</code> - this allows config values to be passed in from the server instance, such as secure keys or passwords.</criteria>
+<optional name="Optional: provide a cacheDuration string">, i.e. <code>instance.cacheTime = "10 minutes"</code> - by default 1 hour caching is enabled on all new PI endpoints, you can change this value by passing in <code>[length] [unit]</code> as a string, for example "30 seconds", "5 minutes", "2 hours", etc..</optional>
 
-<criteria name="Must provide a render function">, i.e. <code>instance.render = function(req, res) {...}</code> - this is where you get to apply custom logic, based on a request, and form an appropriate response.</criteria>
+<requirement name="Must provide a configure function">, i.e. <code>instance.configure = function(config) {...}</code> - this allows config values to be passed in from the server instance, such as secure keys or passwords.</requirement>
+
+<requirement name="Must provide a render function">, i.e. <code>instance.render = function(req, res) {...}</code> - this is where you get to apply custom logic, based on a request, and form an appropriate response.</requirement>
 
 <code-result>
   <p><flagged></flagged> This information is passed through to an <b><a href="http://expressjs.com/api.html">Express JS</a> server instance</b>, and is registered with the server using following steps:</p>
@@ -62,8 +64,12 @@ module.exports = instance;
 <p>This data can then be wired into a custom component template, for more details on this see the <a href="/docs/custom-components-guide">Custom Components Guide</a>.</p>
 
 <!-- Templates go here -->
-<template for="criteria">
-  <danger><starred>{{name}}</starred> {{content}}</danger>
+<template for="requirement">
+  <danger><iconed icon="heart">{{name}}</iconed> {{content}}</danger>
+</template>
+
+<template for="optional">
+  <warning><iconed icon="cog">{{name}}</iconed> {{content}}</warning>
 </template>
 
 <template for="code-result">
@@ -100,6 +106,10 @@ module.exports = instance;
   <span class="glyphicon glyphicon-{{icon}}"></span>
   <strong>{{content}}</strong>
 </template>
+
+<style for="iconed">
+iconed > span.glyphicon { font-size: 150%; vertical-align: top; }
+</style>
 
 <template for="alert">
   <div class="alert alert-{{type}}">

@@ -8,7 +8,11 @@ var server = monitor({
   "serverPort": 8080,
   "modulePath": "monitoring",
   "userContentPath": "monitoring",
-  "statusCacheTimeInSeconds": 60,
+  "apiCache": {
+    debug: true,
+    enabled: true,
+    defaultDuration: 300000 // in ms, 300 seconds, 5 minutes
+  },
   "octoCredits": octoCreditsConfig,
   "productInformation": {
     "title": "Dev Monitor"

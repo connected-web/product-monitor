@@ -3,6 +3,7 @@ var instance = function() {}
 var server = false;
 
 instance.route = '/api/exampleEndpoint/:name';
+instance.cacheDuration = "1 hour";
 
 instance.configure = function(config) {
   server = config.server;
