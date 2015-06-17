@@ -7,6 +7,13 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 1.7.1
+18th June 2015
+* Added apicache as middleware to all registered API endpoints
+* Default caching is set to `1 hour` for all registered `/api/` routes
+* Added optional `instance.cacheDuration` property that can be set cacheDuration for individual endpoints.
+* Fixed broken documentation link in `index.content.html` when starting a new project.
+
 ### Release 1.7.0
 17th June 2015
 * Upgraded `web-component.js` from 1.0.1 to 1.1.1 to fix memory leak issue with nested data-loading components.
