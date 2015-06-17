@@ -40,7 +40,10 @@ To use the latest release of `product-monitor` from NPM (https://www.npmjs.com/p
 ```js
 var monitor = require('product-monitor');
 var server = monitor({
-  "serverPort": 8080
+  "serverPort": 8080,
+  "productInformation": {
+    "title": "My Product Monitor",
+  }
 });
 ```
 4\. Run your server using the command `node server.js`, you should see the following output:
@@ -67,7 +70,7 @@ Copied /api done!
 
 [All Checks Complete]
 
-Product monitor started on http://localhost:8080
+My Product Monitor started on http://localhost:8080
 ```
 5\.	Visit http://localhost:8080 to see the monitor in action
 
