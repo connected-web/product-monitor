@@ -13,7 +13,7 @@ Key Features
 * API endpoints loaded dynamically by scanning `/api` folder
 * Add a single javascript file to create custom JSON `/api/` endpoints
 * Variable in-memory caching on all custom `/api/` endpoints
-* Component Showcase and document served up through client
+* Component Showcase and documentation served up through client
 * Extremely simple wiring to load JSON data from custom templates, e.g. adding:
     ```html
     <template for="custom-web-component"><h2>{{name}}</h2><pre>{{dataSourceData}}</pre></template>
