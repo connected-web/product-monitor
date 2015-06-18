@@ -3,7 +3,29 @@ Product Monitor
 
 A HTML/JavaScript template for monitoring a product by encouraging product developers to gather all the information about the status of a product. The idea is to provide components to bring live monitoring, statistics, endpoints, and test results all into one place.
 
-Uses a pattern of HTML/JavaScript components which can be created and customised in order to use your own declarative XML tags to create a monitor customised to your project's needs.
+Uses a pattern of HTML/JavaScript components connected to custom JSON /api/ endpoints which can be created and customised in order to use your own declarative HTML templates to create a monitor customised to your project's needs.
+
+Key Features
+------------
+* Minimal setup
+* Write simple HTML to configure your monitor
+* Navigation generated dynamically by scanning `/content` folder
+* API endpoints loaded dynamically by scanning `/api` folder
+* Add a single javascript file to create custom JSON `/api/` endpoints
+* Variable in-memory caching on all custom `/api/` endpoints
+* Component Showcase and document served up through client
+* Extremely simple wiring to load JSON data from custom templates, e.g. adding:
+    ```html
+    <template for="custom-web-component"><h2>{{name}}</h2><pre>{{dataSourceData}}</pre></template>
+    ```
+    Will enable data loading on:
+    ```html
+    <custom-web-component data-source-url="/api/packageInfo"></custom-web-component>
+    ```
+    *(No custom javascript required)*
+    
+* Bootstrap look and feel, using all their CSS advice and best practice
+* Handlebar templates for rendering complex JSON data 
 
 What it looks like out of the box
 ---------------------------------
