@@ -65,7 +65,8 @@ var server = monitor({
   "serverPort": 8080,
   "productInformation": {
     "title": "My Product Monitor",
-  }
+  },
+  "userContentPath": "user-content"
 });
 ```
 4\. Run your server using the command `node server.js`, you should see the following output:

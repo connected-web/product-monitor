@@ -7,6 +7,21 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 1.8.0
+22nd June 2015
+* [Breaking Change] Changed default `userContentPath` from `monitoring` to `user-content`
+* This will mis-configure a server if the server is using the default path
+* To fix add the `userContentPath` config option when starting your server, or rename your user content directory, e.g:
+  ```js
+  var optionalServerConfig = {
+    "productInformation": {
+      "title": "Example Monitor"
+    },
+    "userContentPath": "user-content"
+  };
+  server = monitor(optionalServerConfig);
+  ```
+
 ### Release 1.7.2
 18th June 2015
 * Fix for render state of Status Checker and Status Button when server goes offline.

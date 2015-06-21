@@ -9,7 +9,8 @@ var monitor = require('product-monitor');
 var optionalServerConfig = {
   "productInformation": {
     "title": "Example Monitor"
-  }
+  },
+  "userContentPath": "user-content"
 };
 
 var server = monitor(optionalServerConfig);
