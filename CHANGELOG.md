@@ -7,7 +7,7 @@ Product Monitor Changelog
 Release History
 ---------------
 
-### Release 1.8.0
+### Release 1.8.1
 22nd June 2015
 * [Breaking Change] Changed default `userContentPath` from `monitoring` to `user-content`
 * This will mis-configure a server if the server is using the default path
