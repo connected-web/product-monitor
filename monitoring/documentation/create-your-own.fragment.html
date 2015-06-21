@@ -7,7 +7,7 @@
     Its as easy as...
   </panel-body>
   <ul class="list-group">
-    <li class="list-group-item">Step 1: Find the <b>monitoring/content/</b> folder in your server.</li>
+    <li class="list-group-item">Step 1: Find the <b><user-content-path></user-content-path>/content/</b> folder in your server.</li>
     <li class="list-group-item">Step 2: Create a new HTML file with the name format: <b>page-name.content.html</b></li>
     <li class="list-group-item">Step 3: Add a mixture of HTML tags and custom components - to monitor the status of your product.</li>
   </ul>
@@ -19,7 +19,7 @@
   </panel-body>
 
   <ul class="list-group">
-    <li class="list-group-item">Step 1: Find the <b>monitoring/api/</b> folder in your server.</li>
+    <li class="list-group-item">Step 1: Find the <b><user-content-path></user-content-path>/api/</b> folder in your server.</li>
     <li class="list-group-item"><p>Step 2: Use this template to create a new JS file with the name format: <b>my-endpoint.js</b></p>
       <pre code language="javascript">
 var instance = function() {}
@@ -70,7 +70,7 @@ module.exports = instance;</pre>
 </template></pre>
     </li>
     <li class="list-group-item">
-      <p>Step 2: Add your custom tag, and the template to a page, e.g. by editing <b>monitoring/content/index.html</b>:</p>
+      <p>Step 2: Add your custom tag, and the template to a page, e.g. by editing <b><user-content-path></user-content-path>/content/index.html</b>:</p>
       <pre code>
 <my-name-is name="Tim"></my-name-is></pre>
     </li>

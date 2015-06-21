@@ -23,9 +23,9 @@ Key Features
     <custom-web-component data-source-url="/api/packageInfo"></custom-web-component>
     ```
     *(No custom javascript required)*
-    
+
 * Bootstrap look and feel, using all their CSS advice and best practice
-* Handlebar templates for rendering complex JSON data 
+* Handlebar templates for rendering complex JSON data
 
 What it looks like out of the box
 ---------------------------------
@@ -74,11 +74,11 @@ var server = monitor({
 
 [Startup Step Finished] checkForUserDirectory
 
-[Startup Info] Creating user content directory at monitoring/content
+[Startup Info] Creating user content directory at user-content/content
 
 Copying path /content
 
-[Startup Info] Creating user API directory at: monitoring/api
+[Startup Info] Creating user API directory at: user-content/api
 
 Copying path /api
 

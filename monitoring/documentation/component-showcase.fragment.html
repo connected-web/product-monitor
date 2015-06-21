@@ -1,17 +1,17 @@
 <h1>Component Showcase</h1>
 
 <example name="Status Checker">
-  <status-checker data-url="http://localhost:8080/">Can monitor its own server</status-checker>
+  <status-checker data-url="/">Can monitor its own server</status-checker>
   <status-checker data-url="https://google.com?#safe=off&q=product-monitor">Can monitor google</status-checker>
-  <status-checker data-url="http://localhost:8080/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
+  <status-checker data-url="/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
   <status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
 </example>
 
 <example name="Status Button">
   <p>A button form of the Status Checker, which can be clicked to view the link in a new window.</p>
-    <status-button glyph-icon="flag" data-url="http://localhost:8080/">Monitor {{statusCode}}</status-button>
+    <status-button glyph-icon="flag" data-url="/">Monitor {{statusCode}}</status-button>
     <status-button glyph-icon="eye-open" data-url="https://google.com?#safe=off&q=product-monitor">Google {{statusCode}}</status-button>
-    <status-button glyph-icon="eye-close" data-url="http://localhost:8080/api/generateStatusCode?statusCode=404">Not Found? {{statusCode}}</status-button>
+    <status-button glyph-icon="eye-close" data-url="/api/generateStatusCode?statusCode=404">Not Found? {{statusCode}}</status-button>
     <status-button glyph-icon="flag" data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button>
 </example>
 

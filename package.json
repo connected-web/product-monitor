@@ -24,6 +24,7 @@
   "dependencies": {
     "apicache": "0.0.12",
     "express": "^4.12.4",
+    "handlebars": "^3.0.3",
     "md5-node": "^1.0.1",
     "ncp": "^2.0.0",
     "octo-credits": "^3.1.0",

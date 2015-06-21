@@ -38,20 +38,20 @@ $(function() {
       "200": 'URL Seems OK',
       "404": "File not found",
       "500": "Server responded with an error: " + this.dataSourceData,
-      "502": "The server encountered a problem: " + this.dataSourceData,
       "503": "Server is unavailable"
     })[statusCode] || this.dataSourceStatus;
   }
 
   StatusChecker.prototype.selectAlertType = function(statusCode) {
+    var severity = Math.round(statusCode / 100) * 100;
     return ({
       "0": 'info',
+      "100": 'primary',
       "200": 'success',
-      "404": 'danger',
-      "500": 'warning',
-      "502": 'warning',
-      "503": 'danger'
-    })[this.statusCode] || 'danger';
+      "300": 'info',
+      "400": 'danger',
+      "500": 'warning'
+    })[severity] || 'danger';
   }
 
   StatusChecker.prototype.preRenderStep(function() {

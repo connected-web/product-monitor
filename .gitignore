@@ -1,3 +1,5 @@
 node_modules
 secret
-test/example-monitor/monitoring
+test/example-monitor/user-content
+user-content
+

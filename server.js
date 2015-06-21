@@ -7,7 +7,7 @@ var octoCreditsConfig = lazyLoad.json('./secret/github-access-token.json', { acc
 var server = monitor({
   "serverPort": 8080,
   "modulePath": "monitoring",
-  "userContentPath": "monitoring",
+  "userContentPath": "user-content",
   "apiCache": {
     debug: true,
     enabled: true,
