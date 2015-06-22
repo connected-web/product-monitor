@@ -7,6 +7,12 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 1.8.2
+22nd June 2015
+* Reintroduced the Jumbotron component `<jumbotron>Super-sized content goes here</jumbotron>`
+* Styled the jumbotron correctly by shifting content around within the page.
+* Updated the out-of-the-box help and advice in `index.content.html`
+
 ### Release 1.8.1
 22nd June 2015
 * [Breaking Change] Changed default `userContentPath` from `monitoring` to `user-content`
