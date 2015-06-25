@@ -45,20 +45,29 @@ Can be rendered:
 
 </markdown>
 ```
+
+Tables:
+
+| Key   | Value   |
+| ----- | ------- |
+| Work  | As well |
+| Like  | So :)   |
+
+Code highlighting provided by Highlight JS:
+```js
+// Synchronous highlighting with highlight.js
+if(typeof hljs !== "undefined") {
+  marked.setOptions({
+    highlight: function (code) {
+      return hljs.highlightAuto(code).value;
+    }
+  });
+}
+```
+
   </markdown>
 </example>
 
-
-  <markdown>
-Markdown content
-================
-
-Can be rendered:
-* Like so
-* Just by
-* Adding tags
-
-  </markdown>
 
 <example name="Example">
   <example name="Name of the example">
