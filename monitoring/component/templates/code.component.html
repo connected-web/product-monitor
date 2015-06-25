@@ -1,9 +1,31 @@
+<template for="code">{{{code}}}</template>
+
 <script type="text/javascript">
+$(function() {
+  var replaceHtmlEntities = function(content) {
+    return String(content).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  var replaceEntitiesWithHtml = function(content) {
+    return String(content).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+  }
 
-var replaceHtmlEntities = function() {
-  return String($(this).html()).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
+  $('pre[code], code').html(function() {
+    $(this).html(replaceHtmlEntities);
+  });
 
-$('pre[code], code').html(replaceHtmlEntities);
+  var CodeComponent = Component.configure("code");
 
+  CodeComponent.on('preRenderStep', function(instance) {
+    if(typeof hljs !== "undefined") {
+      // Use code highlighting with highlight.js
+      var code = replaceEntitiesWithHtml(instance.content);
+      instance.code = hljs.highlightAuto(code).value;
+    }
+    else {
+      // Replace out odd characters from inside <code> blocks
+      instance.code = replaceHtmlEntities(instance.content);
+    }
+  });
+
+});
 </script>

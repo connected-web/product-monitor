@@ -36,15 +36,6 @@ $(function() {
       }
     }
 
-    // Synchronous highlighting with highlight.js
-    if(typeof hljs !== "undefined") {
-      marked.setOptions({
-        highlight: function (code) {
-          return hljs.highlightAuto(code).value;
-        }
-      });
-    }
-
     instance.markdown = marked(instance.content);
   });
 
