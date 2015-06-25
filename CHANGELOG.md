@@ -7,6 +7,11 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Unreleased Changes
+25th June 2015
+* Upgraded web-component.js to version 1.1.3
+* Fixed deprecation warnings caused by web-component.js version 1.1.3
+
 ### Release 1.8.2
 22nd June 2015
 * Reintroduced the Jumbotron component `<jumbotron>Super-sized content goes here</jumbotron>`
