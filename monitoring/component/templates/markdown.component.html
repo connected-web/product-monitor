@@ -1,0 +1,24 @@
+<script type="text/javascript">
+$(function() {
+  var MarkdownComponent = Component.configure("markdown");
+
+  MarkdownComponent.on('preRenderStep', function(instance) {
+    if(typeof marked === "undefined") {
+      var suggestedCDN = "https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js";
+      marked = function() {
+        return 'This markdown component requires the JavaScript marked library, please include the following into your page: ' + suggestedCDN;
+      }
+    }
+    instance.markdown = marked(instance.content);
+
+    console.log("Markdown: " + instance.markdown);
+  });
+
+  MarkdownComponent.apply(function(instance) {
+    instance.render();
+  });
+});
+
+</script>
+
+<template for="markdown">{{{markdown}}}</template>
