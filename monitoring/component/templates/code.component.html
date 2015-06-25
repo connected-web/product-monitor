@@ -10,7 +10,7 @@ $(function() {
   }
 
   $('pre[code], code').html(function() {
-    $(this).html(replaceHtmlEntities);
+    return replaceHtmlEntities(this.html());
   });
 
   var CodeComponent = Component.configure("code");
