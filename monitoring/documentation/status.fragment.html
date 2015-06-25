@@ -28,7 +28,7 @@ $(function() {
     this.alertType = "info";
   }
 
-  ServerInformationMonitor.prototype.preRenderStep(function() {
+  ServerInformationMonitor.on('preRenderStep', function() {
     this.serverHash = this.monitorHash || false;
 
     if(this.dataSourceError !== false) {

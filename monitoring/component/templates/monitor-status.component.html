@@ -23,7 +23,7 @@ $(function() {
     }, 1500);
   }
 
-  MonitorStatus.prototype.preRenderStep(function() {
+  MonitorStatus.on('preRenderStep', function() {
     this.serverHash = this.monitorHash || false;
 
     if(this.dataSourceError !== false) {
