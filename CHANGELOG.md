@@ -7,7 +7,8 @@ Product Monitor Changelog
 Release History
 ---------------
 
-### Unreleased Changes
+### Release 1.8.2
+26th June 2015
 * Upgraded web-component.js to version 1.1.3
 * Fixed deprecation warnings caused by web-component.js version 1.1.3
 * Added styling for code blocks using Highlight.js
