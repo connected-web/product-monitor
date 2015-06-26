@@ -10,7 +10,7 @@ $(function() {
   }
 
   $('pre[code], code').html(function() {
-    return replaceHtmlEntities($(this).html());
+    return replaceHtmlEntities(this.innerHTML.toString());
   });
 
   var CodeComponent = Component.configure("code");
@@ -25,6 +25,10 @@ $(function() {
       // Replace out odd characters from inside <code> blocks
       instance.code = replaceHtmlEntities(instance.content);
     }
+  });
+
+  CodeComponent.apply(function(instance) {
+    instance.render();
   });
 
 });
