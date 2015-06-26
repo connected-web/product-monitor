@@ -13,124 +13,122 @@
   <h2>No name set on package</h2>
   {{/unless}}
 
-  <panel>
-    <package-section>
-      <h3>Summary</h3>
-      {{#if main}}<pair key="main">{{main}}</pair>{{/if}}
-      {{#if version}}<pair key="version">{{version}}</pair>{{/if}}
-      {{#if description}}<pair key="description">{{description}}</pair>{{/if}}
+  <package-section>
+    <h3>Summary</h3>
+    {{#if main}}<pair key="main">{{main}}</pair>{{/if}}
+    {{#if version}}<pair key="version">{{version}}</pair>{{/if}}
+    {{#if description}}<pair key="description">{{description}}</pair>{{/if}}
 
-      {{#if author.name}}
-      <pair key="author">{{author.name}}</pair>
-      {{else}}
-      <pair key="author">{{author}}</pair>
-      {{/if}}
-
-      {{#if analyze}}<pair key="analyze">{{analyze}}</pair>{{/if}}
-      {{#if license}}<pair key="license">{{license}}</pair>{{/if}}
-      {{#if readmeFilename}}<pair key="readmeFilename">{{readmeFilename}}</pair>{{/if}}
-
-      {{#if _id}}<pair key="_id">{{_id}}</pair>{{/if}}
-      {{#if _shasum}}<pair key="_shasum">{{_shasum}}</pair>{{/if}}
-      {{#if _from}}<pair key="_from">{{_from}}</pair>{{/if}}
-    </package-section>
-
-    {{#if contributors}}
-    <package-section>
-      <h4>Contributors</h4>
-      <ul>
-      {{#each contributors}}
-        <li><a href="mailto:{{email}}">{{name}}</a></li>
-      {{/each}}
-      </ul>
-    </package-section>
+    {{#if author.name}}
+    <pair key="author">{{author.name}}</pair>
+    {{else}}
+    <pair key="author">{{author}}</pair>
     {{/if}}
 
-    {{#if repository}}
-    <package-section>
-      <h4>Repository</h4>
-      <ul>
-        <li><pair key="{{repository.type}}"><a href="{{repository.url}}">{{repository.url}}</a></pair></li>
-      </ul>
-      {{#if gitHead}}
-      <pair key="gitHead">{{gitHead}}</pair>
-      {{/if}}
-    </package-section>
-    {{/if}}
+    {{#if analyze}}<pair key="analyze">{{analyze}}</pair>{{/if}}
+    {{#if license}}<pair key="license">{{license}}</pair>{{/if}}
+    {{#if readmeFilename}}<pair key="readmeFilename">{{readmeFilename}}</pair>{{/if}}
 
-    {{#if bugs.url}}
-    <package-section>
-      <h4>Bug reporting</h4>
-      <p><a href="{{bugs.url}}">{{bugs.url}}</a></p>
-    </package-section>
-    {{/if}}
+    {{#if _id}}<pair key="_id">{{_id}}</pair>{{/if}}
+    {{#if _shasum}}<pair key="_shasum">{{_shasum}}</pair>{{/if}}
+    {{#if _from}}<pair key="_from">{{_from}}</pair>{{/if}}
+  </package-section>
 
-    {{#if homepage}}
-    <package-section>
-      <h4>Homepage</h4>
-      <p><a href="{{homepage}}">{{homepage}}</a></p>
-    </package-section>
-    {{/if}}
+  {{#if contributors}}
+  <package-section>
+    <h4>Contributors</h4>
+    <ul>
+    {{#each contributors}}
+      <li><i><a href="mailto:{{email}}">{{name}}</a> ({{email}})</i></li>
+    {{/each}}
+    </ul>
+  </package-section>
+  {{/if}}
 
-    {{#if engines}}
-    <package-section>
-      <h4>Engines</h4>
-      <ul>
-      {{#each engines}}
-        <li><pair key="{{@key}}">{{this}}</pair></li>
-      {{/each}}
-      </ul>
-    </package-section>
+  {{#if repository}}
+  <package-section>
+    <h4>Repository</h4>
+    <ul>
+      <li><pair key="{{repository.type}}"><a href="{{repository.url}}">{{repository.url}}</a></pair></li>
+    </ul>
+    {{#if gitHead}}
+    <pair key="gitHead">{{gitHead}}</pair>
     {{/if}}
+  </package-section>
+  {{/if}}
 
-    {{#if dependencies}}
-    <package-section>
-      <h4>Dependencies</h4>
-      <ul>
-      {{#each dependencies}}
-        <li><pair key="{{@key}}">{{this}}</pair></li>
-      {{/each}}
-      </ul>
-    </package-section>
-    {{/if}}
+  {{#if bugs.url}}
+  <package-section>
+    <h4>Bug reporting</h4>
+    <p><a href="{{bugs.url}}">{{bugs.url}}</a></p>
+  </package-section>
+  {{/if}}
 
-    {{#if files}}
-    <package-section>
-      <h4>Files</h4>
-      <ul>
-      {{#each files}}
-        <li>{{this}}</li>
-      {{/each}}
-      </ul>
-    </package-section>
-    {{/if}}
+  {{#if homepage}}
+  <package-section>
+    <h4>Homepage</h4>
+    <p><a href="{{homepage}}">{{homepage}}</a></p>
+  </package-section>
+  {{/if}}
 
-    {{#if devDependencies}}
-    <package-section>
-      <h4>Dev Dependencies</h4>
-      <ul>
-      {{#each devDependencies}}
-        <li><pair key="{{@key}}">{{this}}</pair></li>
-      {{/each}}
-      </ul>
-    </package-section>
-    {{/if}}
+  {{#if engines}}
+  <package-section>
+    <h4>Engines</h4>
+    <ul>
+    {{#each engines}}
+      <li><pair key="{{@key}}">{{this}}</pair></li>
+    {{/each}}
+    </ul>
+  </package-section>
+  {{/if}}
 
-    {{#if scripts}}
-    <package-section>
-      <h4>Scripts</h4>
-      <ul>
-      {{#each scripts}}
-        <li><pair key="{{@key}}">{{this}}</pair></li>
-      {{/each}}
-      </ul>
-    </package-section>
-    {{/if}}
-  </panel>
+  {{#if dependencies}}
+  <package-section>
+    <h4>Dependencies</h4>
+    <ul>
+    {{#each dependencies}}
+      <li><pair key="{{@key}}">{{this}}</pair></li>
+    {{/each}}
+    </ul>
+  </package-section>
+  {{/if}}
+
+  {{#if files}}
+  <package-section>
+    <h4>Files</h4>
+    <ul>
+    {{#each files}}
+      <li><i>{{this}}</li></li>
+    {{/each}}
+    </ul>
+  </package-section>
+  {{/if}}
+
+  {{#if devDependencies}}
+  <package-section>
+    <h4>Dev Dependencies</h4>
+    <ul>
+    {{#each devDependencies}}
+      <li><pair key="{{@key}}">{{this}}</pair></li>
+    {{/each}}
+    </ul>
+  </package-section>
+  {{/if}}
+
+  {{#if scripts}}
+  <package-section>
+    <h4>Scripts</h4>
+    <ul>
+    {{#each scripts}}
+      <li><pair key="{{@key}}">{{this}}</pair></li>
+    {{/each}}
+    </ul>
+  </package-section>
+  {{/if}}
 </template>
 
 <template for="pair">
-  <p><b>{{key}}</b> : <code>{{content}}</code></p>
+  <p><b>{{key}}</b> : <i>{{content}}</i></p>
 </template>
 
 <template for="panel">
@@ -142,14 +140,20 @@
 </template>
 
 <style for="package-section">
-package-section {
-  display: block;
-  border-bottom: 1px solid #DDD;
-}
-package-section h4 {
-  margin-top: 10px;
-}
-panel package-section:first-of-type h3:first-of-type {
-  margin-top: 0;
-}
+  package-section {
+    display: block;
+    border: 1px solid #DDD;
+    border-left: 5px solid #09A;
+    border-radius: 4px;
+    padding: 0 0 5px 10px;
+    margin-bottom: 10px;
+  }
+
+  package-section h4 {
+    margin-top: 10px;
+  }
+
+  package-section:first-of-type h3:first-of-type {
+    margin-top: 10px;
+  }
 </style>
