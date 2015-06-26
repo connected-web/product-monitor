@@ -7,6 +7,9 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Unreleased changes
+* Added `data-contains` property to the `status-checker` and `status-button` components to allow content to be checked for within the body od the `data-url` response.
+
 ### Release 1.8.6
 26th June 2015
 * Upgraded web-component.js to version 1.1.3
