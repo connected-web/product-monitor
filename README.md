@@ -37,10 +37,10 @@ What it looks like out of the box
 Which amounts to:
 ```html
 <h3>Endpoints</h3>
-<status-checker data-url="http://localhost:8080/">Product Monitor</status-checker>
-<status-checker data-url="http://stage.mkv25.net/">Stage Environment</status-checker>
-<status-checker data-url="http://mkv25.net/">Live Environment</status-checker>
-<status-checker data-url="http://mkv25.net/test/a/404">404 Tester</status-checker>
+<status-checker data-url="/">Can monitor its own server</status-checker>
+<status-checker data-url="https://google.com" data-contains="Google">Can monitor google</status-checker>
+<status-checker data-url="/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
+<status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
 ```
 
 ### And with a bit of configuration:
