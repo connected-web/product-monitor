@@ -4,7 +4,7 @@
   <p>The status checker is a pretty beefy looking one-liner that gives you a headline status report.</p>
   <p>
     <status-checker data-url="/">Can monitor its own server</status-checker>
-    <status-checker data-url="https://google.com?#safe=off&q=product-monitor">Can monitor google</status-checker>
+    <status-checker data-url="https://google.com" data-contains="Google">Can monitor google</status-checker>
     <status-checker data-url="/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
     <status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
   </p>
@@ -13,7 +13,7 @@
   <markdown>
 ```html
 <status-checker data-url="/">Can monitor its own server</status-checker>
-<status-checker data-url="https://google.com?#safe=off&q=product-monitor">Can monitor google</status-checker>
+<status-checker data-url="https://google.com" data-contains="Google">Can monitor google</status-checker>
 <status-checker data-url="/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
 <status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
 ```
@@ -25,7 +25,7 @@
     <status-button glyph-icon="flag" data-url="/">Monitor {{statusCode}}</status-button>
     <status-button glyph-icon="eye-open" data-url="https://google.com?#safe=off&q=product-monitor">Google {{statusCode}}</status-button>
     <status-button glyph-icon="eye-close" data-url="/api/generateStatusCode?statusCode=404">Not Found? {{statusCode}}</status-button>
-    <status-button glyph-icon="flag" data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button>
+    <status-button glyph-icon="remove-circle" data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button>
   </p>
 
   <p>The code to make this work looks like:</p>
@@ -34,11 +34,33 @@
 <status-button glyph-icon="flag" data-url="/">Monitor {{statusCode}}</status-button>
 <status-button glyph-icon="eye-open" data-url="https://google.com?#safe=off&q=product-monitor">Google {{statusCode}}</status-button>
 <status-button glyph-icon="eye-close" data-url="/api/generateStatusCode?statusCode=404">Not Found? {{statusCode}}</status-button>
-<status-button glyph-icon="flag" data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button></code>
+<status-button glyph-icon="remove-circle" data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button></code>
 ```
 </markdown>
 
-  <p>Can also be used to check if a page contains expected content.</p>
+  <p>The Status Button also be used to check if a page contains expected content:</p>
+  <p>
+    <status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Create your own">Page Title</status-button>
+    <status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 1">Step 1</status-button>
+    <status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 2">Step 2</status-button>
+    <status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 3">Step 3</status-button>
+    <status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step X</status-button>
+    <status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step Y</status-button>
+    <status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step Z</status-button>
+  </p>
+
+  <p>The code to make this work looks like:</p>
+  <markdown>
+```html
+<status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Create your own">Page Title</status-button>
+<status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 1">Step 1</status-button>
+<status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 2">Step 2</status-button>
+<status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 3">Step 3</status-button>
+<status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step X</status-button>
+<status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step Y</status-button>
+<status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step Z</status-button>
+```
+</markdown>
 </example>
 
 <example name="Monitor Status">

@@ -1,4 +1,4 @@
-<template for="status-checker" data-source-template="/api/statusOf/?url={{data-url}}" refresh-time="25">
+<template for="status-checker" data-source-template="/api/statusOf/?url={{data-url}}{{#if data-contains}}&contains={{data-contains}}{{/if}}" refresh-time="25">
   <div class="alert alert-{{alertType}}" role="alert">
     <div class="row">
       <div class="col-md-6">
@@ -10,7 +10,8 @@
         <span class="status-description">{{content}} (<status>{{statusCode}}</status>)</span>
       </div>
       <div class="col-md-6">
-        <b>{{message}}</b> : {{data-url}}
+        <p><b>{{interpretation}}</b> : {{data-url}}</p>
+        {{#if message}}{{message}}{{/if}}
       </div>
     </div>
   </div>
@@ -57,7 +58,7 @@ $(function() {
   StatusChecker.on('preRenderStep', function() {
     this.statusCode = (this.dataSourceError === false) ? this.statusCode : 503;
     this.alertType = this.selectAlertType(this.statusCode);
-    this.message = this.selectMessage(this.statusCode);
+    this.interpretation = this.selectMessage(this.statusCode);
   });
 
 });

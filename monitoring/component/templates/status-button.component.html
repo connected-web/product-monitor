@@ -1,5 +1,5 @@
-<template for="status-button" data-source-template="/api/statusOf/?url={{data-url}}" glyph-icon="flag">
-  <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}" class="status-button">
+<template for="status-button" data-source-template="/api/statusOf/?url={{data-url}}{{#if data-contains}}&contains={{data-contains}}{{/if}}" refresh-time="25" glyph-icon="flag">
+  <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}{{#if data-contains}} should contain '{{data-contains}}'{{/if}}" class="status-button">
     <button type="button" class="btn btn-{{alertType}}">
       <span class="glyphicon glyphicon-{{glyph-icon}}"></span>
       <span>{{content}}</span>
