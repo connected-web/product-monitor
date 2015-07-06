@@ -7,7 +7,8 @@ Product Monitor Changelog
 Release History
 ---------------
 
-### Unreleased changes
+### Release 1.8.7
+* Set timeout on statusOf calls to 250ms to prevent bad or inaccessible network addresses fouling up the request queue.
 * Added `data-contains` property to the `status-checker` and `status-button` components to allow content to be checked for within the body od the `data-url` response.
 
 ### Release 1.8.6
