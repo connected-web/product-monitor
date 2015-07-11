@@ -22,25 +22,19 @@ body {
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Content <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/">Index</a></li>
-              <li class="divider"></li>
               {{#each navigationItems}}
-              <li><a href="{{href}}">{{linkText}}</a></li>
+              {{#if linkText}}<li><a href="{{href}}">{{linkText}}</a></li>{{/if}}
+              {{#if divider}}<li class="divider"></li>{{/if}}
               {{/each}}
             </ul>
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Server <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/docs/api">API</a></li>
-              <li class="divider"></li>
-              <li><a href="/docs/create-your-own">Create your own</a></li>
-              <li><a href="/docs/component-showcase">Component Showcase</a></li>
-              <li><a href="/docs/custom-components-guide">Custom Components Guide</a></li>
-              <li><a href="/docs/custom-api-endpoint-guide">Custom API Endpoint Guide</a></li>
-              <li class="divider"></li>
-              <li><a href="/docs/package-info">Package Info</a></li>
-              <li><a href="/docs/credits">Credits</a></li>
+              {{#each documentationItems}}
+                {{#if linkText}}<li><a href="{{href}}">{{linkText}}</a></li>{{/if}}
+                {{#if divider}}<li class="divider"></li>{{/if}}
+              {{/each}}
             </ul>
           </li>
         </ul>

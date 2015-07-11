@@ -9,7 +9,7 @@ var server = monitor({
   "modulePath": "monitoring",
   "userContentPath": "user-content",
   "apiCache": {
-    debug: true,
+    debug: false,
     enabled: true,
     defaultDuration: 300000 // in ms, 300 seconds, 5 minutes
   },
