@@ -7,6 +7,11 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 1.8.9
+12th July 2015
+* Fix for / Index link in navigation
+* Fixed links to github in octo-credits tags
+
 ### Release 1.8.8
 11th July 2015
 * Added /api/serverLog endpoint which captures any `console.log(...)` activity and exposes it to the client as JSON
