@@ -21,14 +21,17 @@
 
 <code-result>
   <p><flagged></flagged> This information is passed through to an <b><a href="http://expressjs.com/api.html">Express JS</a> server instance</b>, and is registered with the server using following steps:</p>
-  <p><pre code javascript>
+  <p><markdown>
+```js
 instance.configure(applicationConfig);
-expressServer.get(instance.route, instance.render);</pre></p>
+expressServer.get(instance.route, instance.render);
+```</markdown></p>
 </code-result>
 
 <h3>Example template</h3>
 <p>This is an example of a working API entry:</p>
-<pre code javascript>
+<markdown>
+```js
 var instance = function() {}
 
 var server = false;
@@ -55,15 +58,18 @@ instance.render = function(req, res) {
 }
 
 module.exports = instance;
-</pre>
+```
+</markdown>
 
 <p>The above example works by serving up a custom endpoint on the URL <b>/api/exampleEndpoint/:name</b>, where <code>:name</code> is a dynamic parameter understood by <b>Express JS</b>'s routing system.</p>
 <p>The script takes the <code>:name</code> and returns a data object in the form:</p>
-<pre code json>
+<markdown>
+```json
 {
   "suppliedName": ":name"
 }
-</pre>
+```
+</markdown>
 
 <p>This data can then be wired into a custom component template, for more details on this see the <a href="/docs/custom-components-guide">Custom Components Guide</a>.</p>
 
