@@ -7,6 +7,10 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Unreleased Changes
+11th July 2015
+* Added /api/serverLog endpoint which captures any `console.log(...)` activity and exposes it to the client as JSON
+
 ### Release 1.8.7
 7th July 2015
 * Set timeout on statusOf calls to 250ms to prevent bad or inaccessible network addresses fouling up the request queue.
