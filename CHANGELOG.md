@@ -7,11 +7,12 @@ Product Monitor Changelog
 Release History
 ---------------
 
-### Unreleased Changes
+### Release 1.8.8
 11th July 2015
 * Added /api/serverLog endpoint which captures any `console.log(...)` activity and exposes it to the client as JSON
 * Added support for multiple routes per API file using an array property on `instance.routes`, e.g. to allow: `instance.routes = ['/api/pathOne', '/api/pathOne/:withVariable'];`
 * Added support for registering a method verb on API files using a string property on `instance.method`, e.g. to allow `instance.method = 'post';` or `instance.method = 'put';`. Maps through to `express js` verbs.
+* Upgraded to Web Component JS 1.2.5
 
 ### Release 1.8.7
 7th July 2015
