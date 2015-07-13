@@ -7,6 +7,11 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 1.8.12
+13th July 2015
+* Added support for method parameter on the `/api/statusOf` endpoint, e.g. `/api/statusOf?method=post&url=http://my-website/api/submit`
+* Added support for data-method parameter on the `<status-checker></status-checker>` component, e.g. `<status-checker data-method="put" data-url="http://my-website/api/submit">POST to My Website</status-checker>`
+
 ### Release 1.8.11
 13th July 2015
 * Added additional information to `<status-checker></status-checker>` component based on new information on the `/api/statusOf` endpoint
