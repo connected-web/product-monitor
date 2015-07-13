@@ -1,173 +1,144 @@
 <h1>Component Showcase</h1>
 
 <example name="Status Checker">
-  <p>The status checker is a pretty beefy looking one-liner that gives you a headline status report.</p>
-  <p>
-    <status-checker data-url="/">Can monitor its own server</status-checker>
-    <status-checker data-url="https://google.com" data-contains="Google">Can monitor google</status-checker>
-    <status-checker data-url="/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
-    <status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
-  </p>
-
-  <p>The code to make this work looks like:</p>
-  <markdown>
-```html
-<status-checker data-url="/">Can monitor its own server</status-checker>
-<status-checker data-url="https://google.com" data-contains="Google">Can monitor google</status-checker>
-<status-checker data-url="/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
-<status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
-```
-</example>
-
-<example name="Status Button">
-  <p>A button form of the Status Checker, which can be clicked to view the link in a new window.</p>
-  <p>
-    <status-button glyph-icon="flag" data-url="/">Monitor {{statusCode}}</status-button>
-    <status-button glyph-icon="eye-open" data-url="https://google.com?#safe=off&q=product-monitor">Google {{statusCode}}</status-button>
-    <status-button glyph-icon="eye-close" data-url="/api/generateStatusCode?statusCode=404">Not Found? {{statusCode}}</status-button>
-    <status-button glyph-icon="remove-circle" data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button>
-  </p>
-
-  <p>The code to make this work looks like:</p>
-  <markdown>
-```html
-<status-button glyph-icon="flag" data-url="/">Monitor {{statusCode}}</status-button>
-<status-button glyph-icon="eye-open" data-url="https://google.com?#safe=off&q=product-monitor">Google {{statusCode}}</status-button>
-<status-button glyph-icon="eye-close" data-url="/api/generateStatusCode?statusCode=404">Not Found? {{statusCode}}</status-button>
-<status-button glyph-icon="remove-circle" data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button></code>
-```
-</markdown>
-
-  <p>The Status Button also be used to check if a page contains expected content:</p>
-  <p>
-    <status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Create your own">Page Title</status-button>
-    <status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 1">Step 1</status-button>
-    <status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 2">Step 2</status-button>
-    <status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 3">Step 3</status-button>
-    <status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step X</status-button>
-    <status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step Y</status-button>
-    <status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step Z</status-button>
-  </p>
-
-  <p>The code to make this work looks like:</p>
-  <markdown>
-```html
-<status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Create your own">Page Title</status-button>
-<status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 1">Step 1</status-button>
-<status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 2">Step 2</status-button>
-<status-button glyph-icon="eye-open" data-url="/docs/create-your-own" data-contains="Step 3">Step 3</status-button>
-<status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step X</status-button>
-<status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step Y</status-button>
-<status-button glyph-icon="eye-close" data-url="/docs/create-your-own" data-contains="Step X">Step Z</status-button>
-```
-</markdown>
-</example>
-
-<example name="Monitor Status">
-  <p><monitor-status data-source-url="/api/monitorStatus">Mommy, are you there?</monitor-status></p>
-  <p>The monitor status component is included in all pages by default. It changes colours to indicate if the client is still able to talk to the server.</p>
-  <p>When first loading the page, it'll turn blue, and then turn to green on the next check.<p>
-  <p>If kill your server it will turn red. Upon restarting your server, the monitor will turn yellow, and shortly after restart the client.</p>
+    <p>The status checker is a pretty beefy looking one-liner that gives you a headline status report.</p>
+    <p>
+        <status-checker data-url="/">Can monitor its own server</status-checker>
+        <status-checker data-url="https://google.com" data-contains="Google">Can monitor google</status-checker>
+        <status-checker data-url="/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
+        <status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
+    </p>
 
     <p>The code to make this work looks like:</p>
     <markdown>
-```html
-<monitor-status data-source-url="/api/monitorStatus">Mommy, are you there?</monitor-status>
-```
+        ```html
+        <status-checker data-url="/">Can monitor its own server</status-checker>
+        <status-checker data-url="https://google.com" data-contains="Google">Can monitor google</status-checker>
+        <status-checker data-url="/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
+        <status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
+        ```
+</example>
+
+<example name="Status Button">
+    <p>A button form of the Status Checker, which can be clicked to view the link in a new window.</p>
+    <p>
+        <status-button data-url="/">Monitor {{statusCode}}</status-button>
+        <status-button data-url="https://google.com?#safe=off&q=product-monitor">Google {{statusCode}}</status-button>
+        <status-button data-url="/api/generateStatusCode?statusCode=404">Not Found? {{statusCode}}</status-button>
+        <status-button data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button>
+    </p>
+
+    <p>The code to make this work looks like:</p>
+    <markdown>
+        ```html
+        <status-button data-url="/">Monitor {{statusCode}}</status-button>
+        <status-button data-url="https://google.com?#safe=off&q=product-monitor">Google {{statusCode}}</status-button>
+        <status-button data-url="/api/generateStatusCode?statusCode=404">Not Found? {{statusCode}}</status-button>
+        <status-button data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button>
+        </code>
+        ```
     </markdown>
+
+    <p>The Status Button also be used to check if a page contains <b>expected content</b>:</p>
+    <p>
+        <status-button data-url="/docs/create-your-own" data-contains="Create your own">Page Title</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step 1">Step 1</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step 2">Step 2</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step 3">Step 3</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step X">Step X</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step Y">Step Y</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step Z">Step Z</status-button>
+    </p>
+
+    <p>The code to make this work looks like:</p>
+    <markdown>
+        ```html
+        <status-button data-url="/docs/create-your-own" data-contains="Create your own">Page Title</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step 1">Step 1</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step 2">Step 2</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step 3">Step 3</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step X">Step X</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step Y">Step Y</status-button>
+        <status-button data-url="/docs/create-your-own" data-contains="Step Z">Step Z</status-button>
+        ```
+    </markdown>
+
+    <p>Finally, you can also provide a HTTP method type, such as GET, POST, PUT or DELETE, and have the server send that type of response (without data) to the target URL.</p>
+    <p>
+        <status-button data-url="http://www.google.com?test=post" data-method="post">POST</status-button>
+        <status-button data-url="http://www.google.com?test=put" data-method="put">PUT</status-button>
+        <status-button data-url="http://www.google.com?test=delete" data-method="delete">DELETE</status-button>
+        <status-button data-url="http://www.google.com?test=sync" data-method="sync">SYNC</status-button>
+    </p>
+</example>
+
+<example name="Monitor Status">
+    <p>
+        <monitor-status data-source-url="/api/monitorStatus">Mommy, are you there?</monitor-status>
+    </p>
+    <p>The monitor status component is included in all pages by default. It changes colours to indicate if the client is still able to talk to the server.</p>
+    <p>When first loading the page, it'll turn blue, and then turn to green on the next check.
+        <p>
+            <p>If kill your server it will turn red. Upon restarting your server, the monitor will turn yellow, and shortly after restart the client.</p>
+
+            <p>The code to make this work looks like:</p>
+            <markdown>
+                ```html
+                <monitor-status data-source-url="/api/monitorStatus">Mommy, are you there?</monitor-status>
+                ```
+            </markdown>
 </example>
 
 <example name="Markdown">
-  <markdown>
-Markdown content
-----------------
+    <markdown>
+        Markdown content ---------------- Can be rendered: * Like so * Just by * Adding `
+        <markdown></markdown>` tags For example: ```html
+        <markdown>
+            Markdown content ---------------- Can be rendered: * Like so * Just by * Adding `
+            <markdown></markdown>` tags
 
-Can be rendered:
-* Like so
-* Just by
-* Adding `<markdown></markdown>` tags
+        </markdown>
+        ``` Tables: | Key | Value | | ----- | ------- | | Work | As well | | Like | So :) | For example: ```md | Key | Value | | ----- | ------- | | Work | As well | | Like | So :) | ``` Code highlighting provided by Highlight JS: ```js // Synchronous highlighting with highlight.js if(typeof hljs !== "undefined") { marked.setOptions({ highlight: function (code) { return hljs.highlightAuto(code).value; } }); } ```
 
-For example:
-```html
-<markdown>
-Markdown content
-----------------
-
-Can be rendered:
-* Like so
-* Just by
-* Adding `<markdown></markdown>` tags
-
-</markdown>
-```
-
-Tables:
-
-| Key   | Value   |
-| ----- | ------- |
-| Work  | As well |
-| Like  | So :)   |
-
-For example:
-
-```md
-| Key   | Value   |
-| ----- | ------- |
-| Work  | As well |
-| Like  | So :)   |
-```
-
-Code highlighting provided by Highlight JS:
-```js
-// Synchronous highlighting with highlight.js
-if(typeof hljs !== "undefined") {
-  marked.setOptions({
-    highlight: function (code) {
-      return hljs.highlightAuto(code).value;
-    }
-  });
-}
-```
-
-  </markdown>
+    </markdown>
 </example>
 
 
 <example name="Example">
-  <example name="Name of the example">
-    <p>We need to go deeper.</p>
-    <status-checker data-url="https://www.google.com?s=nested-status-checker">Nested status checker</status-checker>
-  </example>
+    <example name="Name of the example">
+        <p>We need to go deeper.</p>
+        <status-checker data-url="https://www.google.com?s=nested-status-checker">Nested status checker</status-checker>
+    </example>
 
-  <p>The code to make this work looks like:</p>
-  <markdown>
-```html
-<example name="Name of the example">
-  <p>We need to go deeper.</p>
-  <status-checker data-url="https://www.google.com?s=nested-status-checker">Nested status checker</status-checker>
-</example>
-```
-  </markdown>
+    <p>The code to make this work looks like:</p>
+    <markdown>
+        ```html
+        <example name="Name of the example">
+            <p>We need to go deeper.</p>
+            <status-checker data-url="https://www.google.com?s=nested-status-checker">Nested status checker</status-checker>
+        </example>
+        ```
+    </markdown>
 </example>
 
 <example name="Simple Custom Components">
-  <p>Here are some on-the-fly components, which copy their own properties:</p>
-  <template for="person">
-    (<b>{{data-name}}</b> <b>{{data-surname}}</b>)
-  </template>
-  <p>
-    <person data-name="John" data-surname="Beech"></person>
-    <person data-name="Lucy" data-surname="Markavian"></person>
-    <person data-name="Nanoha" data-surname="Takamachi"></person>
-    <person data-name="Fate" data-surname="Testarossa"></person>
-  </p>
-  <p>The code to make this work looks like:</p>
-  <markdown>
-  ```html
-<person data-name="John" data-surname="Beech"></person>
-<person data-name="Lucy" data-surname="Markavian"></person>
-<person data-name="Nanoha" data-surname="Takamachi"></person>
-<person data-name="Fate" data-surname="Testarossa"></person>
-```
-  </markdown>
+    <p>Here are some on-the-fly components, which copy their own properties:</p>
+    <template for="person">
+        (<b>{{data-name}}</b> <b>{{data-surname}}</b>)
+    </template>
+    <p>
+        <person data-name="John" data-surname="Beech"></person>
+        <person data-name="Lucy" data-surname="Markavian"></person>
+        <person data-name="Nanoha" data-surname="Takamachi"></person>
+        <person data-name="Fate" data-surname="Testarossa"></person>
+    </p>
+    <p>The code to make this work looks like:</p>
+    <markdown>
+        ```html
+        <person data-name="John" data-surname="Beech"></person>
+        <person data-name="Lucy" data-surname="Markavian"></person>
+        <person data-name="Nanoha" data-surname="Takamachi"></person>
+        <person data-name="Fate" data-surname="Testarossa"></person>
+        ```
+    </markdown>
 </example>
