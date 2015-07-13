@@ -1,4 +1,4 @@
-<template for="status-checker" data-source-template="/api/statusOf/?url={{data-url}}{{#if data-contains}}&contains={{data-contains}}{{/if}}" refresh-time="25">
+<template for="status-checker" data-source-template="/api/statusOf/?url={{data-url}}{{#if data-contains}}&contains={{data-contains}}{{/if}}&method={{data-method}}" refresh-time="25">
     <div class="alert alert-{{alertType}}" role="alert">
         <div class="row">
             <div class="col-md-6">
@@ -11,7 +11,8 @@
             </div>
             <div class="col-md-6">
                 <p><b>{{message}}</b></p>
-                {{#if error}}<p><a href="{{data-url}}">{{data-url}}</a></p>{{/if}}
+                {{#if error}}
+                <p><a href="{{data-url}}">{{data-url}}</a></p>{{/if}}
             </div>
         </div>
     </div>
@@ -45,7 +46,11 @@
             var result = false;
             var severity = rd(statusCode);
             if (error) {
-                result = (statusCode === 510) ? 'default' : 'danger';
+                result = ({
+                    "510": 'default',
+                    "400": 'warning',
+                    "404": 'danger'
+                })[severity] || 'danger';
             } else {
                 result = ({
                     "0": 'info',
@@ -53,6 +58,7 @@
                     "200": 'success',
                     "300": 'info',
                     "400": 'danger',
+                    "404": 'danger',
                     "500": 'warning'
                 })[severity] || 'danger';
             }
@@ -65,7 +71,8 @@
                 "100": 'tint',
                 "200": 'heart',
                 "300": 'random',
-                "400": 'fire',
+                "400": 'cog',
+                "404": 'fire',
                 "500": 'cloud',
                 "502": 'unchecked',
                 "5000": 'warning-sign'

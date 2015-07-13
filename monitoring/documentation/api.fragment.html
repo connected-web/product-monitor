@@ -4,17 +4,25 @@
 <express-routes data-source-url="/api/expressRoutes"></express-routes>
 
 <template for="express-routes" data-source-type="json">
-  {{#each routes}}
-  {{#if route.path}}
-    <route path="{{route.path}}"></route>
-  {{/if}}
-  {{/each}}
+    {{#each routes}} {{#if route.path}} {{#each route.methods}}
+    <route path="{{../route.path}}" method="{{@key}}"></route>
+    {{/each}} {{/if}} {{/each}}
 </template>
 
-<template for="route" data-source-type="json">
-  <status-checker data-url="{{path}}">{{path}}</status-checker>
+<template for="route" data-source-type="json" method="get">
+    <status-checker data-url="{{path}}" data-method="{{method}}">
+        <method>{{method}}</method> {{path}}</status-checker>
+    </status-checker>
 </template>
 
 <template for="pair">
-  <li><b>{{name}}</b> : {{content}}</li>
+    <li><b>{{name}}</b> : {{content}}</li>
 </template>
+
+<style for="method">
+    method {
+        text-transform: uppercase;
+        display: inline-block;
+        min-width: 60px;
+    }
+</style>
