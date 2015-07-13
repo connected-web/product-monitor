@@ -7,6 +7,10 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 1.8.11
+13th July 2015
+* Added additional information to `<status-checker></status-checker>` component based on new information on the `/api/statusOf` endpoint
+
 ### Release 1.8.10
 13th July 2015
 * Added differing glyph icons to `<status-button></status-button>` component based on response
