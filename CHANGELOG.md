@@ -2,10 +2,16 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* None at present
+* Section empty
 
 Release History
 ---------------
+
+### Release 1.8.10
+13th July 2015
+* Added differing glyph icons to `<status-button></status-button>` component based on response
+* Added additional error and message information to `/api/statusOf` end point
+* Added header information to status button to `/api/statusOf` end point
 
 ### Release 1.8.9
 12th July 2015
