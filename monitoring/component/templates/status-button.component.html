@@ -1,37 +1,74 @@
-<template for="status-button" data-source-template="/api/statusOf/?url={{data-url}}{{#if data-contains}}&contains={{data-contains}}{{/if}}" refresh-time="25" glyph-icon="flag">
-  <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}{{#if data-contains}} should contain '{{data-contains}}'{{/if}}" class="status-button">
-    <button type="button" class="btn btn-{{alertType}}">
-      <span class="glyphicon glyphicon-{{glyph-icon}}"></span>
-      <span>{{content}}</span>
-    </button>
-  </a>
+<template for="status-button" data-source-template="/api/statusOf/?url={{data-url}}{{#if data-contains}}&contains={{data-contains}}{{/if}}" refresh-time="25">
+    <a href="{{dataSourceUrl}}" target="_blank" title="{{urlProvided}}{{#if data-contains}} should contain '{{data-contains}}'{{/if}}">
+        <button type="button" class="btn btn-{{alertType}}">
+            <span class="glyphicon glyphicon-{{glyphIcon}}"></span>
+            <span>{{content}}</span>
+            {{#if error}}
+            <span>{{message}}</span>{{/if}}
+        </button>
+    </a>
 </template>
 
 <style for="status-button">
-a.status-button { text-decoration: none; }
+    status-button {
+        margin: 2px 0;
+        display: inline-block;
+    }
+
+    status-button > a {
+        text-decoration: none;
+    }
+
+    status-button > a > button {
+        white-space: normal;
+    }
 </style>
 
 <script type="text/javascript">
-$(function() {
+    $(function() {
 
-  var StatusButton = Component.configure("status-button");
+        var StatusButton = Component.configure("status-button");
 
-  StatusButton.prototype.selectAlertType = function(statusCode) {
-    var severity = Math.round(statusCode / 100) * 100;
-    return ({
-      "0": 'info',
-      "100": 'primary',
-      "200": 'success',
-      "300": 'info',
-      "400": 'danger',
-      "500": 'warning'
-    })[severity] || 'danger';
-  }
+        function rd(number) {
+            return Math.round(number / 100) * 100;
+        }
 
-  StatusButton.on('preRenderStep', function() {
-    this.statusCode = (this.dataSourceError === false) ? this.statusCode : 503;
-    this.alertType = this.selectAlertType(this.statusCode);
-  });
+        StatusButton.prototype.selectAlertType = function(statusCode, error) {
+            var result = false;
+            var severity = rd(statusCode);
+            if (error) {
+                result = (statusCode === 510) ? 'default' : 'danger';
+            } else {
+                result = ({
+                    "0": 'info',
+                    "100": 'primary',
+                    "200": 'success',
+                    "300": 'info',
+                    "400": 'danger',
+                    "500": 'warning'
+                })[severity] || 'danger';
+            }
+            return result;
+        }
 
-});
+        StatusButton.prototype.selectGlyphIcon = function(statusCode, error) {
+            return ({
+                "0": 'time',
+                "100": 'tint',
+                "200": 'heart',
+                "300": 'random',
+                "400": 'fire',
+                "500": 'cloud',
+                "502": 'unchecked',
+                "5000": 'warning-sign'
+            })[statusCode] || false;
+        }
+
+        StatusButton.on('preRenderStep', function() {
+            this.statusCode = this.statusCode || 5000;
+            this.glyphIcon = this.selectGlyphIcon(this.statusCode, this.error) || this.selectGlyphIcon(rd(this.statusCode), this.error) || "question-sign";
+            this.alertType = this.selectAlertType(this.statusCode, this.error);
+        });
+
+    });
 </script>
