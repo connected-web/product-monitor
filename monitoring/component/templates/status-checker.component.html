@@ -1,65 +1,81 @@
 <template for="status-checker" data-source-template="/api/statusOf/?url={{data-url}}{{#if data-contains}}&contains={{data-contains}}{{/if}}" refresh-time="25">
-  <div class="alert alert-{{alertType}}" role="alert">
-    <div class="row">
-      <div class="col-md-6">
-        <a href="{{data-url}}" target="_statusButtonLink" title="{{urlProvided}}" class="status-checker">
-          <button type="button" class="btn btn-{{alertType}} status-checker">
-            <span class="glyphicon glyphicon-flag"></span>
-          </button>
-        </a>
-        <span class="status-description">{{content}} (<status>{{statusCode}}</status>)</span>
-      </div>
-      <div class="col-md-6">
-        <p><b>{{interpretation}}</b> : {{data-url}}</p>
-        {{#if message}}{{message}}{{/if}}
-      </div>
+    <div class="alert alert-{{alertType}}" role="alert">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{{dataSourceUrl}}" target="_statusButtonLink" title="{{urlProvided}}">
+                    <button type="button" class="btn btn-{{alertType}} status-checker">
+                        <span class="glyphicon glyphicon-{{glyphIcon}}"></span>
+                    </button>
+                </a>
+                <span class="status-description">{{content}} ({{statusCode}})</span>
+            </div>
+            <div class="col-md-6">
+                <p><b>{{message}}</b></p>
+                {{#if error}}<p><a href="{{data-url}}">{{data-url}}</a></p>{{/if}}
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <style for="status-checker">
-span.status-description {
-  font-size: 150%; font-weight: bold;
-  vertical-align: middle;
-}
-button.status-checker {
-  margin-right: 5px;
-}
-a.status-checker { text-decoration: none; }
+    span.status-description {
+        font-size: 150%;
+        font-weight: bold;
+        vertical-align: middle;
+    }
+
+    button.status-checker {
+        margin-right: 5px;
+    }
+
+    status-checker div > a {
+        text-decoration: none;
+    }
 </style>
 
 <script type="text/javascript">
-$(function() {
+    $(function() {
+        var StatusChecker = Component.configure("status-checker");
 
-  var StatusChecker = Component.configure("status-checker");
+        function rd(number) {
+            return Math.round(number / 100) * 100;
+        }
 
-  StatusChecker.prototype.selectMessage = function(statusCode) {
-    return ({
-      "0": 'Checking server',
-      "200": 'URL Seems OK',
-      "404": "File not found",
-      "500": "Server responded with an error: " + this.dataSourceData,
-      "503": "Server is unavailable"
-    })[statusCode] || this.dataSourceStatus;
-  }
+        StatusChecker.prototype.selectAlertType = function(statusCode, error) {
+            var result = false;
+            var severity = rd(statusCode);
+            if (error) {
+                result = (statusCode === 510) ? 'default' : 'danger';
+            } else {
+                result = ({
+                    "0": 'info',
+                    "100": 'primary',
+                    "200": 'success',
+                    "300": 'info',
+                    "400": 'danger',
+                    "500": 'warning'
+                })[severity] || 'danger';
+            }
+            return result;
+        }
 
-  StatusChecker.prototype.selectAlertType = function(statusCode) {
-    var severity = Math.round(statusCode / 100) * 100;
-    return ({
-      "0": 'info',
-      "100": 'primary',
-      "200": 'success',
-      "300": 'info',
-      "400": 'danger',
-      "500": 'warning'
-    })[severity] || 'danger';
-  }
+        StatusChecker.prototype.selectGlyphIcon = function(statusCode, error) {
+            return ({
+                "0": 'time',
+                "100": 'tint',
+                "200": 'heart',
+                "300": 'random',
+                "400": 'fire',
+                "500": 'cloud',
+                "502": 'unchecked',
+                "5000": 'warning-sign'
+            })[statusCode] || false;
+        }
 
-  StatusChecker.on('preRenderStep', function() {
-    this.statusCode = (this.dataSourceError === false) ? this.statusCode : 503;
-    this.alertType = this.selectAlertType(this.statusCode);
-    this.interpretation = this.selectMessage(this.statusCode);
-  });
-
-});
+        StatusChecker.on('preRenderStep', function() {
+            this.statusCode = this.statusCode || 5000;
+            this.glyphIcon = this.selectGlyphIcon(this.statusCode, this.error) || this.selectGlyphIcon(rd(this.statusCode), this.error) || "question-sign";
+            this.alertType = this.selectAlertType(this.statusCode, this.error);
+        });
+    });
 </script>
