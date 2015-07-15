@@ -100,7 +100,7 @@
     <div title="Wanted" class="col-md-2">Wanted</div>
     <div title="Latest" class="col-md-2">Latest</div>
   </div>
-  {{#each output}}
+  {{#each data}}
   <div class="row">
     <div title="Package Name" class="col-md-6">{{@key}}</div>
     <div title="Current" class="col-md-2">{{current}}</div>
@@ -109,6 +109,7 @@
   </div>
   {{/each}}
   {{content}}
+  <p><b>{{message}}</b></p>
 </template>
 
 <style for="package-status">
