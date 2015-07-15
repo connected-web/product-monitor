@@ -7,6 +7,10 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 1.8.13
+15th July 2015
+* Added working support for the `/api/npmStatus` endpoint to report on out-of-date packages on the Management Console page
+
 ### Release 1.8.12
 13th July 2015
 * Added support for method parameter on the `/api/statusOf` endpoint, e.g. `/api/statusOf?method=post&url=http://my-website/api/submit`
