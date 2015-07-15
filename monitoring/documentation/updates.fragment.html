@@ -1,29 +1,51 @@
 <h1>Software Updates</h1>
 
 <h3>Package Status</h3>
-<package-status data-source-url="/api/npmStatus" refresh-time="10"></package-status>
+<package-status data-source-url="/api/npmStatus" refresh-time="45"></package-status>
 
 <!-- NPM Package Status Component -->
 <template for="package-status">
-    <div class="row header">
-        <div title="Package Name" class="col-md-6">Package Name</div>
-        <div title="Current" class="col-md-2">Current</div>
-        <div title="Wanted" class="col-md-2">Wanted</div>
-        <div title="Latest" class="col-md-2">Latest</div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Packages requiring an update...</p>
+
+            <div class="row header">
+                <div title="Package Name" class="col-md-6">Package Name</div>
+                <div title="Current" class="col-md-2">Current</div>
+                <div title="Wanted" class="col-md-2">Wanted</div>
+                <div title="Latest" class="col-md-2">Latest</div>
+            </div>
+            {{#each data}}
+            <div class="row">
+                <div title="Package Name" class="col-md-6">{{@key}}</div>
+                <div title="Current" class="col-md-2">{{current}}</div>
+                <div title="Wanted" class="col-md-2">{{wanted}}</div>
+                <div title="Latest" class="col-md-2">{{latest}}</div>
+            </div>
+            {{/each}}
+        </div>
     </div>
-    {{#each data}}
-    <div class="row">
-        <div title="Package Name" class="col-md-6">{{@key}}</div>
-        <div title="Current" class="col-md-2">{{current}}</div>
-        <div title="Wanted" class="col-md-2">{{wanted}}</div>
-        <div title="Latest" class="col-md-2">{{latest}}</div>
+    {{content}} {{#if updatesAvailable}}
+    <div class="alert alert-info">
+        <p>
+            <icon>ok</icon> {{message}}</p>
+        <p>
+            <button class="btn btn-info">
+                <icon>cog</icon> Update Packages (Recommended)</button>
+        </p>
+        <p>(This button is stubbed, coming soon!)</p>
     </div>
-    {{/each}} {{content}} {{#if updatesAvailable}}
-    <button class="btn btn-info">
-        <icon>cog</icon> Updates Available!</button>
+    {{else}} {{#if error}}
+    <div class="alert alert-warning">
+        <p>
+            <icon>cloud</icon> {{message}}</p>
+    </div>
     {{else}}
-    <p><b>{{message}}</b></p>
-    {{/if}}
+    <div class="alert alert-info">
+        <p>
+            <icon>ok</icon> {{message}}</p>
+    </div>
+    {{/if}} {{/if}}
 </template>
 
 <style for="package-status">
@@ -32,11 +54,11 @@
         display: block;
     }
 
-    package-status > div.header {
+    package-status div.row.header {
         font-weight: bold;
     }
 
-    package-status > div > * {
+    package-status > div.row > * {
         display: inline-block;
         min-width: 120px;
     }
