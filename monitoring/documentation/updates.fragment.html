@@ -1,0 +1,43 @@
+<h1>Software Updates</h1>
+
+<h3>Package Status</h3>
+<package-status data-source-url="/api/npmStatus" refresh-time="10"></package-status>
+
+<!-- NPM Package Status Component -->
+<template for="package-status">
+    <div class="row header">
+        <div title="Package Name" class="col-md-6">Package Name</div>
+        <div title="Current" class="col-md-2">Current</div>
+        <div title="Wanted" class="col-md-2">Wanted</div>
+        <div title="Latest" class="col-md-2">Latest</div>
+    </div>
+    {{#each data}}
+    <div class="row">
+        <div title="Package Name" class="col-md-6">{{@key}}</div>
+        <div title="Current" class="col-md-2">{{current}}</div>
+        <div title="Wanted" class="col-md-2">{{wanted}}</div>
+        <div title="Latest" class="col-md-2">{{latest}}</div>
+    </div>
+    {{/each}} {{content}} {{#if updatesAvailable}}
+    <button class="btn btn-info">
+        <icon>cog</icon> Updates Available!</button>
+    {{else}}
+    <p><b>{{message}}</b></p>
+    {{/if}}
+</template>
+
+<style for="package-status">
+    package-status,
+    package-status > div {
+        display: block;
+    }
+
+    package-status > div.header {
+        font-weight: bold;
+    }
+
+    package-status > div > * {
+        display: inline-block;
+        min-width: 120px;
+    }
+</style>
