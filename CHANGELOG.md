@@ -7,6 +7,13 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 1.8.14
+16th July 2015
+* Added `<icon>type</icon>` component based on Bootstrap glyphicon support
+* Significant cache improvements around `/api/npmStatus` endpoint
+* Moved Package Status from Management Console to new Software Updates page
+* Exposed the `apicache` object on the server config object for API modules to interact with
+
 ### Release 1.8.13
 15th July 2015
 * Added working support for the `/api/npmStatus` endpoint to report on out-of-date packages on the Management Console page
