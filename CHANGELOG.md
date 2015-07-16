@@ -2,7 +2,9 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* Section empty
+* Added basic validation to `/api/restart`, actual restart still stubbed out.
+* Created `/api/postMirror` to help test POST requests against server
+* Created `<post-button post-url="/api/target" result-target="element-id"></post-button>` to auto-wire a button click to an element.
 
 Release History
 ---------------
