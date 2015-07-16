@@ -24,7 +24,7 @@ $(function() {
   }
 
   MonitorStatus.on('preRenderStep', function() {
-    this.serverHash = this.monitorHash || false;
+    this.serverHash = this.serverHash || false;
 
     if(this.dataSourceError !== false) {
       this.alertType = "danger";
