@@ -30,8 +30,8 @@
         <p>
             <icon>ok</icon> {{message}}</p>
         <p>
-            <button class="btn btn-info">
-                <icon>cog</icon> Update Packages (Recommended)</button>
+            <post-button post-url="/api/updateServer" result-target="{{id}}_updateServerResult">
+                <icon>cog</icon> Update Packages (Recommended)</post-button>
         </p>
         <p>(This button is stubbed, coming soon!)</p>
     </div>
@@ -44,8 +44,12 @@
     <div class="alert alert-info">
         <p>
             <icon>ok</icon> {{message}}</p>
+        <p><post-button post-url="/api/updateServer" result-target="{{id}}_updateServerResult">
+            <icon>cog</icon> Update Anyway</post-button></p>
     </div>
     {{/if}} {{/if}}
+
+    <div id="{{id}}_updateServerResult"></div>
 </template>
 
 <style for="package-status">

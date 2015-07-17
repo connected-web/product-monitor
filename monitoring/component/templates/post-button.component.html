@@ -3,9 +3,8 @@
 <div id="output"></div>
 -->
 
-<template for="post-button">
-    <button class="btn btn-info">{{content}}</button>
-    <pre>{{dataSourcePostResponse}}</pre>
+<template for="post-button" button-type="info" data-type="html">
+    <button class="btn btn-{{button-type}}">{{content}}</button>
 </template>
 
 <script for="post-button">
@@ -27,37 +26,48 @@
             }
         }
 
-        PostButtonComponent.on('renderComplete', function(instance) {
+        function registerClick(instance) {
             $(instance.element).click(function() {
+                copyElementProperties(instance.element, instance);
                 $(instance.element).attr('disabled', 'disabled').unbind("click");
+                $(instance.element).attr('button-type', 'default').unbind("click");
                 var postUrl = instance['post-url'] || false;
+                var dataType = instance['data-type'] || 'html';
                 var resultTarget = instance['result-target'] || false;
 
-                console.log("Post button knows about: ", postUrl);
                 if (postUrl) {
+                    console.log("Posting to: ", postUrl);
                     var postData = {};
                     copyElementProperties(instance.element, postData);
-                    $.post(postUrl, postData, function(data) {
-                        for (var property in data) {
-                            instance[property] = data[property];
-                        }
-
+                    $.post(postUrl, postData, null, dataType).done(function(body) {
                         if (resultTarget) {
                             var targetElement = document.getElementById(resultTarget);
                             if (targetElement) {
-                                createAttributePropertiesOn(targetElement, data);
-                                Component.scanForComponents(targetElement.parentElement);
+                                console.log("Post response body written to target in DOM: ", resultTarget);
+                                targetElement.innerHTML = body;
+                            } else {
+                                console.log("Specified result-target could not be found in DOM: ", resultTarget);
                             }
-                            else {
-                              console.log("Specified result-target could not be found in DOM: ", resultTarget);
-                            }
+                        } else {
+                            console.log("No result-target specified to assign data to.");
                         }
-                        else {
-                          console.log("No result-target specified to assign data to.");
-                        }
+                        // Mark as a success
+                        instance.postSuccess = true;
+                        instance['button-type'] = 'success';
+                        instance.render();
+                    }).fail(function(error) {
+                        console.log("Post request failed", error);
+                        // Re-render
+                        instance.render();
                     });
                 }
             });
+        }
+
+        PostButtonComponent.on('renderComplete', function(instance) {
+            if (!instance.postSuccess) {
+                registerClick(instance);
+            }
         });
 
         PostButtonComponent.apply(function(instance) {
