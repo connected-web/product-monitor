@@ -103,12 +103,13 @@ My Product Monitor started on http://localhost:8080
 
 ![Product Monitor Example](images/product-monitor-documentation-example.png)
 
-### Instructions to use a checkout from github
+### Development Instructions using a checkout from github
 
 1.	Check out (or fork) this project
 2.	From the project root, run: `npm install`
-3.	Run `node server.js` to start the monitor
-4.	Visit http://localhost:8080
+3.  Run `npm test` to run a smoke test against the server
+4.	Run `npm start` to start the monitor
+5.	Visit http://localhost:8080
 
 **Warning**: you might miss out on the latest updates to the server and its documentation if you check out this project directly from github. The recommended method for setting up a monitor is to use the NPM setup instructions.
 
