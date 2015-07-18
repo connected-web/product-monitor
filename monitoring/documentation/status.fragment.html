@@ -12,6 +12,7 @@
     <p>Response Data: <pre>{{dataSourceData}}</pre></p>
     <p>Response Status: <label>{{dataSourceStatus}}</label></p>
     {{content}}
+    <p><post-button post-url="/api/restart/{{serverHash}}" result-target="button_{{serverHash}}" id="button_{{serverHash}}"><icon>ok</icon> Restart the Server</post-button></p>
   </div>
 </template>
 
