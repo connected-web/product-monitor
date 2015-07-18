@@ -29,11 +29,10 @@
     <div class="alert alert-info">
         <p>
             <icon>ok</icon> {{message}}</p>
-        <p>
-            <post-button post-url="/api/updateServer" result-target="{{id}}_updateServerResult">
-                <icon>cog</icon> Update Packages (Recommended)</post-button>
+        <p id="{{id}}_updateOptions">
+            <post-button post-url="/api/updateServer" result-target="{{id}}_updateOptions">
+                <icon>cog</icon> Update Server (Recommended)</post-button>
         </p>
-        <p>(This button is stubbed, coming soon!)</p>
     </div>
     {{else}} {{#if error}}
     <div class="alert alert-warning">
@@ -44,8 +43,10 @@
     <div class="alert alert-info">
         <p>
             <icon>ok</icon> {{message}}</p>
-        <p><post-button post-url="/api/updateServer" result-target="{{id}}_updateServerResult">
-            <icon>cog</icon> Update Anyway</post-button></p>
+        <p id="{{id}}_forceUpdate">
+            <post-button post-url="/api/updateServer" result-target="{{id}}_forceUpdate">
+                <icon>cog</icon> Update Anyway (Why not?)</post-button>
+        </p>
     </div>
     {{/if}} {{/if}}
 
