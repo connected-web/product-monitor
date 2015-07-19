@@ -7,7 +7,7 @@ Section empty
 Release History
 ---------------
 
-### Release 1.8.15
+### Release 1.8.16
 19th July 2015
 * Implemented restart (kill server) POST endpoint `/api/restart` with validation
 * Added restart button to Monitor Status page which triggers a process kill on the server
