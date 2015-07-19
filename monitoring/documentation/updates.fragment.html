@@ -10,22 +10,24 @@
             <p>Packages requiring an update...</p>
 
             <div class="row header">
-                <div title="Package Name" class="col-md-6">Package Name</div>
+                <div title="Package Name" class="col-md-4 packageName">Package Name</div>
                 <div title="Current" class="col-md-2">Current</div>
                 <div title="Wanted" class="col-md-2">Wanted</div>
                 <div title="Latest" class="col-md-2">Latest</div>
+                <div title="LvL" class="col-md-2">Level</div>
             </div>
             {{#each data}}
-            <div class="row">
-                <div title="Package Name" class="col-md-6">{{@key}}</div>
+            <div class="row{{#if updateRequired}} updateRequired{{/if}}">
+                <div title="Package Name" class="col-md-4 packageName">{{@key}}</div>
                 <div title="Current" class="col-md-2">{{current}}</div>
                 <div title="Wanted" class="col-md-2">{{wanted}}</div>
                 <div title="Latest" class="col-md-2">{{latest}}</div>
+                <div title="Level" class="col-md-2">{{level}}</div>
             </div>
             {{/each}}
         </div>
     </div>
-    {{content}} {{#if updatesAvailable}}
+    {{content}} {{#if updatesRequired}}
     <div class="alert alert-info">
         <p>
             <icon>ok</icon> {{message}}</p>
@@ -43,10 +45,6 @@
     <div class="alert alert-info">
         <p>
             <icon>ok</icon> {{message}}</p>
-        <p id="{{id}}_forceUpdate">
-            <post-button post-url="/api/updateServer" result-target="{{id}}_forceUpdate">
-                <icon>cog</icon> Update Anyway (Why not?)</post-button>
-        </p>
     </div>
     {{/if}} {{/if}}
 
@@ -59,12 +57,30 @@
         display: block;
     }
 
-    package-status div.row.header {
+    package-status div.row.header > div {
         font-weight: bold;
+        color: #111;
     }
 
-    package-status > div.row > * {
+    package-status div.row > div {
         display: inline-block;
-        min-width: 120px;
+        color: #999;
+    }
+
+    package-status div.row > div {
+        min-width: 80px;
+        text-align: center;
+    }
+
+    package-status div.row > div.packageName {
+        min-width: 140px;
+        text-align: left;
+    }
+
+    package-status div.row.updateRequired {}
+
+    package-status div.row.updateRequired > div {
+        font-weight: bold;
+        color: #111;
     }
 </style>

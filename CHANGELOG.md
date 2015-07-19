@@ -7,6 +7,10 @@ Section empty
 Release History
 ---------------
 
+### Release 1.8.17
+19th July 2015
+* Improved display of Package Status, differentiating top level `product-monitor` packages from other libraries, and highlighting libraries that will actually be updated
+
 ### Release 1.8.16
 19th July 2015
 * Implemented restart (kill server) POST endpoint `/api/restart` with validation
