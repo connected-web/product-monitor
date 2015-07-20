@@ -3,12 +3,12 @@
 <h3>Create your own component</h3>
 <p>Using template tags, you can declare content as variables, and have them written into your page.</p>
 <p>This template, for example:</p>
-<pre code>
-<template for="greeting" my-icon="flag">
+<pre><code>
+<template-example for="greeting" my-icon="flag">
   <span class="glyphicon glyphicon-{{my-icon}}"></span>
   <b>{{my-data-greeting}}</b> <i>{{my-data-name}}</i>
-</template>
-</pre>
+</template-example>
+</code></pre>
 
 <!-- Actual template for above example -->
 <template for="greeting" my-icon="flag">
@@ -17,9 +17,9 @@
 </template>
 
 <p>Is for a <code>greeting</code> tag, and can be used by declaring:</p>
-<pre code>
+<pre><code>
 <greeting my-data-greeting="Hello" my-data-name="Product!"></greeting>
-</pre>
+</code></pre>
 
 <p>Which turns into:</p>
 <code-result>
@@ -32,12 +32,12 @@
 
 <h3>Data Aware Component with <em>data-source-url</em></h3>
 <p>Here is an example of a data-aware component template, that populates used the supplied data-source-url to populate data into a component:</p>
-<pre code>
-<template for="spartan" data-source-url="/api/generateStatusCode?statusCode=117">
+<pre><code>
+<template-example for="spartan" data-source-url="/api/generateStatusCode?statusCode=117">
   <b>Status code</b> : <value>{{statusCode}}</value>,
   <b>Message</b> : <value>{{message}}</value>
-</template>
-</pre>
+</template-example>
+</code></pre>
 
 <!-- Actual template for above example -->
 <template for="spartan" data-source-url="/api/generateStatusCode?statusCode=117">
@@ -46,9 +46,9 @@
 </template>
 
 <p>With an empty <code>spartan</code> tag:
-<pre code>
+<pre><code>
 <spartan></spartan>
-</pre>
+</code></pre>
 
 <p>Fetches data from <code>/api/generateStatusCode?statusCode=117</code>, and produces: </p>
 <code-result>
@@ -62,13 +62,13 @@
 <h3>Accessing Hidden Data</h3>
 <p>Behind the scenes, the component is going off and making AJAX calls using jQuery to load the data. If there's a problem, you can find out through dataSource variables locked on to the object.</p>
 <p>If for example, you change the template to include these values:</p>
-<pre code>
-  <template for="mjolnir" data-source-url="/api/generateStatusCode?statusCode=117">
-    <pre><b>Status</b> : {{dataSourceStatus}}</pre>
-    <pre><b>Url</b> : {{dataSourceUrl}}</pre>
-    <pre><b>Data</b> : {{dataSourceData}}</pre>
-  </template>
-</pre>
+<pre><code>
+<template-example for="mjolnir" data-source-url="/api/generateStatusCode?statusCode=117">
+  <pre><b>Status</b> : {{dataSourceStatus}}</pre>
+  <pre><b>Url</b> : {{dataSourceUrl}}</pre>
+  <pre><b>Data</b> : {{dataSourceData}}</pre>
+</template-example>
+</code></pre>
 
 <!-- Actual template for above example -->
 <template for="mjolnir" data-source-url="/api/generateStatusCode?statusCode=117">
@@ -78,9 +78,9 @@
 </template>
 
 <p>And we add a <code>mjolnir</code> tag:
-<pre code>
+<pre><code>
 <mjolnir></mjolnir>
-</pre>
+</code></pre>
 
 <p>Then we get lots of extra information:</p>
 <code-result>
@@ -89,12 +89,12 @@
 
 <h3>Data Aware Component with <em>data-source-template</em></h3>
 <p>Here's the same component as the <code>spartan</code> example above, but this time using a data-source-template to create its own data-source-url:</p>
-<pre code>
-  <template for="spartan-mkii" data-source-template="/api/generateStatusCode?statusCode={{status-code}}">
-    <b>Status code</b> : <value>{{statusCode}}</value>,
-    <b>Message</b> : <value>{{message}}</value>
-  </template>
-</pre>
+<pre><code>
+<template-example for="spartan-mkii" data-source-template="/api/generateStatusCode?statusCode={{status-code}}">
+  <b>Status code</b> : <value>{{statusCode}}</value>,
+  <b>Message</b> : <value>{{message}}</value>
+</template-example>
+</code></pre>
 
 <!-- Actual template for above example -->
 <template for="spartan-mkii" data-source-template="/api/generateStatusCode?statusCode={{status-code}}">
@@ -103,9 +103,9 @@
 </template>
 
 <p>So now a <code>spartan-mkii</code> tag:
-<pre code>
+<pre><code>
 <spartan-mkii status-code="117"></spartan-mkii>
-</pre>
+</code></pre>
 
 <p>Can be transformed into:</p>
 <code-result>

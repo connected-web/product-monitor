@@ -10,6 +10,7 @@ $(function() {
   }
 
   $('pre[code], code').html(function() {
+    var innerHTML = this.innerHTML.toString();
     return replaceHtmlEntities(this.innerHTML.toString());
   });
 
@@ -19,6 +20,7 @@ $(function() {
     if(typeof hljs !== "undefined") {
       // Use code highlighting with highlight.js
       var code = replaceEntitiesWithHtml(instance.content);
+      code = code.replace(/template-example/g, 'template');
       instance.code = hljs.highlightAuto(code).value;
     }
     else {
