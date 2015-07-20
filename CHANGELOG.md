@@ -7,6 +7,10 @@ Section empty
 Release History
 ---------------
 
+### Release 1.8.18
+20th July 2015
+* For for default binding on a service to be 0.0.0.0 instead of localhost
+
 ### Release 1.8.17
 19th July 2015
 * Improved display of Package Status, differentiating top level `product-monitor` packages from other libraries, and highlighting libraries that will actually be updated
