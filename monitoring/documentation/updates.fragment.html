@@ -7,8 +7,20 @@
 <template for="package-status">
     <div class="panel panel-default">
         <div class="panel-body">
-            <p>Packages requiring an update...</p>
+            <h4>Host Environment</h4>
+            <p>This information is provided to keep an eye on what version of NodeJS and NPM are installed.</p>
+            <p>The update status feature requires npm version 2.0.x &gt; to work correctly.</p>
 
+            <div class="row header">
+                <div title="Name" class="col-md-4 packageName">Name</div>
+                <div title="Minimum Requirement" class="col-md-2">Minimum</div>
+                <div title="Current" class="col-md-2">Current</div>
+            </div>
+            <plugin-status minimum="{{versions.npm.minimumRequirement}}" current="{{versions.npm.current}}">npm</plugin-status>
+            <plugin-status minimum="{{versions.node.minimumRequirement}}" current="{{versions.node.current}}">nodejs</plugin-status>
+
+            {{#if updatesRequired}}
+            <h4>Packages and plugins requiring an update:</h4>
             <div class="row header">
                 <div title="Package Name" class="col-md-4 packageName">Package Name</div>
                 <div title="Current" class="col-md-2">Current</div>
@@ -17,14 +29,14 @@
                 <div title="LvL" class="col-md-2">Level</div>
             </div>
             {{#each data}}
-            <div class="row{{#if updateRequired}} updateRequired{{/if}}">
+            <div class="row{{#if updateRequired}} updateRequired{{else}} noUpdateRequired{{/if}}">
                 <div title="Package Name" class="col-md-4 packageName">{{@key}}</div>
                 <div title="Current" class="col-md-2">{{current}}</div>
                 <div title="Wanted" class="col-md-2">{{wanted}}</div>
                 <div title="Latest" class="col-md-2">{{latest}}</div>
                 <div title="Level" class="col-md-2">{{level}}</div>
             </div>
-            {{/each}}
+            {{/each}} {{/if}}
         </div>
     </div>
     {{content}} {{#if updatesRequired}}
@@ -57,6 +69,10 @@
         display: block;
     }
 
+    package-status:first-of-type h4:first-of-type {
+        margin-top: 0;
+    }
+
     package-status div.row.header > div {
         font-weight: bold;
         color: #111;
@@ -64,6 +80,9 @@
 
     package-status div.row > div {
         display: inline-block;
+    }
+
+    package-status div.row.noUpdateRequired > div {
         color: #999;
     }
 
@@ -84,3 +103,11 @@
         color: #111;
     }
 </style>
+
+<template for="plugin-status">
+    <div class="row">
+        <div title="Name" class="col-md-4 packageName">{{content}}</div>
+        <div title="Minimum Requirement" class="col-md-2">{{minimum}}</div>
+        <div title="Current" class="col-md-2">{{current}}</div>
+    </div>
+</template>
