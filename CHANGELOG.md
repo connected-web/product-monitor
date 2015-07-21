@@ -6,10 +6,14 @@ Section empty
 
 Release History
 ---------------
+### Release 1.8.19
+21st July 2015
+* Added npm and nodejs version information to Software Updates page
+* Hid non-current package information from Software Updates page when no updates are required
 
 ### Release 1.8.18
 20th July 2015
-* For for default binding on a service to be 0.0.0.0 instead of localhost
+* Fix for default binding on a service to be 0.0.0.0 instead of localhost
 
 ### Release 1.8.17
 19th July 2015
