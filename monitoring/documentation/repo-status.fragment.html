@@ -3,12 +3,21 @@
 <repo-status data-source-url="/api/repoStatus"></repo-status>
 
 <template for="repo-status">
-  <h3>Status</h3>
-  <pre>{{status}}</pre>
+    <h3>Status</h3>
+    <pre class="alert alert-info">{{status}}</pre>
 
-  <h3>Current Branch</h3>
-  <pre>{{branch}}</pre>
+    {{#if untrackedChanges}}
+    <div class="alert alert-warning">
+        <icon>duplicate</icon> Untracked changes exist on this branch.</div>
+    {{else}}
+    <div class="alert alert-success">
+        <icon>ok</icon> Everything up to date with the repo.</div>
+    {{/if}}
 
-  <h3>Remote</h3>
-  <pre>{{remote}}</pre>
+    <h3>Current Branch</h3>
+    <pre class="alert alert-info">{{branch}}</pre>
+
+    <h3>Remote</h3>
+    <pre class="alert alert-info">{{remote}}</pre>
+
 </template>
