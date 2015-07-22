@@ -129,6 +129,7 @@ Supplied via Node Package Manager:
 - [request](https://www.npmjs.com/package/request) - for making server side requests to remote domains
 - [utils-merge](https://www.npmjs.com/package/utils-merge) - for merging configuration together with the default config
 - [ncp](https://www.npmjs.com/package/npc) - for copying files used during setup of a new server instance
+- And more... thanks to the community for such a diverse and useful set of libraries
 
 Compatability
 ----------------
