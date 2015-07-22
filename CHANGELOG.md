@@ -6,6 +6,10 @@ Section empty
 
 Release History
 ---------------
+### Release 1.8.21
+22nd July 2015
+* Added `repoStatus` page to reflect any differences between the local `git` repository and its remote, and any untracked changes.
+
 ### Release 1.8.20
 22nd July 2015
 * Fix for badly handled npmStatus error on systems running `npm <2.0.0` that don't support the `--json` flag
