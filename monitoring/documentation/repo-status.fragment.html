@@ -3,7 +3,20 @@
 <repo-status data-source-url="/api/repoStatus"></repo-status>
 
 <template for="repo-status">
-    <h3>Status</h3>
+
+    <h3>Remote</h3>
+    <pre class="alert alert-info">{{remote}}</pre>
+    {{#if upToDate}}
+    <div class="alert alert-success">
+        <icon>ok</icon> {{commitStatus}}</div>{{/if}} {{#if needToPush}}
+    <div class="alert alert-warning">
+        <icon>open</icon> {{commitStatus}}</div>{{/if}} {{#if needToPull}}
+    <div class="alert alert-warning">
+        <icon>save</icon> {{commitStatus}}</div>{{/if}} {{#if diverged}}
+    <div class="alert alert-danger">
+        <icon>remove</icon> {{commitStatus}}</div>{{/if}}
+
+    <h3>Local Status</h3>
     <pre class="alert alert-info">{{status}}</pre>
 
     {{#if untrackedChanges}}
@@ -16,8 +29,4 @@
 
     <h3>Current Branch</h3>
     <pre class="alert alert-info">{{branch}}</pre>
-
-    <h3>Remote</h3>
-    <pre class="alert alert-info">{{remote}}</pre>
-
 </template>
