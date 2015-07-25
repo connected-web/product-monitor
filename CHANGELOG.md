@@ -2,13 +2,16 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
+None at the moment
+
+Release History
+---------------
+### Release 1.8.22
 25th July 2015
 * Added recursive directory scanning of /api/ folders to support better structuring of features
 * Implemented against `git pull` and `npm install` using the `/api/repo/pull/status` and `/api/repo/pull` endpoints
 * Visit `/docs/repo-status` in your monitor for interactive details
 
-Release History
----------------
 ### Release 1.8.21
 22nd July 2015
 * Added `repoStatus` page to reflect any differences between the local `git` repository and its remote, and any untracked changes.
