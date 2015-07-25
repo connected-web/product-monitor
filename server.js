@@ -12,5 +12,8 @@ var server = monitor({
   },
   "productInformation": {
     "title": "Dev Monitor"
+  },
+  "npmUpdate": {
+    "disableUpdates": false
   }
 });
