@@ -2,11 +2,15 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* Added `npmUpdate.disableUpdates` config property
-* Allowed npm updates to be disabled by this property (i.e. disabling this feature on the `Software Updates` page)
+None at present
 
 Release History
 ---------------
+### Release 1.8.23
+25th July 2015
+* Added `npmUpdate.disableUpdates` config property
+* Allowed npm updates to be disabled by this property (i.e. disabling this feature on the `Software Updates` page)
+
 ### Release 1.8.22
 25th July 2015
 * Added recursive directory scanning of /api/ folders to support better structuring of features
