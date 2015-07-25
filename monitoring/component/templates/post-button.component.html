@@ -28,47 +28,52 @@
 
         function registerClick(instance) {
             $(instance.element).click(function() {
-                copyElementProperties(instance.element, instance);
-                $(instance.element).unbind("click")
-                  .attr('disabled', 'disabled')
-                  .attr('button-type', 'default');
-                $('button', instance.element).addClass('disabled');
-
-                var postUrl = instance['post-url'] || false;
-                var dataType = instance['data-type'] || 'html';
-                var resultTarget = instance['result-target'] || false;
-
-                if (postUrl) {
-                    console.log("Posting to: ", postUrl);
-                    var postData = {};
-                    copyElementProperties(instance.element, postData);
-                    $.post(postUrl, postData, null, dataType).done(function(body) {
-                        if (resultTarget) {
-                            var targetElement = document.getElementById(resultTarget);
-                            if (targetElement) {
-                                console.log("Post response body written to target in DOM: ", resultTarget);
-                                targetElement.innerHTML = body;
-                                Component.scanForComponents(targetElement);
-                            } else {
-                                console.log("Specified result-target could not be found in DOM: ", resultTarget);
-                            }
-                        } else {
-                            console.log("No result-target specified to assign data to.");
-                        }
-                        // Mark as a success
-                        instance.postSuccess = true;
-                        instance.disabled = true;
-                        instance['button-type'] = 'success';
-                        instance.render();
-                    }).fail(function(error) {
-                        console.log("Post request failed", error);
-                        // Re-render
-                        instance.postSuccess = false;
-                        instance.disabled = false;
-                        instance.render();
-                    });
-                }
+                postDataFrom(instance);
+                return false;
             });
+        }
+
+        function postDataFrom(instance) {
+            copyElementProperties(instance.element, instance);
+            $(instance.element).unbind("click")
+                .attr('disabled', 'disabled')
+                .attr('button-type', 'default');
+            $('button', instance.element).addClass('disabled');
+
+            var postUrl = instance['post-url'] || false;
+            var dataType = instance['data-type'] || 'html';
+            var resultTarget = instance['result-target'] || false;
+
+            if (postUrl) {
+                console.log("Posting to: ", postUrl);
+                var postData = {};
+                copyElementProperties(instance.element, postData);
+                $.post(postUrl, postData, null, dataType).done(function(body) {
+                    if (resultTarget) {
+                        var targetElement = document.getElementById(resultTarget);
+                        if (targetElement) {
+                            console.log("Post response body written to target in DOM: ", resultTarget);
+                            targetElement.innerHTML = body;
+                            Component.scanForComponents(targetElement);
+                        } else {
+                            console.log("Specified result-target could not be found in DOM: ", resultTarget);
+                        }
+                    } else {
+                        console.log("No result-target specified to assign data to.");
+                    }
+                    // Mark as a success
+                    instance.postSuccess = true;
+                    instance.disabled = true;
+                    instance['button-type'] = 'success';
+                    instance.render();
+                }).fail(function(error) {
+                    console.log("Post request failed", error);
+                    // Re-render
+                    instance.postSuccess = false;
+                    instance.disabled = false;
+                    instance.render();
+                });
+            }
         }
 
         PostButtonComponent.on('renderComplete', function(instance) {
