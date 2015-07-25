@@ -2,7 +2,8 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-None at the moment
+* Added `npmUpdate.disableUpdates` config property
+* Allowed npm updates to be disabled by this property (i.e. disabling this feature on the `Software Updates` page)
 
 Release History
 ---------------

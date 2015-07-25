@@ -42,24 +42,40 @@
     {{content}} {{#if updatesRequired}}
     <div class="alert alert-info">
         <p>
-            <icon>ok</icon> {{message}}</p>
+            <icon>ok</icon>
+            <span>{{message}}</span>
+        </p>
+        {{#unless updatesDisabled}}
         <p id="{{id}}_updateOptions">
             <post-button post-url="/api/updateServer" result-target="{{id}}_updateOptions">
-                <icon>cog</icon> Update Server (Recommended)</post-button>
-        </p>
+                <icon>cog</icon>
+                <span>Update Server (Recommended)</span>
+            </post-button>
+        </p>{{/unless}}
     </div>
     {{else}} {{#if error}}
     <div class="alert alert-warning">
         <p>
-            <icon>cloud</icon> {{message}}</p>
+            <icon>cloud</icon>
+            <span>{{message}}</span>
+        </p>
     </div>
     {{else}}
     <div class="alert alert-info">
         <p>
-            <icon>ok</icon> {{message}}</p>
+            <icon>ok</icon>
+            <span>{{message}}</span>
+        </p>
     </div>
-    {{/if}} {{/if}}
-
+    {{/if}} {{/if}} {{#if updatesDisabled}}
+    <div class="alert alert-warning">
+        <p>
+            <icon>remove</icon>
+            <span>Package updates for this server instance have been disabled.</span>
+            <span>If an update is required, please update these manually, commit to source, and then pull down the changes to this machine.</span>
+        </p>
+    </div>
+    {{/if}}
     <div id="{{id}}_updateServerResult"></div>
 </template>
 
