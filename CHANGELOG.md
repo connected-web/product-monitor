@@ -8,6 +8,10 @@ Release History
 ---------------
 ### Release 1.8.23
 26th July 2015
+* Improved info and layout of status details page
+
+### Release 1.8.23
+26th July 2015
 * Added status details page with record of last 10 results
 
 ### Release 1.8.23
