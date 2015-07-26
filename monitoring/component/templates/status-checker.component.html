@@ -7,10 +7,10 @@
                         <span class="glyphicon glyphicon-{{glyphIcon}}"></span>
                     </button>
                 </a>
-                <span class="status-description">{{content}} ({{statusCode}})</span>
+                <span class="status-description">{{content}} ({{latest.statusCode}})</span>
             </div>
             <div class="col-md-6">
-                <p><b>{{message}}</b></p>
+                <p><b>{{latest.message}}</b></p>
                 {{#if error}}
                 <p><a href="{{data-url}}">{{data-url}}</a></p>{{/if}}
             </div>
@@ -80,9 +80,9 @@
         }
 
         StatusChecker.on('preRenderStep', function() {
-            this.statusCode = this.statusCode || 5000;
-            this.glyphIcon = this.selectGlyphIcon(this.statusCode, this.error) || this.selectGlyphIcon(rd(this.statusCode), this.error) || "question-sign";
-            this.alertType = this.selectAlertType(this.statusCode, this.error);
+            var statusCode = (this.latest && this.latest.statusCode) ? this.latest.statusCode : 5000;
+            this.glyphIcon = this.selectGlyphIcon(statusCode, this.error) || this.selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
+            this.alertType = this.selectAlertType(statusCode, this.error);
         });
     });
 </script>
