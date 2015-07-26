@@ -2,9 +2,9 @@
     <div class="alert alert-{{alertType}}" role="alert">
         <div class="row">
             <div class="col-md-6">
-                <a href="{{dataSourceUrl}}" target="_blank" title="{{urlProvided}}">
+                <a href="{{linkUrl}}" target="_blank" title="{{urlProvided}}">
                     <button type="button" class="btn btn-{{alertType}} status-checker">
-                        <span class="glyphicon glyphicon-{{glyphIcon}}"></span>
+                        <icon>{{glyphIcon}}</icon>
                     </button>
                 </a>
                 <span class="status-description">{{content}} ({{latest.statusCode}})</span>
@@ -83,6 +83,7 @@
             var statusCode = (this.latest && this.latest.statusCode) ? this.latest.statusCode : 5000;
             this.glyphIcon = this.selectGlyphIcon(statusCode, this.error) || this.selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
             this.alertType = this.selectAlertType(statusCode, this.error);
+            this.linkUrl = '/docs/status-details?url=' + encodeURIComponent(this.dataSourceUrl);
         });
     });
 </script>

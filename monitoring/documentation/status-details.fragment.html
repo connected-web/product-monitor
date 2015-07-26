@@ -1,0 +1,182 @@
+<h1>Status Details</h1>
+
+<div id="status-details-container"></div>
+
+<template for="status-details">
+    <p>
+        <pair key="Cache Key"><a href="{{cacheKey}}">{{cacheKey}}</a></pair>
+    </p>
+
+    <status-detail status-code="{{latest.statusCode}}" age="{{latest.ageInSeconds}}">{{latest.message}}</status-detail>
+
+    {{#each records}}
+    <status-mark status-code="{{statusCode}}" age="{{ageInSeconds}}"></status-mark>
+    {{/each}}
+    <hr> {{#each records}}
+    <status-detail status-code="{{statusCode}}" age="{{ageInSeconds}}">{{message}}</status-detail>
+    {{/each}}
+</template>
+
+<template for="status-detail">
+    <div class="alert alert-{{alertType}}">
+        <p>
+            <icon>{{glyphIcon}}</icon>
+            <span>{{content}}</span>
+        </p>
+        <p>
+            <pair key="Age">{{age}}</pair>
+        </p>
+    </div>
+</template>
+
+<template for="status-mark">
+    <button class="btn btn-{{alertType}} disabled">
+        <icon>{{glyphIcon}}</icon>
+    </button>
+</template>
+
+<template for="pair">
+    <b>{{key}} : </b>
+    <span>{{content}}</span>
+</template>
+
+<script type="text/javascript">
+    $(function() {
+        var statusUrl = decodeURIComponent(getUrlParameter('url'));
+        var container = document.getElementById('status-details-container');
+        container.innerHTML = '<status-details data-source-url="{{statusUrl}}"></status-details>'.replace('{{statusUrl}}', statusUrl);
+
+        Component.scanForComponents(container);
+    });
+
+    function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
+</script>
+
+
+<script type="text/javascript">
+    $(function() {
+
+        var StatusDetail = Component.configure("status-detail");
+
+        function rd(number) {
+            return Math.round(number / 100) * 100;
+        }
+
+        StatusDetail.prototype.selectAlertType = function(statusCode, error) {
+            var result = false;
+            var severity = rd(statusCode);
+            if (error) {
+                result = ({
+                    "510": 'default',
+                    "400": 'warning',
+                    "404": 'danger'
+                })[severity] || 'danger';
+            } else {
+                result = ({
+                    "0": 'info',
+                    "100": 'primary',
+                    "200": 'success',
+                    "300": 'info',
+                    "400": 'danger',
+                    "404": 'danger',
+                    "500": 'warning'
+                })[severity] || 'danger';
+            }
+            return result;
+        }
+
+        StatusDetail.prototype.selectGlyphIcon = function(statusCode, error) {
+            return ({
+                "0": 'time',
+                "100": 'tint',
+                "200": 'heart',
+                "300": 'random',
+                "400": 'cog',
+                "404": 'fire',
+                "500": 'cloud',
+                "502": 'unchecked',
+                "5000": 'warning-sign'
+            })[statusCode] || false;
+        }
+
+        StatusDetail.on('preRenderStep', function() {
+            var statusCode = this['status-code'] || 5000;
+            this.glyphIcon = this.selectGlyphIcon(statusCode, this.error) || this.selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
+            this.alertType = this.selectAlertType(statusCode, this.error);
+        });
+
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(function() {
+
+        function rd(number) {
+            return Math.round(number / 100) * 100;
+        }
+
+        function selectAlertType(statusCode, error) {
+            var result = false;
+            var severity = rd(statusCode);
+            if (error) {
+                result = ({
+                    "510": 'default',
+                    "400": 'warning',
+                    "404": 'danger'
+                })[severity] || 'danger';
+            } else {
+                result = ({
+                    "0": 'info',
+                    "100": 'primary',
+                    "200": 'success',
+                    "300": 'info',
+                    "400": 'danger',
+                    "404": 'danger',
+                    "500": 'warning'
+                })[severity] || 'danger';
+            }
+            return result;
+        }
+
+        function selectGlyphIcon(statusCode, error) {
+            return ({
+                "0": 'time',
+                "100": 'tint',
+                "200": 'heart',
+                "300": 'random',
+                "400": 'cog',
+                "404": 'fire',
+                "500": 'cloud',
+                "502": 'unchecked',
+                "5000": 'warning-sign'
+            })[statusCode] || false;
+        }
+
+        var StatusDetail = Component.configure("status-detail");
+
+        StatusDetail.on('preRenderStep', function() {
+            var statusCode = this['status-code'] || 5000;
+            this.glyphIcon = selectGlyphIcon(statusCode, this.error) || selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
+            this.alertType = selectAlertType(statusCode, this.error);
+        });
+
+        var StatusMark = Component.configure("status-mark");
+
+        StatusMark.on('preRenderStep', function() {
+            var statusCode = this['status-code'] || 5000;
+            this.glyphIcon = selectGlyphIcon(statusCode, this.error) || selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
+            this.alertType = selectAlertType(statusCode, this.error);
+        });
+
+    });
+</script>

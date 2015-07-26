@@ -1,7 +1,7 @@
 <template for="status-button" data-source-template="/api/statusOf/?url={{data-url}}{{#if data-contains}}&contains={{data-contains}}{{/if}}&method={{data-method}}" refresh-time="25">
-    <a href="{{dataSourceUrl}}" target="_blank" title="{{latest.urlProvided}}{{#if data-contains}} should contain '{{data-contains}}'{{/if}}">
+    <a href="{{linkUrl}}" target="_blank" title="{{latest.urlProvided}}{{#if data-contains}} should contain '{{data-contains}}'{{/if}}">
         <button type="button" class="btn btn-{{alertType}}">
-            <span class="glyphicon glyphicon-{{glyphIcon}}"></span>
+            <icon>{{glyphIcon}}</icon>
             <span>{{content}}</span>
             {{#if latest.error}}
             <span>{{latest.message}}</span>{{/if}}
@@ -74,6 +74,7 @@
             var statusCode = (this.latest && this.latest.statusCode) ? this.latest.statusCode : 5000;
             this.glyphIcon = this.selectGlyphIcon(statusCode, this.error) || this.selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
             this.alertType = this.selectAlertType(statusCode, this.error);
+            this.linkUrl = '/docs/status-details?url=' + encodeURIComponent(this.dataSourceUrl);
         });
 
     });
