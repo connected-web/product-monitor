@@ -83,7 +83,8 @@
             var statusCode = (this.latest && this.latest.statusCode) ? this.latest.statusCode : 5000;
             this.glyphIcon = this.selectGlyphIcon(statusCode, this.error) || this.selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
             this.alertType = this.selectAlertType(statusCode, this.error);
-            this.linkUrl = '/docs/status-details?url=' + encodeURIComponent(this.dataSourceUrl);
+            this.linkUrl = '/docs/status-details?url=' + encodeURIComponent(this.dataSourceUrl)
+              + '&content=' + encodeURIComponent(this.content);
         });
     });
 </script>

@@ -3,31 +3,50 @@
 <div id="status-details-container"></div>
 
 <template for="status-details">
+    <h2>{{latest.urlProvided}}</h2>
     <p>
         <pair key="Cache Key"><a href="{{cacheKey}}">{{cacheKey}}</a></pair>
     </p>
+    <p>
+        <pair key="Url being checked"><a href="{{latest.urlProvided}}">{{latest.urlProvided}}</b></a></pair>
+    </p>
 
-    <status-detail status-code="{{latest.statusCode}}" age="{{latest.ageInSeconds}}">{{latest.message}}</status-detail>
+    <h3>Latest</h3>
+    <status-detail status-code="{{latest.statusCode}}" age="{{latest.ageInSeconds}}" message="{{latest.message}}">{{content}}</status-detail>
 
+    <h3>History Summary</h3>
     {{#each records}}
-    <status-mark status-code="{{statusCode}}" age="{{ageInSeconds}}"></status-mark>
+    <status-mark status-code="{{statusCode}}" age="{{ageInSeconds}}" message="{{message}}"></status-mark>
     {{/each}}
-    <hr> {{#each records}}
-    <status-detail status-code="{{statusCode}}" age="{{ageInSeconds}}">{{message}}</status-detail>
+    <hr>
+    <h3>Full History</h3> {{#each records}}
+    <status-detail status-code="{{statusCode}}" age="{{ageInSeconds}}" message="{{message}}">{{content}}</status-detail>
     {{/each}}
 </template>
 
 <template for="status-detail">
     <div class="alert alert-{{alertType}}">
-        <p>
+        <p class="status-description">
             <icon>{{glyphIcon}}</icon>
             <span>{{content}}</span>
         </p>
         <p>
-            <pair key="Age">{{age}}</pair>
+            <pair key="Status Code">{{status-code}}</pair>
+            <pair key="Age">{{age}} seconds</pair>
+        </p>
+        <p>
+            <pair key="Message">{{message}}</pair>
         </p>
     </div>
 </template>
+
+<style for="status-detail">
+    p.status-description {
+        font-size: 150%;
+        font-weight: bold;
+        vertical-align: middle;
+    }
+</style>
 
 <template for="status-mark">
     <button class="btn btn-{{alertType}} disabled">
@@ -43,8 +62,11 @@
 <script type="text/javascript">
     $(function() {
         var statusUrl = decodeURIComponent(getUrlParameter('url'));
+        var content = decodeURIComponent(getUrlParameter('content'));
         var container = document.getElementById('status-details-container');
-        container.innerHTML = '<status-details data-source-url="{{statusUrl}}"></status-details>'.replace('{{statusUrl}}', statusUrl);
+        container.innerHTML = '<status-details data-source-url="{{statusUrl}}" refresh-time="70">{{content}}</status-details>'
+            .replace('{{statusUrl}}', statusUrl)
+            .replace('{{content}}', content);
 
         Component.scanForComponents(container);
     });
@@ -60,63 +82,6 @@
         }
     }
 </script>
-
-
-<script type="text/javascript">
-    $(function() {
-
-        var StatusDetail = Component.configure("status-detail");
-
-        function rd(number) {
-            return Math.round(number / 100) * 100;
-        }
-
-        StatusDetail.prototype.selectAlertType = function(statusCode, error) {
-            var result = false;
-            var severity = rd(statusCode);
-            if (error) {
-                result = ({
-                    "510": 'default',
-                    "400": 'warning',
-                    "404": 'danger'
-                })[severity] || 'danger';
-            } else {
-                result = ({
-                    "0": 'info',
-                    "100": 'primary',
-                    "200": 'success',
-                    "300": 'info',
-                    "400": 'danger',
-                    "404": 'danger',
-                    "500": 'warning'
-                })[severity] || 'danger';
-            }
-            return result;
-        }
-
-        StatusDetail.prototype.selectGlyphIcon = function(statusCode, error) {
-            return ({
-                "0": 'time',
-                "100": 'tint',
-                "200": 'heart',
-                "300": 'random',
-                "400": 'cog',
-                "404": 'fire',
-                "500": 'cloud',
-                "502": 'unchecked',
-                "5000": 'warning-sign'
-            })[statusCode] || false;
-        }
-
-        StatusDetail.on('preRenderStep', function() {
-            var statusCode = this['status-code'] || 5000;
-            this.glyphIcon = this.selectGlyphIcon(statusCode, this.error) || this.selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
-            this.alertType = this.selectAlertType(statusCode, this.error);
-        });
-
-    });
-</script>
-
 
 <script type="text/javascript">
     $(function() {
