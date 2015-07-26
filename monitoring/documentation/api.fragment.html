@@ -1,4 +1,4 @@
-<h1>Routes supported by this sever</h1>
+<h1>Routes supported by this server</h1>
 <p>This page is a self documenting template showing what service endpoints are available through this server.</p>
 
 <express-routes data-source-url="/api/expressRoutes"></express-routes>
@@ -11,7 +11,8 @@
 
 <template for="route" data-source-type="json" method="get">
     <status-checker data-url="{{path}}" data-method="{{method}}">
-        <method>{{method}}</method> {{path}}</status-checker>
+        <method>{{method}}</method>
+        <span>{{path}}</span>
     </status-checker>
 </template>
 
