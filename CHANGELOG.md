@@ -7,6 +7,10 @@ None at present
 Release History
 ---------------
 ### Release 1.8.23
+26th July 2015
+* Added status details page with record of last 10 results
+
+### Release 1.8.23
 25th July 2015
 * Added `npmUpdate.disableUpdates` config property
 * Allowed npm updates to be disabled by this property (i.e. disabling this feature on the `Software Updates` page)
