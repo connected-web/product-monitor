@@ -1,10 +1,13 @@
 <template for="status-button" data-source-template="/api/statusOf/?url={{data-url}}{{#if data-contains}}&contains={{data-contains}}{{/if}}&method={{data-method}}" refresh-time="25">
     <a href="{{linkUrl}}" title="{{latest.urlProvided}}{{#if data-contains}} should contain '{{data-contains}}'{{/if}}">
         <button type="button" class="btn btn-{{alertType}}">
-            <icon>{{glyphIcon}}</icon>
-            <span>{{content}}</span>
-            {{#if latest.error}}
-            <span>{{latest.message}}</span>{{/if}}
+            <p>
+                <icon>{{glyphIcon}}</icon>
+                <span>{{content}}</span>
+                {{#if latest.error}}
+                <span>{{latest.message}}</span>{{/if}}
+            </p>
+            <sparkline values="{{sparklineValues}}" sparkColorMap="{{sparklineColorMap}}" sparkType="bar" sparkBarColor="white" sparkDisableInteraction="true" sparkBarWidth="4" sparkBarSpacing="2"></sparkline>
         </button>
     </a>
 </template>
@@ -70,12 +73,66 @@
             })[statusCode] || false;
         }
 
+        StatusButton.prototype.generateSparklineData = function(records) {
+            var values = [4, 3, 2, 1, 0, null];
+            var keyLength = values.length;
+
+            // Fill the array with at least 10 items
+            for (var i = 0; i < 10; i++) {
+                values[keyLength + i] = 0;
+            }
+
+            var count = 0;
+            records.forEach(function(item) {
+                var severity = rd(item.statusCode) / 100;
+
+                // Fill the array backwards from 10
+                var index = keyLength + (10 - records.length) + count;
+                values[index] = severity;
+                count++;
+            });
+
+            return values;
+        }
+
+        StatusButton.prototype.generateSparklineColorMap = function(records) {
+            var keyColor = '#ddd';
+            var values = [keyColor, keyColor, keyColor, keyColor, keyColor, null];
+            var keyLength = values.length;
+
+            // Fill the array with at least 10 items
+            for (var i = 0; i < 10; i++) {
+                values[keyLength + i] = '#fff';
+            }
+
+            var count = 0;
+            records.forEach(function(item) {
+                var severity = rd(item.statusCode);
+                var color = ({
+                    "0": '#fff',
+                    "100": '#111',
+                    "200": '#fff',
+                    "300": '#333',
+                    "400": '#444',
+                    "500": '#555'
+                })[severity]
+
+                // Fill the array backwards from 10
+                var index = keyLength + (10 - records.length) + count;
+                values[index] = color;
+                count++;
+            });
+
+            return values;
+        }
+
         StatusButton.on('preRenderStep', function() {
             var statusCode = (this.latest && this.latest.statusCode) ? this.latest.statusCode : 5000;
             this.glyphIcon = this.selectGlyphIcon(statusCode, this.error) || this.selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
             this.alertType = this.selectAlertType(statusCode, this.error);
-            this.linkUrl = '/docs/status-details?url=' + encodeURIComponent(this.dataSourceUrl)
-              + '&content=' + encodeURIComponent(this.content);
+            this.linkUrl = '/docs/status-details?url=' + encodeURIComponent(this.dataSourceUrl) + '&content=' + encodeURIComponent(this.content);
+            this.sparklineValues = this.generateSparklineData(this.records).join(',');
+            this.sparklineColorMap = '[' + this.generateSparklineColorMap(this.records).join(',') + ']';
         });
 
     });

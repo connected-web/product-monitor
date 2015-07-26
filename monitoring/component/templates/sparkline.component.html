@@ -1,0 +1,35 @@
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
+
+<!-- Types:
+* line
+* bar
+* tristate
+* discrete
+* bullet
+* pie
+* box
+-->
+<template for="sparkline"></template>
+
+<!-- Common options
+http://omnipotent.net/jquery.sparkline/#s-docs
+-->
+
+<script for="sparkline" type="text/javascript">
+    $(function() {
+        SparklineComponent = Component.configure('sparkline');
+
+        SparklineComponent.on('renderComplete', function(instance) {
+            // Map attributes to properties, non-exhaustive...
+            var config = {
+                enableTagOptions: true,
+                tagOptionPrefix: 'spark',
+            };
+            $(instance.element).sparkline('html', config);
+        });
+
+        SparklineComponent.apply(function(instance) {
+            instance.render();
+        });
+    });
+</script>
