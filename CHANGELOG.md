@@ -6,11 +6,15 @@ None at present
 
 Release History
 ---------------
-### Release 1.8.23
+### Release 1.8.26
+26th July 2015
+* Added sparkline bar chart to status button
+
+### Release 1.8.25
 26th July 2015
 * Improved info and layout of status details page
 
-### Release 1.8.23
+### Release 1.8.24
 26th July 2015
 * Added status details page with record of last 10 results
 
