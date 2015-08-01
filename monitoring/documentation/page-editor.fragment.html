@@ -8,9 +8,9 @@
 <h1>Page Editor</h1>
 
 <div class="buttons">
-    <button class="btn btn-warning" id="save">
-        <icon>save</icon>
-        <span>Save</span>
+    <button class="btn btn-danger" id="cancel">
+        <icon>remove</icon>
+        <span>Cancel</span>
     </button>
 
     <button class="btn btn-info" id="preview">
@@ -22,10 +22,9 @@
         <icon>pencil</icon>
         <span>Edit</span>
     </button>
-
-    <button class="btn btn-danger" id="cancel">
-        <icon>remove</icon>
-        <span>Cancel</span>
+    <button class="btn btn-warning" id="save">
+        <icon>save</icon>
+        <span>Save</span>
     </button>
 </div>
 
@@ -62,10 +61,36 @@
         });
 
         $('button#cancel').click(function() {
-          alert('You clicked cancel!');
-          // TODO: Check for unsaved changes and warn the user
-          window.location = '/content/' + contentPath;
+            // TODO: Check for unsaved changes and warn the user
+            window.location = '/content/' + contentPath;
         });
+
+        $('button#edit').click(function() {
+            // TODO: Switch to preview mode
+            alert('Edit not implemented yet.');
+            showPreviewButton();
+        });
+
+        $('button#preview').click(function() {
+            // TODO: Switch to preview mode
+            alert('Preview not implemented yet.');
+            showEditButton();
+        });
+
+        $('button#save').click(function() {
+            // TODO: Save changes and redirect to page
+            alert('Save not implemented yet.');
+        });
+
+        function showPreviewButton() {
+            $('button#preview').removeClass('hidden');
+            $('button#edit').addClass('hidden');
+        }
+
+        function showEditButton() {
+            $('button#edit').removeClass('hidden');
+            $('button#preview').addClass('hidden');
+        }
 
         Component.scanForComponents(container);
     });
