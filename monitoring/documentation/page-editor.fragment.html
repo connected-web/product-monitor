@@ -8,19 +8,24 @@
 <h1>Page Editor</h1>
 
 <div class="buttons">
-    <button class="btn btn-warning">
+    <button class="btn btn-warning" id="save">
         <icon>save</icon>
         <span>Save</span>
     </button>
 
-    <button class="btn btn-info">
+    <button class="btn btn-info" id="preview">
         <icon>eye-open</icon>
         <span>Preview</span>
     </button>
 
-    <button class="btn btn-info hidden">
+    <button class="btn btn-info hidden" id="edit">
         <icon>pencil</icon>
         <span>Edit</span>
+    </button>
+
+    <button class="btn btn-danger" id="cancel">
+        <icon>remove</icon>
+        <span>Cancel</span>
     </button>
 </div>
 
@@ -45,15 +50,21 @@
 
 <script type="text/javascript">
     $(function() {
-        var statusUrl = decodeURIComponent(getUrlParameter('page'));
+        var contentPath = decodeURIComponent(getUrlParameter('page'));
         var container = document.getElementById('page-editor-container');
 
         var contents = 'Loading page contents...\n\n\n\n';
 
-        var myCodeMirror = CodeMirror(container, {
+        var editPageMirror = CodeMirror(container, {
             value: contents,
             lineNumbers: true,
             mode: "htmlmixed"
+        });
+
+        $('button#cancel').click(function() {
+          alert('You clicked cancel!');
+          // TODO: Check for unsaved changes and warn the user
+          window.location = '/content/' + contentPath;
         });
 
         Component.scanForComponents(container);
