@@ -7,31 +7,37 @@
 
 <h1>Page Editor</h1>
 
-<div class="buttons">
-    <button class="btn btn-danger" id="cancel">
-        <icon>remove</icon>
-        <span>Cancel</span>
-    </button>
+<page-editor></page-editor>
 
-    <button class="btn btn-info" id="preview">
-        <icon>eye-open</icon>
-        <span>Preview</span>
-    </button>
+<template for="page-editor">
+    <div class="buttons">
+        <button class="btn btn-danger" id="cancel">
+            <icon>remove</icon>
+            <span>Cancel</span>
+        </button>
 
-    <button class="btn btn-info hidden" id="edit">
-        <icon>pencil</icon>
-        <span>Edit</span>
-    </button>
-    <button class="btn btn-warning" id="save">
-        <icon>save</icon>
-        <span>Save</span>
-    </button>
-</div>
+        <button class="btn btn-info" id="preview">
+            <icon>eye-open</icon>
+            <span>Preview</span>
+        </button>
 
-<div id="page-editor-container"></div>
+        <button class="btn btn-info hidden" id="edit">
+            <icon>pencil</icon>
+            <span>Edit</span>
+        </button>
 
-<style for="page-editor-container">
-    #page-editor-container {
+        <button class="btn btn-warning" id="save">
+            <icon>save</icon>
+            <span>Save</span>
+        </button>
+    </div>
+
+    <page-editor-content></page-editor-content>
+</template>
+
+<style for="page-editor">
+    page-editor-content {
+        display: block;
         border: 1px solid #eee;
         border-radius: 3px;
         padding: 5px;
@@ -49,60 +55,67 @@
 
 <script type="text/javascript">
     $(function() {
-        var contentPath = decodeURIComponent(getUrlParameter('page'));
-        var container = document.getElementById('page-editor-container');
 
-        var contents = 'Loading page contents...\n\n\n\n';
+        var PageEditorComponent = Component.configure('page-editor');
 
-        var editPageMirror = CodeMirror(container, {
-            value: contents,
-            lineNumbers: true,
-            mode: "htmlmixed"
+        PageEditorComponent.on('renderComplete', function(instance) {
+            var contentPath = decodeURIComponent(getUrlParameter('page'));
+            var contentHolder = $('page-editor-content', instance.element)[0];
+
+            var contents = 'Loading page contents...\n\n\n\n';
+
+            var editPageMirror = CodeMirror(contentHolder, {
+                value: contents,
+                lineNumbers: true,
+                mode: "htmlmixed"
+            });
+
+            $('button#cancel').click(function() {
+                // TODO: Check for unsaved changes and warn the user
+                window.location = '/content/' + contentPath;
+            });
+
+            $('button#edit').click(function() {
+                // TODO: Switch to preview mode
+                alert('Edit not implemented yet.');
+                showPreviewButton();
+            });
+
+            $('button#preview').click(function() {
+                // TODO: Switch to preview mode
+                alert('Preview not implemented yet.');
+                showEditButton();
+            });
+
+            $('button#save').click(function() {
+                // TODO: Save changes and redirect to page
+                alert('Save not implemented yet.');
+            });
+
+            function showPreviewButton() {
+                $('button#preview').removeClass('hidden');
+                $('button#edit').addClass('hidden');
+            }
+
+            function showEditButton() {
+                $('button#edit').removeClass('hidden');
+                $('button#preview').addClass('hidden');
+            }
         });
 
-        $('button#cancel').click(function() {
-            // TODO: Check for unsaved changes and warn the user
-            window.location = '/content/' + contentPath;
+        PageEditorComponent.apply(function(instance) {
+            instance.render();
         });
 
-        $('button#edit').click(function() {
-            // TODO: Switch to preview mode
-            alert('Edit not implemented yet.');
-            showPreviewButton();
-        });
-
-        $('button#preview').click(function() {
-            // TODO: Switch to preview mode
-            alert('Preview not implemented yet.');
-            showEditButton();
-        });
-
-        $('button#save').click(function() {
-            // TODO: Save changes and redirect to page
-            alert('Save not implemented yet.');
-        });
-
-        function showPreviewButton() {
-            $('button#preview').removeClass('hidden');
-            $('button#edit').addClass('hidden');
-        }
-
-        function showEditButton() {
-            $('button#edit').removeClass('hidden');
-            $('button#preview').addClass('hidden');
-        }
-
-        Component.scanForComponents(container);
-    });
-
-    function getUrlParameter(sParam) {
-        var sPageURL = window.location.search.substring(1);
-        var sURLVariables = sPageURL.split('&');
-        for (var i = 0; i < sURLVariables.length; i++) {
-            var sParameterName = sURLVariables[i].split('=');
-            if (sParameterName[0] == sParam) {
-                return sParameterName[1];
+        function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
             }
         }
-    }
+    });
 </script>
