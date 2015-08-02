@@ -6,6 +6,13 @@ None at present
 
 Release History
 ---------------
+### Release 1.8.27
+2nd August 2015
+* Added wiki-style Edit button to user content pages
+* Added GET `/api/content/read/:contentPath` endpoint to read content as JSON
+* Added POST `/api/content/save/:contentPath` endpoint to save content
+* Fix for missing `.records` error on `<status-button>` component
+
 ### Release 1.8.26
 26th July 2015
 * Added sparkline bar chart to status button
