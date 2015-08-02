@@ -12,22 +12,22 @@
 <!-- Page Editor -->
 <template for="page-editor">
     <div class="buttons">
-        <button class="btn btn-danger" id="cancel">
+        <button class="btn btn-danger cancel">
             <icon>remove</icon>
             <span>Cancel</span>
         </button>
 
-        <button class="btn btn-info editPreviewToggle" id="preview">
+        <button class="btn btn-info editPreviewToggle preview">
             <icon>eye-open</icon>
             <span>Preview</span>
         </button>
 
-        <button class="btn btn-info hidden editPreviewToggle" id="edit">
+        <button class="btn btn-info editPreviewToggle edit">
             <icon>pencil</icon>
             <span>Edit</span>
         </button>
 
-        <button class="btn btn-warning" id="save">
+        <button class="btn btn-warning save">
             <icon>save</icon>
             <span>Save</span>
         </button>
@@ -39,10 +39,18 @@
 </template>
 
 <style for="page-editor">
-    code-mirror {
+    page-editor > code-mirror {
         display: block;
         border: 1px solid #eee;
         border-radius: 3px;
+    }
+
+    page-editor > preview {
+        display: block;
+        border: 1px solid #eee;
+        border-radius: 3px;
+        border-left: 0;
+        border-right: 0;
     }
 
     page-editor > div.buttons {
@@ -69,39 +77,58 @@
         });
 
         PageEditorComponent.on('renderComplete', function(instance) {
-            var previewBox = $('preview', instance.element);
             var codeMirror = $('code-mirror', instance.element);
+            var previewBox = $('preview', instance.element);
 
-            $('button#cancel').click(function() {
+            $('button.cancel', instance.element).click(function() {
                 // TODO: Check for unsaved changes and warn the user
                 window.location = '/content/' + instance.contentPath;
             });
 
-            $('button#edit').click(function() {
+            $('button.edit', instance.element).click(function() {
                 codeMirror.show();
                 previewBox.html('').hide();
                 showPreviewButton();
             });
 
-            $('button#preview').click(function() {
+            $('button.preview', instance.element).click(function() {
                 showEditButton();
                 codeMirror.hide();
-                previewBox.html('Trying to access code mirror content...').show();
+
+                // Lookup the code mirror element
+                var codeMirrorInstanceId = codeMirror.attr('webcomponentid');
+                var codeMirrorInstance = Component.registeredComponents['code-mirror'].registeredInstances[codeMirrorInstanceId];
+
+                // Update the text area value
+                var textarea = $('textarea', instance.element)[0];
+                textarea.value = codeMirrorInstance.codeMirror.doc.getValue();
+
+                // Update the preview
+                var content = textarea.value;
+                previewBox.html(content).show();
+
+                // Scan for components and templates within the preview
+                Component.registerTemplates(previewBox[0]);
+                Component.scanForComponents(previewBox[0]);
             });
 
-            $('button#save').click(function() {
+            $('button.save', instance.element).click(function() {
                 // TODO: Save changes and redirect to page
                 alert('Save not implemented yet.');
             });
 
+            showPreviewButton();
+
             function showPreviewButton() {
-                $('button#preview').removeClass('hidden');
-                $('button#edit').addClass('hidden');
+                $('button.preview', instance.element).show();
+                $('button.edit', instance.element).hide();
+                $('button.cancel', instance.element).show();
             }
 
             function showEditButton() {
-                $('button#edit').removeClass('hidden');
-                $('button#preview').addClass('hidden');
+                $('button.edit', instance.element).show();
+                $('button.preview', instance.element).hide();
+                $('button.cancel', instance.element).hide();
             }
         });
 
@@ -125,7 +152,7 @@
 <!-- Code Mirror -->
 <template for="code-mirror">
     <!-- Content for {{path}} loaded from {{dataSourceUrl}} -->
-    <!--{{{body}}}-->
+    <textarea>{{body}}</textarea>
 </template>
 
 <script type="text/javascript">
@@ -133,12 +160,12 @@
         var CodeMirrorComponent = Component.configure('code-mirror');
 
         CodeMirrorComponent.on('renderComplete', function(instance) {
+            var textarea = $('textarea', instance.element)[0];
             var contents = instance.body;
             var mode = instance.mode || "htmlmixed";
 
             if (instance.body) {
-                instance.codeMirror = CodeMirror(instance.element, {
-                    value: contents,
+                instance.codeMirror = CodeMirror.fromTextArea(textarea, {
                     lineNumbers: true,
                     mode: mode,
                     viewportMargin: Infinity
@@ -151,5 +178,9 @@
 <style for="code-mirror">
     code-mirror .CodeMirror {
         height: auto;
+    }
+
+    code-mirror > textarea {
+      display: none;
     }
 </style>
