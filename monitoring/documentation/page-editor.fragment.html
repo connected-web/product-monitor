@@ -17,12 +17,12 @@
             <span>Cancel</span>
         </button>
 
-        <button class="btn btn-info" id="preview">
+        <button class="btn btn-info editPreviewToggle" id="preview">
             <icon>eye-open</icon>
             <span>Preview</span>
         </button>
 
-        <button class="btn btn-info hidden" id="edit">
+        <button class="btn btn-info hidden editPreviewToggle" id="edit">
             <icon>pencil</icon>
             <span>Edit</span>
         </button>
@@ -34,6 +34,8 @@
     </div>
 
     <code-mirror data-source-url="/api/content/read/{{contentPath}}"></code-mirror>
+
+    <preview></preview>
 </template>
 
 <style for="page-editor">
@@ -50,6 +52,10 @@
         text-align: right;
         margin-bottom: 3px;
     }
+
+    page-editor > div.buttons > button {
+      width: 90px;
+    }
 </style>
 
 <script type="text/javascript">
@@ -63,15 +69,8 @@
         });
 
         PageEditorComponent.on('renderComplete', function(instance) {
-            var contentHolder = $('page-source', instance.element)[0];
-
-            var contents = 'Loading page contents...\n\n\n\n';
-
-            var editPageMirror = CodeMirror(contentHolder, {
-                value: contents,
-                lineNumbers: true,
-                mode: "htmlmixed"
-            });
+            var previewBox = $('preview', instance.element);
+            var codeMirror = $('code-mirror', instance.element);
 
             $('button#cancel').click(function() {
                 // TODO: Check for unsaved changes and warn the user
@@ -79,15 +78,15 @@
             });
 
             $('button#edit').click(function() {
-                // TODO: Switch to preview mode
-                alert('Edit not implemented yet.');
+                codeMirror.show();
+                previewBox.html('').hide();
                 showPreviewButton();
             });
 
             $('button#preview').click(function() {
-                // TODO: Switch to preview mode
-                alert('Preview not implemented yet.');
                 showEditButton();
+                codeMirror.hide();
+                previewBox.html('Trying to access code mirror content...').show();
             });
 
             $('button#save').click(function() {
