@@ -9,6 +9,7 @@
 
 <page-editor></page-editor>
 
+<!-- Page Editor -->
 <template for="page-editor">
     <div class="buttons">
         <button class="btn btn-danger" id="cancel">
@@ -32,19 +33,17 @@
         </button>
     </div>
 
-    <page-editor-content></page-editor-content>
+    <code-mirror data-source-url="/api/content/read/{{contentPath}}"></code-mirror>
 </template>
 
 <style for="page-editor">
-    page-editor-content {
+    code-mirror {
         display: block;
         border: 1px solid #eee;
         border-radius: 3px;
-        padding: 5px;
-        height: 100%;
     }
 
-    .buttons {
+    page-editor > div.buttons {
         border: 1px solid #eee;
         border-radius: 3px;
         padding: 5px;
@@ -55,12 +54,16 @@
 
 <script type="text/javascript">
     $(function() {
-
         var PageEditorComponent = Component.configure('page-editor');
 
+        var contentPath = decodeURIComponent(getUrlParameter('page'));
+
+        PageEditorComponent.on('preRenderStep', function(instance) {
+            instance.contentPath = contentPath;
+        });
+
         PageEditorComponent.on('renderComplete', function(instance) {
-            var contentPath = decodeURIComponent(getUrlParameter('page'));
-            var contentHolder = $('page-editor-content', instance.element)[0];
+            var contentHolder = $('page-source', instance.element)[0];
 
             var contents = 'Loading page contents...\n\n\n\n';
 
@@ -72,7 +75,7 @@
 
             $('button#cancel').click(function() {
                 // TODO: Check for unsaved changes and warn the user
-                window.location = '/content/' + contentPath;
+                window.location = '/content/' + instance.contentPath;
             });
 
             $('button#edit').click(function() {
@@ -119,3 +122,35 @@
         }
     });
 </script>
+
+<!-- Code Mirror -->
+<template for="code-mirror">
+    <!-- Content for {{path}} loaded from {{dataSourceUrl}} -->
+    <!--{{{body}}}-->
+</template>
+
+<script type="text/javascript">
+    $(function() {
+        var CodeMirrorComponent = Component.configure('code-mirror');
+
+        CodeMirrorComponent.on('renderComplete', function(instance) {
+            var contents = instance.body;
+            var mode = instance.mode || "htmlmixed";
+
+            if (instance.body) {
+                instance.codeMirror = CodeMirror(instance.element, {
+                    value: contents,
+                    lineNumbers: true,
+                    mode: mode,
+                    viewportMargin: Infinity
+                });
+            }
+        });
+    });
+</script>
+
+<style for="code-mirror">
+    code-mirror .CodeMirror {
+        height: auto;
+    }
+</style>
