@@ -31,9 +31,16 @@
             <icon>save</icon>
             <span>Save</span>
         </button>
+
+        <button class="btn btn-warning saving disabled">
+            <icon>save</icon>
+            <span>Saving</span>
+        </button>
     </div>
 
     <code-mirror data-source-url="{{contentUrl}}"></code-mirror>
+
+    <save-message></save-message>
 
     <preview></preview>
 </template>
@@ -64,6 +71,10 @@
     page-editor > div.buttons > button {
         width: 90px;
     }
+
+    page-editor > save-message {
+        display: block;
+    }
 </style>
 
 <script type="text/javascript">
@@ -82,6 +93,7 @@
             var codeMirror = $('code-mirror', instance.element);
             var textarea = $('textarea', instance.element)[0];
             var previewBox = $('preview', instance.element);
+            var saveMessageBox = $('save-message', instance.element).hide();
 
             // Lookup the code mirror element
             var codeMirrorInstanceId = codeMirror.attr('webcomponentid');
@@ -105,7 +117,9 @@
                 showPreviewButton();
             });
 
-            $('button.preview', instance.element).click(function() {
+            $('button.preview', instance.element).click(doPreview);
+
+            function doPreview() {
                 showEditButton();
                 codeMirror.hide();
 
@@ -116,21 +130,46 @@
                 // Scan for components and templates within the preview
                 Component.registerTemplates(previewBox[0]);
                 Component.scanForComponents(previewBox[0]);
-            });
+            }
 
             $('button.save', instance.element).click(function() {
                 var content = getContent();
                 var postUrl = instance.postUrl;
                 var postData = {
-                  body: content
+                    body: content
                 };
 
-                $.post(postUrl, postData).done(function(body) {
-                    console.log('Post succeeded:', body);
-                }).fail(function(error) {
-                    console.log("Post failed", error);
-                });
+                setTimeout(function() {
+                    $.post(postUrl, postData).done(function(body) {
+                        console.log('Post succeeded:', body);
+                        saveComplete(null, body.message);
+                    }).fail(function(error) {
+                        console.log("Post failed", error);
+                        try {
+                          saveComplete(true, JSON.parse(error.responseText).message);
+                        }
+                        catch(exception) {
+                          saveComplete(true, error.responseText);
+                        }
+                    });
+                }, 500);
+
+                $('button.preview', instance.element).hide();
+                $('button.edit', instance.element).hide();
+                $('button.cancel', instance.element).hide();
+                $('button.save', instance.element).hide();
+                $('button.saving', instance.element).show();
             });
+
+            function saveComplete(error, message) {
+                var alertType = (error) ? 'danger' : 'sucess';
+                var iconType = (error) ? 'remove' : 'ok';
+                var content = ('<div class="alert alert-{{alertType}}"><span class="glyphicon glyphicon-{{iconType}}"></span> <span>' + message + '</span></div>')
+                  .replace(/{{alertType}}/, alertType)
+                  .replace(/{{iconType}}/, iconType);
+                saveMessageBox.html(content).show();
+                setTimeout(doPreview, 0);
+            }
 
             showPreviewButton();
 
@@ -138,12 +177,16 @@
                 $('button.preview', instance.element).show();
                 $('button.edit', instance.element).hide();
                 $('button.cancel', instance.element).show();
+                $('button.save', instance.element).show();
+                $('button.saving', instance.element).hide();
             }
 
             function showEditButton() {
                 $('button.edit', instance.element).show();
                 $('button.preview', instance.element).hide();
                 $('button.cancel', instance.element).hide();
+                $('button.save', instance.element).show();
+                $('button.saving', instance.element).hide();
             }
         });
 
