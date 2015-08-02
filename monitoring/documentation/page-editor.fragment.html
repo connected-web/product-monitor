@@ -10,7 +10,7 @@
 <page-editor></page-editor>
 
 <!-- Page Editor -->
-<template for="page-editor" post-url-template="/api/content/save/{{contentPath}}">
+<template for="page-editor" post-url-template="/api/content/save/{{contentPath}}" content-url-template="/api/content/read/{{contentPath}}">
     <div class="buttons">
         <button class="btn btn-danger cancel">
             <icon>remove</icon>
@@ -71,11 +71,11 @@
         var PageEditorComponent = Component.configure('page-editor');
 
         var contentPath = decodeURIComponent(getUrlParameter('page'));
-        var contentUrl = '/api/content/read/' + contentPath;
 
         PageEditorComponent.on('preRenderStep', function(instance) {
-            instance.contentPath = contentPath;
-            instance.contentUrl = contentUrl;
+            instance.contentPath = instance['content-path'] || contentPath;
+            instance.contentUrl = instance['content-url-template'].replace(/{{contentPath}}/, instance.contentPath);
+            instance.postUrl = instance['post-url-template'].replace(/{{contentPath}}/, instance.contentPath);
         });
 
         PageEditorComponent.on('renderComplete', function(instance) {
@@ -120,7 +120,7 @@
 
             $('button.save', instance.element).click(function() {
                 var content = getContent();
-                var postUrl = instance['post-url-template'].replace(/{{contentPath}}/, contentPath);
+                var postUrl = instance.postUrl;
                 var postData = {
                   body: content
                 };
