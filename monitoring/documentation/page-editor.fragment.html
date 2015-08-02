@@ -12,6 +12,11 @@
 <!-- Page Editor -->
 <template for="page-editor" post-url-template="/api/content/save/{{contentPath}}" content-url-template="/api/content/read/{{contentPath}}">
     <div class="buttons">
+        <button class="btn btn-success view">
+            <icon>eye-open</icon>
+            <span>View</span>
+        </button>
+
         <button class="btn btn-danger cancel">
             <icon>remove</icon>
             <span>Cancel</span>
@@ -106,10 +111,13 @@
                 return textarea.value;
             }
 
-            $('button.cancel', instance.element).click(function() {
+            $('button.cancel', instance.element).click(doBackToPage);
+            $('button.view', instance.element).click(doBackToPage);
+
+            function doBackToPage() {
                 // TODO: Check for unsaved changes and warn the user
                 window.location = '/content/' + instance.contentPath;
-            });
+            }
 
             $('button.edit', instance.element).click(function() {
                 codeMirror.show();
@@ -135,40 +143,44 @@
             $('button.save', instance.element).click(function() {
                 var content = getContent();
                 var postUrl = instance.postUrl;
-                var postData = {
-                    body: content
+                var postBody = {
+                    content: content
                 };
 
                 setTimeout(function() {
-                    $.post(postUrl, postData).done(function(body) {
+                    $.post(postUrl, postBody).done(function(body) {
                         console.log('Post succeeded:', body);
                         saveComplete(null, body.message);
                     }).fail(function(error) {
                         console.log("Post failed", error);
                         try {
-                          saveComplete(true, JSON.parse(error.responseText).message);
-                        }
-                        catch(exception) {
-                          saveComplete(true, error.responseText);
+                            saveComplete(true, JSON.parse(error.responseText).message);
+                        } catch (exception) {
+                            saveComplete(true, error.responseText);
                         }
                     });
                 }, 500);
 
                 $('button.preview', instance.element).hide();
                 $('button.edit', instance.element).hide();
+                $('button.view', instance.element).hide();
                 $('button.cancel', instance.element).hide();
                 $('button.save', instance.element).hide();
                 $('button.saving', instance.element).show();
             });
 
             function saveComplete(error, message) {
-                var alertType = (error) ? 'danger' : 'sucess';
+                var alertType = (error) ? 'danger' : 'success';
                 var iconType = (error) ? 'remove' : 'ok';
                 var content = ('<div class="alert alert-{{alertType}}"><span class="glyphicon glyphicon-{{iconType}}"></span> <span>' + message + '</span></div>')
-                  .replace(/{{alertType}}/, alertType)
-                  .replace(/{{iconType}}/, iconType);
+                    .replace(/{{alertType}}/, alertType)
+                    .replace(/{{iconType}}/, iconType);
                 saveMessageBox.html(content).show();
-                setTimeout(doPreview, 0);
+                setTimeout(function() {
+                    doPreview();
+                    $('button.view', instance.element).show();
+                    $('button.save', instance.element).hide();
+                }, 0);
             }
 
             showPreviewButton();
@@ -176,6 +188,7 @@
             function showPreviewButton() {
                 $('button.preview', instance.element).show();
                 $('button.edit', instance.element).hide();
+                $('button.view', instance.element).hide();
                 $('button.cancel', instance.element).show();
                 $('button.save', instance.element).show();
                 $('button.saving', instance.element).hide();
@@ -184,6 +197,7 @@
             function showEditButton() {
                 $('button.edit', instance.element).show();
                 $('button.preview', instance.element).hide();
+                $('button.view', instance.element).hide();
                 $('button.cancel', instance.element).hide();
                 $('button.save', instance.element).show();
                 $('button.saving', instance.element).hide();

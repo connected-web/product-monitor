@@ -74,6 +74,10 @@
         }
 
         StatusButton.prototype.generateSparklineData = function(records) {
+            if (!records) {
+                return;
+            }
+
             var values = [4, 3, 2, 1, 0, null];
             var keyLength = values.length;
 
@@ -96,6 +100,10 @@
         }
 
         StatusButton.prototype.generateSparklineColorMap = function(records) {
+            if (!records) {
+                return;
+            }
+
             var keyColor = '#ddd';
             var values = [keyColor, keyColor, keyColor, keyColor, keyColor, null];
             var keyLength = values.length;
@@ -131,8 +139,10 @@
             this.glyphIcon = this.selectGlyphIcon(statusCode, this.error) || this.selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
             this.alertType = this.selectAlertType(statusCode, this.error);
             this.linkUrl = '/docs/status-details?url=' + encodeURIComponent(this.dataSourceUrl) + '&content=' + encodeURIComponent(this.content);
-            this.sparklineValues = this.generateSparklineData(this.records).join(',');
-            this.sparklineColorMap = '[' + this.generateSparklineColorMap(this.records).join(',') + ']';
+            if (this.records) {
+                this.sparklineValues = this.generateSparklineData(this.records).join(',');
+                this.sparklineColorMap = '[' + this.generateSparklineColorMap(this.records).join(',') + ']';
+            }
         });
 
     });
