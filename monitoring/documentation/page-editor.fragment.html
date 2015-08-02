@@ -33,7 +33,7 @@
         </button>
     </div>
 
-    <code-mirror data-source-url="/api/content/read/{{contentPath}}"></code-mirror>
+    <code-mirror data-source-url="{{contentUrl}}"></code-mirror>
 
     <preview></preview>
 </template>
@@ -71,22 +71,24 @@
         var PageEditorComponent = Component.configure('page-editor');
 
         var contentPath = decodeURIComponent(getUrlParameter('page'));
+        var contentUrl = '/api/content/read/' + contentPath;
 
         PageEditorComponent.on('preRenderStep', function(instance) {
             instance.contentPath = contentPath;
+            instance.contentUrl = contentUrl;
         });
 
         PageEditorComponent.on('renderComplete', function(instance) {
             var codeMirror = $('code-mirror', instance.element);
+            var textarea = $('textarea', instance.element)[0];
             var previewBox = $('preview', instance.element);
 
-            function getContent() {
-                // Lookup the code mirror element
-                var codeMirrorInstanceId = codeMirror.attr('webcomponentid');
-                var codeMirrorInstance = Component.registeredComponents['code-mirror'].registeredInstances[codeMirrorInstanceId];
+            // Lookup the code mirror element
+            var codeMirrorInstanceId = codeMirror.attr('webcomponentid');
+            var codeMirrorInstance = Component.registeredComponents['code-mirror'].registeredInstances[codeMirrorInstanceId];
 
+            function getContent() {
                 // Update the text area value
-                var textarea = $('textarea', instance.element)[0];
                 textarea.value = codeMirrorInstance.codeMirror.doc.getValue();
 
                 return textarea.value;
