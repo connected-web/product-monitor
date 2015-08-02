@@ -10,7 +10,7 @@
 <page-editor></page-editor>
 
 <!-- Page Editor -->
-<template for="page-editor">
+<template for="page-editor" post-url-template="/api/content/save/{{contentPath}}">
     <div class="buttons">
         <button class="btn btn-danger cancel">
             <icon>remove</icon>
@@ -62,7 +62,7 @@
     }
 
     page-editor > div.buttons > button {
-      width: 90px;
+        width: 90px;
     }
 </style>
 
@@ -80,6 +80,18 @@
             var codeMirror = $('code-mirror', instance.element);
             var previewBox = $('preview', instance.element);
 
+            function getContent() {
+                // Lookup the code mirror element
+                var codeMirrorInstanceId = codeMirror.attr('webcomponentid');
+                var codeMirrorInstance = Component.registeredComponents['code-mirror'].registeredInstances[codeMirrorInstanceId];
+
+                // Update the text area value
+                var textarea = $('textarea', instance.element)[0];
+                textarea.value = codeMirrorInstance.codeMirror.doc.getValue();
+
+                return textarea.value;
+            }
+
             $('button.cancel', instance.element).click(function() {
                 // TODO: Check for unsaved changes and warn the user
                 window.location = '/content/' + instance.contentPath;
@@ -95,16 +107,8 @@
                 showEditButton();
                 codeMirror.hide();
 
-                // Lookup the code mirror element
-                var codeMirrorInstanceId = codeMirror.attr('webcomponentid');
-                var codeMirrorInstance = Component.registeredComponents['code-mirror'].registeredInstances[codeMirrorInstanceId];
-
-                // Update the text area value
-                var textarea = $('textarea', instance.element)[0];
-                textarea.value = codeMirrorInstance.codeMirror.doc.getValue();
-
                 // Update the preview
-                var content = textarea.value;
+                var content = getContent();
                 previewBox.html(content).show();
 
                 // Scan for components and templates within the preview
@@ -113,8 +117,17 @@
             });
 
             $('button.save', instance.element).click(function() {
-                // TODO: Save changes and redirect to page
-                alert('Save not implemented yet.');
+                var content = getContent();
+                var postUrl = instance['post-url-template'].replace(/{{contentPath}}/, contentPath);
+                var postData = {
+                  body: content
+                };
+
+                $.post(postUrl, postData).done(function(body) {
+                    console.log('Post succeeded:', body);
+                }).fail(function(error) {
+                    console.log("Post failed", error);
+                });
             });
 
             showPreviewButton();
@@ -181,6 +194,6 @@
     }
 
     code-mirror > textarea {
-      display: none;
+        display: none;
     }
 </style>
