@@ -6,9 +6,13 @@ None at present
 
 Release History
 ---------------
+### Release 1.8.29
+3rd August 2015
+* Removed error message from `<status-button>` component to keep size consistent
+
 ### Release 1.8.28
 3rd August 2015
-* Fix for server breaking bug on /api/statusOf endpoint when no body is returned
+* Fix for server breaking bug on `/api/statusOf` endpoint when no body is returned
 
 ### Release 1.8.27
 2nd August 2015
