@@ -5,7 +5,7 @@
                 <icon>{{glyphIcon}}</icon>
                 <span>{{content}}</span>
                 {{#if latest.error}}
-                <span>{{latest.message}}</span>{{/if}}
+                <span class="hidden">{{latest.message}}</span>{{/if}}
             </p>
             <sparkline values="{{sparklineValues}}" sparkColorMap="{{sparklineColorMap}}" sparkType="bar" sparkBarColor="white" sparkDisableInteraction="true" sparkBarWidth="4" sparkBarSpacing="2"></sparkline>
         </button>
