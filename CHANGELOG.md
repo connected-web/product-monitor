@@ -6,6 +6,10 @@ None at present
 
 Release History
 ---------------
+### Release 1.8.28
+3rd August 2015
+* Fix for server breaking bug on /api/statusOf endpoint when no body is returned
+
 ### Release 1.8.27
 2nd August 2015
 * Added wiki-style Edit button to user content pages
