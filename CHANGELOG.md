@@ -6,6 +6,10 @@ None at present
 
 Release History
 ---------------
+### Release 1.8.30
+4th August 2015
+* Updated `<status-button>` component to support content-type checking.
+
 ### Release 1.8.29
 3rd August 2015
 * Removed error message from `<status-button>` component to keep size consistent
