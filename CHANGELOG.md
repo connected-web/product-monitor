@@ -6,13 +6,17 @@ None at present
 
 Release History
 ---------------
+### Release 1.8.32
+6th August 2015
+* Fix for syntax error in `<status-checker>` and `<status-button>`
+
 ### Release 1.8.31
 4th August 2015
-* Fix for `<status-checker>` to handle 200 error states correctly.
+* Fix for `<status-checker>` to handle 200 error states correctly
 
 ### Release 1.8.30
 4th August 2015
-* Updated `<status-button>` component to support content-type checking.
+* Updated `<status-button>` component to support content-type checking
 
 ### Release 1.8.29
 3rd August 2015
