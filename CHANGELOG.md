@@ -6,6 +6,10 @@ None at present
 
 Release History
 ---------------
+### Release 1.8.33
+6th August 2015
+* Accessibility: spark graph colour differentiation on `<status-button>`
+
 ### Release 1.8.32
 6th August 2015
 * Fix for syntax error in `<status-checker>` and `<status-button>`
