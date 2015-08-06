@@ -15,13 +15,15 @@
     </div>{{/if}} {{#if needToPull}}
     <div class="alert alert-warning">
         <icon>save</icon> {{commitStatus}}
-    </div>
-    <form id="pull-from-repo">
-        <get-html data-source-url="/api/repo/pull/status" refresh-time="6"></get-html>
-    </form>{{/if}} {{#if diverged}}
+    </div>{{/if}} {{#if diverged}}
     <div class="alert alert-danger">
         <icon>remove</icon> {{commitStatus}}
     </div>{{/if}}
+    
+    <h4>Pull updates from Repo</h4>
+    <form id="pull-from-repo">
+        <get-html data-source-url="/api/repo/pull/status" refresh-time="6"></get-html>
+    </form>
 
     <h3>Local Status</h3>
     <pre class="alert alert-info">{{status}}</pre>
