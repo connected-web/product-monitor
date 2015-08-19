@@ -6,6 +6,10 @@ None at present
 
 Release History
 ---------------
+### Release 1.8.34
+19th August 2015
+* Changed `<status-button>` component content-type check to match on partial string
+
 ### Release 1.8.33
 6th August 2015
 * Accessibility: spark graph colour differentiation on `<status-button>`
