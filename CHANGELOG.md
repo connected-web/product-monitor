@@ -6,6 +6,10 @@ None at present
 
 Release History
 ---------------
+### Release 1.8.35
+20th August 2015
+* Changed `/api/statusOf` endpoint to support regex matching, backwards compatible to indexOf check
+
 ### Release 1.8.34
 19th August 2015
 * Changed `<status-button>` component content-type check to match on partial string
