@@ -36,7 +36,7 @@
             return Math.round(number / 100) * 100;
         }
 
-        StatusButton.prototype.selectAlertType = function(statusCode, error) {
+        function selectAlertType(statusCode, error) {
             var result = false;
             var severity = rd(statusCode);
             if (error) {
@@ -59,7 +59,8 @@
             return result;
         }
 
-        StatusButton.prototype.selectGlyphIcon = function(statusCode, error) {
+        function selectGlyphIcon(statusCode, error) {
+            console.log('Status Button Glyph Icon', statusCode, error);
             return ({
                 "0": 'time',
                 "100": 'tint',
@@ -71,6 +72,13 @@
                 "502": 'unchecked',
                 "5000": 'warning-sign'
             })[statusCode] || false;
+        }
+
+        function selectDisplayState(instance) {
+            var statusCode = (instance.latest && instance.latest.statusCode) || 5000;
+            var errorState = (instance.latest && instance.latest.error) || null;
+            instance.glyphIcon = selectGlyphIcon(statusCode, errorState) || selectGlyphIcon(rd(statusCode), errorState) || "question-sign";
+            instance.alertType = selectAlertType(statusCode, errorState);
         }
 
         StatusButton.prototype.generateSparklineData = function(records) {
@@ -135,10 +143,7 @@
         }
 
         StatusButton.on('preRenderStep', function() {
-            var statusCode = (this.latest && this.latest.statusCode) ? this.latest.statusCode : 5000;
-            var errorState = (this.latest && this.latest.error) ? this.latest.error : null;
-            this.glyphIcon = this.selectGlyphIcon(statusCode, errorState) || this.selectGlyphIcon(rd(statusCode), errorState) || "question-sign";
-            this.alertType = this.selectAlertType(statusCode, errorState);
+            selectDisplayState(this);
             this.linkUrl = '/docs/status-details?url=' + encodeURIComponent(this.dataSourceUrl) + '&content=' + encodeURIComponent(this.content);
             if (this.records) {
                 this.sparklineValues = this.generateSparklineData(this.records).join(',');

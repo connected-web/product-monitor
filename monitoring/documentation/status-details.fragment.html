@@ -11,16 +11,27 @@
         <pair key="Url being checked"><a href="{{latest.urlProvided}}">{{latest.urlProvided}}</b></a></pair>
     </p>
 
+    <!-- For debug purposes:
+    <h3>Status Button</h3>
+    <status-button data-url="{{latest.urlProvided}}">{{content}}</status-button>
+
+    <h3>Status Checker</h3>
+    <status-checker data-url="{{latest.urlProvided}}">{{content}}</status-checker>
+    -->
+
     <h3>Latest</h3>
-    <status-detail status-code="{{latest.statusCode}}" age="{{latest.ageInSeconds}}" message="{{latest.message}}">{{content}}</status-detail>
+    <status-detail status-code="{{latest.statusCode}}" status-error="{{#if latest.error}}true{{/if}}" age="{{latest.ageInSeconds}}" message="{{latest.message}}">{{content}}</status-detail>
 
     <h3>History Summary</h3>
+    <p>&#8614; Oldest to newest</p>
     {{#each records}}
-    <status-mark status-code="{{statusCode}}" age="{{ageInSeconds}}" message="{{message}}"></status-mark>
+    <status-mark status-code="{{statusCode}}" status-error="{{#if error}}true{{/if}}" age="{{ageInSeconds}}" message="{{message}}" title="{{ageInSeconds}} seconds ago"></status-mark>
     {{/each}}
     <hr>
-    <h3>Full History</h3> {{#each records}}
-    <status-detail status-code="{{statusCode}}" age="{{ageInSeconds}}" message="{{message}}">{{content}}</status-detail>
+    <h3>Full History</h3>
+    <p>&#8615; Oldest to newest</p>
+    {{#each records}}
+    <status-detail status-code="{{statusCode}}" status-error="{{#if error}}true{{/if}}" age="{{ageInSeconds}}" message="{{message}}">{{content}}</status-detail>
     {{/each}}
 </template>
 
@@ -41,6 +52,10 @@
 </template>
 
 <style for="status-detail">
+    status-detail {
+        display: block;
+    }
+
     p.status-description {
         font-size: 150%;
         font-weight: bold;
@@ -53,6 +68,12 @@
         <icon>{{glyphIcon}}</icon>
     </button>
 </template>
+
+<style for="status-mark">
+    status-mark {
+        display: inline-block;
+    }
+</style>
 
 <template for="pair">
     <b>{{key}} : </b>
@@ -114,6 +135,7 @@
         }
 
         function selectGlyphIcon(statusCode, error) {
+            console.log('Status Details Glyph Icon', statusCode, error);
             return ({
                 "0": 'time',
                 "100": 'tint',
@@ -127,20 +149,31 @@
             })[statusCode] || false;
         }
 
+        function selectDisplayState(instance) {
+            var statusCode = (instance.latest && instance.latest.statusCode) || 5000;
+            var errorState = (instance.latest && instance.latest.error) || null;
+            instance.glyphIcon = selectGlyphIcon(statusCode, errorState) || selectGlyphIcon(rd(statusCode), errorState) || "question-sign";
+            instance.alertType = selectAlertType(statusCode, errorState);
+        }
+
         var StatusDetail = Component.configure("status-detail");
 
-        StatusDetail.on('preRenderStep', function() {
-            var statusCode = this['status-code'] || 5000;
-            this.glyphIcon = selectGlyphIcon(statusCode, this.error) || selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
-            this.alertType = selectAlertType(statusCode, this.error);
+        StatusDetail.on('preRenderStep', function(instance) {
+            this.latest = {
+              statusCode: this['status-code'],
+              error: this['status-error']
+            };
+            selectDisplayState(this);
         });
 
         var StatusMark = Component.configure("status-mark");
 
         StatusMark.on('preRenderStep', function() {
-            var statusCode = this['status-code'] || 5000;
-            this.glyphIcon = selectGlyphIcon(statusCode, this.error) || selectGlyphIcon(rd(statusCode), this.error) || "question-sign";
-            this.alertType = selectAlertType(statusCode, this.error);
+            this.latest = {
+              statusCode: this['status-code'],
+              error: this['status-error']
+            };
+            selectDisplayState(this);
         });
 
     });
