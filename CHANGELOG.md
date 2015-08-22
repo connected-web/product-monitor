@@ -6,6 +6,10 @@ None at present
 
 Release History
 ---------------
+### Release 1.8.36
+22nd August 2015
+* Fixed inconsistent colour codes on `/docs/status-details` page
+
 ### Release 1.8.35
 20th August 2015
 * Changed `/api/statusOf` endpoint to support regex matching, backwards compatible to indexOf check
