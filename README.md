@@ -44,10 +44,7 @@ Which amounts to:
 ```
 
 ### And with a bit of configuration:
-```html
-<octo-credits data-user="johnbeech" data-repo="product-monitor"></octo-credits>
-```
-![Product Monitor Example](images/product-monitor-credits.png)
+![Product Monitor Example](images/product-monitor-apps.png)
 
 How to get started
 ------------------
