@@ -7,10 +7,10 @@
                         <icon>{{glyphIcon}}</icon>
                     </button>
                 </a>
-                <span class="status-description">{{content}} ({{latest.statusCode}})</span>
+                <span class="status-description">{{content}} ({{summary.statusCode}})</span>
             </div>
             <div class="col-md-6">
-                <p><b>{{latest.message}}</b></p>
+                <p><b>{{summary.message}}</b></p>
                 {{#if error}}
                 <p><a href="{{data-url}}">{{data-url}}</a></p>{{/if}}
             </div>
@@ -81,8 +81,8 @@
         }
 
         function selectDisplayState(instance) {
-            var statusCode = (instance.latest && instance.latest.statusCode) || 5000;
-            var errorState = (instance.latest && instance.latest.error) || null;
+            var statusCode = (instance.summary && instance.summary.statusCode) || 5000;
+            var errorState = (instance.summary && instance.summary.error) || null;
             instance.glyphIcon = selectGlyphIcon(statusCode, errorState) || selectGlyphIcon(rd(statusCode), errorState) || "question-sign";
             instance.alertType = selectAlertType(statusCode, errorState);
         }

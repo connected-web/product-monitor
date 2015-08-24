@@ -3,24 +3,24 @@
 <div id="status-details-container"></div>
 
 <template for="status-details">
-    <h2>{{latest.urlProvided}}</h2>
+    <h2>{{summary.urlProvided}}</h2>
     <p>
         <pair key="Cache Key"><a href="{{cacheKey}}">{{cacheKey}}</a></pair>
     </p>
     <p>
-        <pair key="Url being checked"><a href="{{latest.urlProvided}}">{{latest.urlProvided}}</b></a></pair>
+        <pair key="Url being checked"><a href="{{summary.urlProvided}}">{{summary.urlProvided}}</b></a></pair>
     </p>
 
     <!-- For debug purposes:
     <h3>Status Button</h3>
-    <status-button data-url="{{latest.urlProvided}}">{{content}}</status-button>
+    <status-button data-url="{{summary.urlProvided}}">{{content}}</status-button>
 
     <h3>Status Checker</h3>
-    <status-checker data-url="{{latest.urlProvided}}">{{content}}</status-checker>
+    <status-checker data-url="{{summary.urlProvided}}">{{content}}</status-checker>
     -->
 
     <h3>Latest</h3>
-    <status-detail status-code="{{latest.statusCode}}" status-error="{{#if latest.error}}true{{/if}}" age="{{latest.ageInSeconds}}" message="{{latest.message}}">{{content}}</status-detail>
+    <status-detail status-code="{{summary.statusCode}}" status-error="{{#if summary.error}}true{{/if}}" age="{{summary.ageInSeconds}}" message="{{summary.message}}">{{content}}</status-detail>
 
     <h3>History Summary</h3>
     <p>&#8614; Oldest to newest</p>
@@ -150,8 +150,8 @@
         }
 
         function selectDisplayState(instance) {
-            var statusCode = (instance.latest && instance.latest.statusCode) || 5000;
-            var errorState = (instance.latest && instance.latest.error) || null;
+            var statusCode = (instance.summary && instance.summary.statusCode) || 5000;
+            var errorState = (instance.summary && instance.summary.error) || null;
             instance.glyphIcon = selectGlyphIcon(statusCode, errorState) || selectGlyphIcon(rd(statusCode), errorState) || "question-sign";
             instance.alertType = selectAlertType(statusCode, errorState);
         }
@@ -159,7 +159,7 @@
         var StatusDetail = Component.configure("status-detail");
 
         StatusDetail.on('preRenderStep', function(instance) {
-            this.latest = {
+            this.summary = {
               statusCode: this['status-code'],
               error: this['status-error']
             };
@@ -169,7 +169,7 @@
         var StatusMark = Component.configure("status-mark");
 
         StatusMark.on('preRenderStep', function() {
-            this.latest = {
+            this.summary = {
               statusCode: this['status-code'],
               error: this['status-error']
             };

@@ -1,11 +1,11 @@
 <template for="status-button" data-source-template="/api/statusOf/?url={{data-url}}{{#if data-contains}}&contains={{data-contains}}{{/if}}&method={{data-method}}{{#if data-content-type}}&content-type={{data-content-type}}{{/if}}" refresh-time="25">
-    <a href="{{linkUrl}}" title="{{latest.urlProvided}}{{#if data-contains}} should contain '{{data-contains}}'{{/if}}">
+    <a href="{{linkUrl}}" title="{{summary.urlProvided}}{{#if data-contains}} should contain '{{data-contains}}'{{/if}}">
         <button type="button" class="btn btn-{{alertType}}">
             <p>
                 <icon>{{glyphIcon}}</icon>
                 <span>{{content}}</span>
-                {{#if latest.error}}
-                <span class="hidden">{{latest.message}}</span>{{/if}}
+                {{#if summary.error}}
+                <span class="hidden">{{summary.message}}</span>{{/if}}
             </p>
             <sparkline values="{{sparklineValues}}" sparkColorMap="{{sparklineColorMap}}" sparkType="bar" sparkBarColor="white" sparkDisableInteraction="true" sparkBarWidth="4" sparkBarSpacing="2"></sparkline>
         </button>
@@ -75,8 +75,8 @@
         }
 
         function selectDisplayState(instance) {
-            var statusCode = (instance.latest && instance.latest.statusCode) || 5000;
-            var errorState = (instance.latest && instance.latest.error) || null;
+            var statusCode = (instance.summary && instance.summary.statusCode) || 5000;
+            var errorState = (instance.summary && instance.summary.error) || null;
             instance.glyphIcon = selectGlyphIcon(statusCode, errorState) || selectGlyphIcon(rd(statusCode), errorState) || "question-sign";
             instance.alertType = selectAlertType(statusCode, errorState);
         }
