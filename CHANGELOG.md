@@ -6,6 +6,12 @@ None at present
 
 Release History
 ---------------
+### Release 1.9.0
+19th November 2015
+* Disabled `npmStatus` check on start up
+* Created images folder hosted out of the `userContentPath` directory
+* Moved `favicon.ico` to be hosted out of the images folder
+
 ### Release 1.8.36
 22nd August 2015
 * Fixed inconsistent colour codes on `/docs/status-details` page
