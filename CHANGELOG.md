@@ -2,7 +2,10 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-None at present
+* Removed Local Repository Status `/docs/repo-status` endpoint
+* Removed `/api/repo/status` endpoint
+* Removed `/api/repo/pull/status` endpoint
+* Removed `/api/repo/pull/confirm/:confirmationHash` endpoint
 
 Release History
 ---------------
