@@ -6,6 +6,11 @@ None at present
 
 Release History
 ---------------
+### Release 1.9.1
+4th December 2015
+* Updated `web-component.js` to 1.2.7
+* Added local caching of external assets at `npm install` time
+
 ### Release 1.9.0
 19th November 2015
 * Disabled `npmStatus` check on start up
