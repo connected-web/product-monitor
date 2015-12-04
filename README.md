@@ -7,6 +7,40 @@ Uses a pattern of HTML/JavaScript components connected to custom JSON /api/ endp
 
 [![NPM Version](https://badge.fury.io/js/product-monitor.svg)](http://badge.fury.io/js/product-monitor)
 
+How to get started
+------------------
+
+### How to create your own product monitor via NPM
+
+To use the latest release of `product-monitor` from NPM (https://www.npmjs.com/package/product-monitor) you can create your own NodeJS project as follows:
+
+1\. Run `npm init` and enter in your project defaults
+
+2\. Run `npm install product-monitor --save`  
+
+3\. Create your own server.js file:  
+```js
+var monitor = require('product-monitor');
+var server = monitor({
+  "serverPort": 8080,
+  "productInformation": {
+    "title": "My Product Monitor",
+  },
+  "userContentPath": "config"
+});
+```
+4\. Run your server using the command `node server.js`, you should see the following output:
+```sh
+...
+
+[My Product Monitor Listening] on http://localhost:8080
+```
+5\.	Visit http://localhost:8080 to see the monitor in action
+
+6\. Now that your server is running, read the supplied documentation, and try out the examples!
+
+![Product Monitor Example](images/product-monitor-documentation-example.png)
+
 Key Features
 ------------
 * Minimal setup
@@ -29,12 +63,12 @@ Key Features
 * Bootstrap look and feel, using all their CSS advice and best practice
 * Handlebar templates for rendering complex JSON data
 
-What it looks like out of the box
+Preview
 ---------------------------------
 
 ![Product Monitor Example](images/product-monitor-example.png)
 
-Which amounts to:
+### Defined by:
 ```html
 <h3>Endpoints</h3>
 <status-checker data-url="/">Can monitor its own server</status-checker>
@@ -42,63 +76,6 @@ Which amounts to:
 <status-checker data-url="/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
 <status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
 ```
-
-### And with a bit of configuration:
-![Product Monitor Example](images/product-monitor-apps.png)
-
-How to get started
-------------------
-
-### Instructions to create your own product monitor via NPM
-
-To use the latest release of `product-monitor` from NPM (https://www.npmjs.com/package/product-monitor) you can create your own NodeJS project as follows:
-
-1\. Run `npm init` and enter in your project defaults
-
-2\. Run `npm install product-monitor --save`  
-
-3\. Create your own server.js file:  
-```js
-var monitor = require('product-monitor');
-var server = monitor({
-  "serverPort": 8080,
-  "productInformation": {
-    "title": "My Product Monitor",
-  },
-  "userContentPath": "user-content"
-});
-```
-4\. Run your server using the command `node server.js`, you should see the following output:
-```sh
-[Startup Check] Created user content directory: monitoring
-
-[Startup Step Finished] checkForUserDirectory
-
-[Startup Info] Creating user content directory at user-content/content
-
-Copying path /content
-
-[Startup Info] Creating user API directory at: user-content/api
-
-Copying path /api
-
-Copied /content done!
-
-[Startup Step Finished] checkForContentDirectory
-
-Copied /api done!
-
-[Startup Step Finished] checkForApiDirectory
-
-[All Checks Complete]
-
-My Product Monitor started on http://localhost:8080
-```
-5\.	Visit http://localhost:8080 to see the monitor in action
-
-6\. Now that your server is running, read the supplied documentation, and try out the examples!
-
-![Product Monitor Example](images/product-monitor-documentation-example.png)
 
 ### Development Instructions using a checkout from github
 
@@ -112,7 +89,7 @@ My Product Monitor started on http://localhost:8080
 
 Library Credits
 ---------------
-Supplied via CDN:
+Downloaded from CDN:
 - [Bootstrap](http://getbootstrap.com/) - basic styling and layout for client-side components
 - [jQuery](https://jquery.com/) - for remote calls to server to drive components
 - [Handlebars](http://handlebarsjs.com/) - for "minimal templating on steroids"
@@ -120,7 +97,7 @@ Supplied via CDN:
 - [Strapdown.js](http://strapdownjs.com/) - for markdown rendering via `<markdown></markdown>` tags
 - [Web Component JS](https://github.com/connected-web/web-component-js) - for enriching the client DOM with web component templates, providing the client-side data-loading and rendering logic for the product monitor.
 
-Supplied via Node Package Manager:
+Node packages:
 - [Express](http://expressjs.com/) - for defining the server, the api endpoints, and serving up the client
 - [md5-node](https://www.npmjs.com/package/md5-node) - for hashing keys in an in-memory cache
 - [request](https://www.npmjs.com/package/request) - for making server side requests to remote domains
