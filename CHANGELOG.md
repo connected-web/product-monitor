@@ -2,6 +2,11 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
+None at present
+
+Release History
+---------------
+### Release 2.0.0
 * Cleaned up server start up messages to be more readable
 * Changed default colours on `management console`
 * Removed Local Repository Status `/docs/repo-status` endpoint
@@ -9,8 +14,6 @@ Product Monitor Changelog
 * Removed `/api/repo/pull/status` endpoint
 * Removed `/api/repo/pull/confirm/:confirmationHash` endpoint
 
-Release History
----------------
 ### Release 1.9.1
 4th December 2015
 * Updated `web-component.js` to 1.2.7
