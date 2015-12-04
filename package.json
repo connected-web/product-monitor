@@ -15,6 +15,7 @@
     }
   ],
   "scripts": {
+    "install": "node lib/install/download-libraries.js",
     "start": "node server.js",
     "test": "node test/main.js"
   },
