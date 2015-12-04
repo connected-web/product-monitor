@@ -2,6 +2,8 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
+* Cleaned up server start up messages to be more readable
+* Changed default colours on `management console`
 * Removed Local Repository Status `/docs/repo-status` endpoint
 * Removed `/api/repo/status` endpoint
 * Removed `/api/repo/pull/status` endpoint
