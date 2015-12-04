@@ -3,7 +3,7 @@
 <p>The place to interact with the server...</p>
 <h3>Server Console Log</h3>
 
-<console-log id="server-console-log" line-limit="50" data-source-template="/api/serverLog/{{line-limit}}/{{order}}" refresh-time="10">
+<console-log id="server-console-log" line-limit="50" order="ascending" data-source-template="/api/serverLog/{{line-limit}}/{{order}}" refresh-time="10">
     <set-property property="line-limit" value="10" target="server-console-log" button-type="info">10 lines</set-property>
     <set-property property="line-limit" value="50" target="server-console-log" button-type="info">50 lines</set-property>
     <set-property property="line-limit" value="100" target="server-console-log" button-type="info">100 lines</set-property>
@@ -13,7 +13,9 @@
 
 <!-- Console Log Component -->
 <template for="console-log">
-    {{content}} {{#each lines}}
+    {{content}}
+    <line>[Displaying in {{order}} order]</line>
+    {{#each lines}}
     <line>
         <timestamp>[{{date}}]</timestamp>
         <span>{{line}}</span>
@@ -25,7 +27,6 @@
     console-log {
         margin-top: -3px;
         display: block;
-        background: #111;
         padding: 4px;
         border-radius: 3px;
         border: 1px solid #555;
@@ -43,16 +44,17 @@
         display: block;
         margin: 3px 4px;
         padding: 0 0 2px 0;
-        border-bottom: 1px solid #222;
+        border-bottom: 1px solid #AAA;
     }
 
     console-log > line > timestamp {
-        color: #FD8;
+        display: block;
+        color: #842;
     }
 
     console-log > line > span {
         white-space: pre;
-        color: #CFA;
+        color: #333;
     }
 </style>
 
