@@ -2,6 +2,7 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
+* Added content preview to `/docs/status-details` page
 * Added correct product title to default `index.html` page template
 
 Release History

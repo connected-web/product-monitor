@@ -11,6 +11,10 @@
         <pair key="Url being checked"><a href="{{summary.urlProvided}}">{{summary.urlProvided}}</b></a></pair>
     </p>
 
+    <h3>Content Preview</h3>
+    <p>Uses an iFrame; will not display content served over a HTTPS connection.</p>
+    <iframe src="{{summary.urlProvided}}"></iframe>
+
     <!-- For debug purposes:
     <h3>Status Button</h3>
     <status-button data-url="{{summary.urlProvided}}">{{content}}</status-button>
@@ -52,6 +56,11 @@
 </template>
 
 <style for="status-detail">
+    status-details > iframe {
+        width: 100%;
+        height: 300px;
+    }
+
     status-detail {
         display: block;
     }
@@ -160,8 +169,8 @@
 
         StatusDetail.on('preRenderStep', function(instance) {
             this.summary = {
-              statusCode: this['status-code'],
-              error: this['status-error']
+                statusCode: this['status-code'],
+                error: this['status-error']
             };
             selectDisplayState(this);
         });
@@ -170,8 +179,8 @@
 
         StatusMark.on('preRenderStep', function() {
             this.summary = {
-              statusCode: this['status-code'],
-              error: this['status-error']
+                statusCode: this['status-code'],
+                error: this['status-error']
             };
             selectDisplayState(this);
         });
