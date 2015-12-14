@@ -256,7 +256,7 @@ Release History
 14th June 2015
 * Added the `docs/custom-api-endpoing-guide` to help document the server
 * Massively improved the quality of the starting content available when starting a new server
-* Moved `/api` endpoing to `/docs/api`
+* Moved `/api` endpoint to `/docs/api`
 
 ### Release 1.6.0
 14th June 2015
