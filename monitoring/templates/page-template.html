@@ -1,52 +1,58 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
-  <title>{{serverConfig.productInformation.title}}</title>
+    <title>{{serverConfig.productInformation.title}}</title>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- All the web compoent neat stuff -->
-  <script src="/external/jquery.min.js"></script>
-  <script src="/external/handlebars.js"></script>
-  <script src="/external/web-component.js"></script>
+    <!-- All the web compoent neat stuff -->
+    <script src="/external/jquery.min.js"></script>
+    <script src="/external/handlebars.js"></script>
+    <script src="/external/web-component.js"></script>
 
-  <!-- All the boostrap theming -->
-  <link rel="stylesheet" href="/external/bootstrap.min.css">
-  <script src="/external/bootstrap.min.js"></script>
+    <!-- All the boostrap theming -->
+    <link rel="stylesheet" href="/external/bootstrap.min.css">
+    <script src="/external/bootstrap.min.js"></script>
 
-  <!-- Markdown support -->
-  <script src="/external/marked.min.js"></script>
+    <!-- Markdown support -->
+    <script src="/external/marked.min.js"></script>
 
-  <!-- Code highlighting support -->
-  <link rel="stylesheet" href="/external/github.min.css">
-  <script src="/external/highlight.min.js"></script>
+    <!-- Code highlighting support -->
+    <link rel="stylesheet" href="/external/github.min.css">
+    <script src="/external/highlight.min.js"></script>
 
-  <!--[if lt IE 9]>
+    <!-- Web Components -->
+    {{{componentIncludes}}}
+
+    <!--[if lt IE 9]>
     <script src="/external/html5shiv.min.js"></script>
     <script src="/external/respond.min.js"></script>
   <![endif]-->
 </head>
+
 <body role="document">
 
-  <navigation></navigation>
+    <navigation></navigation>
 
-  <div id="jumbotron"></div>
+    <div id="jumbotron"></div>
 
-  <div class="container theme-showcase" role="main">
-    <!-- Start of Page Fragment -->
+    <div class="container theme-showcase" role="main">
+        <!-- Start of Page Fragment -->
 
-{{{pageFragment}}}
+        {{{pageFragment}}}
 
-    <!-- End of Page Fragment -->
+        <!-- End of Page Fragment -->
 
-    {{{editPageLink}}}
-  </div>
+        {{{editPageLink}}}
+    </div>
 
-  <span class="component templates">
-  {{{componentTemplates}}}
-  </span>
+    <span class="component templates">
+        {{{componentTemplates}}}
+    </span>
 
 </body>
+
 </html>
