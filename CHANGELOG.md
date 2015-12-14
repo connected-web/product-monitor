@@ -161,8 +161,8 @@ Release History
 ### Release 1.8.8
 11th July 2015
 * Added /api/serverLog endpoint which captures any `console.log(...)` activity and exposes it to the client as JSON
-* Added support for multiple routes per API file using an array property on `instance.routes`, e.g. to allow: `instance.routes = ['/api/pathOne', '/api/pathOne/:withVariable'];`
-* Added support for registering a method verb on API files using a string property on `instance.method`, e.g. to allow `instance.method = 'post';` or `instance.method = 'put';`. Maps through to `express js` verbs.
+* Added support for multiple routes per API file using an array property on `endpoint.routes`, e.g. to allow: `endpoint.routes = ['/api/pathOne', '/api/pathOne/:withVariable'];`
+* Added support for registering a method verb on API files using a string property on `endpoint.method`, e.g. to allow `endpoint.method = 'post';` or `endpoint.method = 'put';`. Maps through to `express js` verbs.
 * Upgraded to Web Component JS 1.2.5
 
 ### Release 1.8.7
@@ -205,7 +205,7 @@ Release History
 18th June 2015
 * Added apicache as middleware to all registered API endpoints
 * Default caching is set to `1 hour` for all registered `/api/` routes
-* Added optional `instance.cacheDuration` property that can be set cacheDuration for individual endpoints in the form `[length] [unit]`, e.g. `30 seconds`, `10 minutes`, `1 hour`, `1 day`, etc.
+* Added optional `endpoint.cacheDuration` property that can be set cacheDuration for individual endpoints in the form `[length] [unit]`, e.g. `30 seconds`, `10 minutes`, `1 hour`, `1 day`, etc.
 * Fixed broken documentation link in `index.content.html` when starting a new project.
 * **Removed** config property `statusCacheTimeInSeconds` in favour of `apicache` config:
     ```js
@@ -311,7 +311,7 @@ Release History
 * Changed template style from `${var}` to `{{var}}`
 * Moved `<navigation></navigation>` component into page template
 * Created `/api/monitorStatus` endpoint
-* Normalised the naming of /api/ endpoints to be instance.render in all cases
+* Normalised the naming of /api/ endpoints to be `endpoint.render` in all cases
 * Fixed default zero-time refresh on `<navigation></navigation>` and `<jumbotron></jumbotron>` components
 
 Older releases
