@@ -6,6 +6,12 @@ None at present
 
 Release History
 ---------------
+### Release 2.0.1
+* Created `/api/monitor/routes` endpoint
+* Moved `/docs/api` to `/docs/express-routes`
+* Created new `/docs/api` page, sorted by user content, followed by built-in content
+* Updated `/api/navigation` endpoint to reflect the above changes
+
 ### Release 2.0.0
 * Cleaned up server start up messages to be more readable
 * Changed default colours on `management console`
