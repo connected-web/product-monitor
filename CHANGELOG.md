@@ -6,6 +6,12 @@ None at present
 
 Release History
 ---------------
+### Release 2.0.2
+* Changed `instance` to `endpoint` in API files, documentation, and examples
+* Moved API files into folders to match their virtual path
+* Added descriptions to each built-in API endpoint
+* Replaced double quotes with single quotes in multiple files
+
 ### Release 2.0.1
 * Created `/api/monitor/routes` endpoint
 * Moved `/docs/api` to `/docs/express-routes`
