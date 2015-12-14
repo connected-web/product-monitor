@@ -2,7 +2,7 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-None at present
+* Added correct product title to default `index.html` page template
 
 Release History
 ---------------
