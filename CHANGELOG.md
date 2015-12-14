@@ -2,11 +2,14 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* Added content preview to `/docs/status-details` page
-* Added correct product title to default `index.html` page template
+* None at present
 
 Release History
 ---------------
+### Release 2.0.4
+* Added content preview to `/docs/status-details` page
+* Added correct product title to default `index.html` page template
+
 ### Release 2.0.3
 * Exposed `page-template.html` as an editable file copied to the `user-content` folder
 
