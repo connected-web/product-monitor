@@ -22,17 +22,17 @@
     <li class="list-group-item">Step 1: Find the <b><user-content-path></user-content-path>/api/</b> folder in your server.</li>
     <li class="list-group-item"><p>Step 2: Use this template to create a new JS file with the name format: <b>my-endpoint.js</b></p>
       <pre code language="javascript">
-var instance = function() {}
+var endpoint = function() {}
 
 var server = false;
 
-instance.route = '/api/exampleEndpoint/:name';
+endpoint.route = '/api/exampleEndpoint/:name';
 
-instance.configure = function(config) {
+endpoint.configure = function(config) {
   server = config.server;
 }
 
-instance.render = function(req, res) {
+endpoint.render = function(req, res) {
   var data = {};
 
   // read parameter from route
@@ -47,11 +47,11 @@ instance.render = function(req, res) {
   res.jsonp(data);
 }
 
-module.exports = instance;</pre>
+module.exports = endpoint;</pre>
     </li>
-    <li class="list-group-item">Step 3: Set the <code>instance.route</code> property to name your route.</li>
-    <li class="list-group-item">Step 4: Implement the <code>instance.render</code> function to return your custom data.</li>
-    <li class="list-group-item">Step 5: Use the <code>instance.configuration</code> method to pull out server configuration values defined in your <b>server.js</b> file.</li>
+    <li class="list-group-item">Step 3: Set the <code>endpoint.route</code> property to name your route.</li>
+    <li class="list-group-item">Step 4: Implement the <code>endpoint.render</code> function to return your custom data.</li>
+    <li class="list-group-item">Step 5: Use the <code>endpoint.configuration</code> method to pull out server configuration values defined in your <b>server.js</b> file.</li>
   </ul>
 </make>
 
