@@ -1,16 +1,16 @@
-var instance = function () {}
+var endpoint = function () {}
 
 var server = false;
 
-instance.route = '/api/exampleEndpoint/:name';
-instance.cacheDuration = '1 hour';
-instance.description = 'An example endpoint to act as a template for creating your own.'
+endpoint.route = '/api/exampleEndpoint/:name';
+endpoint.cacheDuration = '1 hour';
+endpoint.description = 'An example endpoint to act as a template for creating your own.'
 
-instance.configure = function (config) {
+endpoint.configure = function (config) {
   server = config.server;
 }
 
-instance.render = function (req, res) {
+endpoint.render = function (req, res) {
   var data = {};
 
   // read parameter from route
@@ -25,4 +25,4 @@ instance.render = function (req, res) {
   res.jsonp(data);
 }
 
-module.exports = instance;
+module.exports = endpoint;
