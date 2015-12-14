@@ -7,7 +7,8 @@ start();
 
 function start() {
   monitor({
-    "modulePath": "../monitoring",
+    'modulePath': '../monitoring',
+    'userContentPath': 'user-content'
   }, thenListen);
 }
 
@@ -33,15 +34,14 @@ function thenConfirmTestResult(error, response, body) {
   if (!error && response.statusCode === 200) {
     console.log(" \u2713 Passed basic URL Test".green);
     finish(SUCCESS);
-  }
-  else {
+  } else {
     console.log(" \u2717 Failed basic URL Test".red);
   }
   finish(FAILED);
 }
 
 function finish(code) {
-  setTimeout(function() {
+  setTimeout(function () {
     process.exit(code);
   }, 0);
 }
