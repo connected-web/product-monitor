@@ -6,6 +6,9 @@ None at present
 
 Release History
 ---------------
+### Release 2.0.3
+* Exposed `page-template.html` as an editable file copied to the `user-content` folder
+
 ### Release 2.0.2
 * Changed `instance` to `endpoint` in API files, documentation, and examples
 * Moved API files into folders to match their virtual path
