@@ -1,29 +1,83 @@
 <h1>Routes supported by this server</h1>
 <p>This page is a self documenting template showing what service endpoints are available through this server.</p>
 
-<express-routes data-source-url="/api/expressRoutes"></express-routes>
+<monitor-routes data-source-url="/api/monitor/routes"></monitor-routes>
 
-<template for="express-routes" data-source-type="json">
-    {{#each routes}} {{#if route.path}} {{#each route.methods}}
-    <route path="{{../route.path}}" method="{{@key}}"></route>
-    {{/each}} {{/if}} {{/each}}
+<template for="monitor-routes" data-source-type="json">
+    <h3>User Defined API Routes</h3>
+    {{#each routes.user.api}}
+    <ul>
+        <api-route path="{{path}}" method="{{method}}">{{description}}</api-route>
+    </ul>
+    {{/each}}
+
+    <divider></divider>
+
+    <h3>User Defined Content Routes</h3>
+    {{#each routes.user.content}}
+    <ul>
+        <content-route path="{{path}}" method="{{method}}">{{description}}</content-route>
+    </ul>
+    {{/each}}
+
+    <divider></divider>
+
+    <h3>Built-in API Routes</h3>
+    {{#each routes.built-in.api}}
+    <ul>
+        <api-route path="{{path}}" method="{{method}}">{{description}}</api-route>
+    </ul>
+    {{/each}}
+
+    <divider></divider>
+
+    <h3>Built-in Documentation</h3>
+    {{#each routes.built-in.documentation}}
+    <ul>
+        <content-route path="{{path}}" method="{{method}}">{{description}}</content-route>
+    </ul>
+    {{/each}}
 </template>
 
-<template for="route" data-source-type="json" method="get">
-    <status-checker data-url="{{path}}" data-method="{{method}}">
-        <method>{{method}}</method>
-        <span>{{path}}</span>
-    </status-checker>
+<template for="api-route" data-source-type="json" method="get">
+    <li>
+        <method class="label label-info">{{method}}</method>
+        <path-link>{{path}}</path-link>
+        <p>{{content}}</p>
+    </li>
+</template>
+
+<template for="content-route" data-source-type="json" method="get">
+    <li>
+        <a href="{{path}}">
+            <span>{{content}}</span>
+        </a>
+    </li>
 </template>
 
 <template for="pair">
     <li><b>{{name}}</b> : {{content}}</li>
 </template>
 
+<template for="path-link">
+    <a href="{{content}}">{{content}}</a>
+</template>
+
 <style for="method">
-    method {
+    method.label {
         text-transform: uppercase;
         display: inline-block;
-        min-width: 60px;
+        min-width: 45px;
+        padding: 3px;
+    }
+</style>
+
+<style for="divider">
+    divider {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: #eee;
+        margin: 20px 0;
     }
 </style>

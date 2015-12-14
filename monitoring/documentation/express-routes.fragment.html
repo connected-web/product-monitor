@@ -1,0 +1,29 @@
+<h1>Express Route Checker</h1>
+<p>This page is a self documenting template that tests each service endpoints made available from this server.</p>
+
+<express-routes data-source-url="/api/expressRoutes"></express-routes>
+
+<template for="express-routes" data-source-type="json">
+    {{#each routes}} {{#if route.path}} {{#each route.methods}}
+    <route path="{{../route.path}}" method="{{@key}}"></route>
+    {{/each}} {{/if}} {{/each}}
+</template>
+
+<template for="route" data-source-type="json" method="get">
+    <status-checker data-url="{{path}}" data-method="{{method}}">
+        <method>{{method}}</method>
+        <span>{{path}}</span>
+    </status-checker>
+</template>
+
+<template for="pair">
+    <li><b>{{name}}</b> : {{content}}</li>
+</template>
+
+<style for="method">
+    method {
+        text-transform: uppercase;
+        display: inline-block;
+        min-width: 60px;
+    }
+</style>
