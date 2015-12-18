@@ -6,6 +6,10 @@ Product Monitor Changelog
 
 Release History
 ---------------
+### Release 2.0.5
+* Scan for `<h1>` tags to generate navigation titles from `.content.html` files
+* If no `<h1>` tag is found, a beautified version of file id is used instead
+
 ### Release 2.0.4
 * Added content preview to `/docs/status-details` page
 * Added correct product title to default `index.html` page template
