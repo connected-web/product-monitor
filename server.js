@@ -1,7 +1,8 @@
 /* Create a product monitor server with local content configuration */
+var express = require('express');
 var monitor = require('./lib/product-monitor');
 
-var server = monitor({
+var app = monitor({
   "serverPort": 8080,
   "modulePath": "monitoring",
   "userContentPath": "user-content",
