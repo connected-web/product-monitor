@@ -40,6 +40,7 @@
     "octo-credits": "^3.1.0",
     "path": "^0.11.14",
     "path-parse": "^1.0.5",
+    "product-monitor-sample-plugin": "^1.0.0",
     "promise-path": "^1.0.0",
     "recursive-readdir-sync": "^1.0.6",
     "request": "^2.64.0",
