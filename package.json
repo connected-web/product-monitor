@@ -7,16 +7,13 @@
   "engines": {
     "node": ">= 4.0.0"
   },
-  "contributors": [
-    {
-      "name": "John Beech",
-      "email": "john.beech@bbc.co.uk"
-    },
-    {
-      "name": "Markavian",
-      "email": "github@mkv25.net"
-    }
-  ],
+  "contributors": [{
+    "name": "John Beech",
+    "email": "john.beech@bbc.co.uk"
+  }, {
+    "name": "Markavian",
+    "email": "github@mkv25.net"
+  }],
   "scripts": {
     "install": "node lib/install/download-libraries.js",
     "start": "node server.js",
@@ -40,7 +37,6 @@
     "octo-credits": "^3.1.0",
     "path": "^0.11.14",
     "path-parse": "^1.0.5",
-    "product-monitor-sample-plugin": "^1.0.0",
     "promise-path": "^1.0.0",
     "recursive-readdir-sync": "^1.0.6",
     "request": "^2.64.0",
@@ -53,5 +49,8 @@
     "monitoring",
     "images/favicon.ico"
   ],
-  "devDependencies": {}
+  "devDependencies": {
+    "product-monitor.plugin.local-auth": "^1.0.0",
+    "product-monitor.plugin.sample": "^1.0.0"
+  }
 }
