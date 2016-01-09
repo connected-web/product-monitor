@@ -3,6 +3,7 @@ Product Monitor Changelog
 
 ### Unreleased Changes
 * Plugin support
+* Moved Built-in endpoints into local.core-endpoints plugin
 
 Release History
 ---------------
