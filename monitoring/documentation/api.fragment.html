@@ -4,7 +4,7 @@
 <monitor-routes data-source-url="/api/monitor/routes"></monitor-routes>
 
 <template for="monitor-routes" data-source-type="json">
-    <h3>User Defined API Routes</h3>
+    <h3>API Routes</h3>
     {{#each routes.user.api}}
     <ul>
         <api-route path="{{path}}" method="{{method}}">{{description}}</api-route>
@@ -13,7 +13,7 @@
 
     <divider></divider>
 
-    <h3>User Defined Content Routes</h3>
+    <h3>Content Routes</h3>
     {{#each routes.user.content}}
     <ul>
         <content-route path="{{path}}" method="{{method}}">{{description}}</content-route>
@@ -22,8 +22,8 @@
 
     <divider></divider>
 
-    <h3>Built-in API Routes</h3>
-    {{#each routes.built-in.api}}
+    <h3>Plugin API Routes</h3>
+    {{#each routes.plugin.api}}
     <ul>
         <api-route path="{{path}}" method="{{method}}">{{description}}</api-route>
     </ul>

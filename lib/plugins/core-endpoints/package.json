@@ -1,0 +1,15 @@
+{
+  "name": "product-monitor.plugin.core-endpoints",
+  "version": "1.0.0",
+  "description": "Core endpoints for Product Monitor",
+  "main": "lib/plugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "product-monitor",
+    "plugin"
+  ],
+  "author": "John Beech",
+  "license": "ISC"
+}
