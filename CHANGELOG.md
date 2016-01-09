@@ -2,7 +2,7 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* None at present
+* Plugin support
 
 Release History
 ---------------
