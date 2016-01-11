@@ -3,7 +3,8 @@ Product Monitor Changelog
 
 ### Unreleased Changes
 * Plugin support
-* Moved Built-in endpoints into local.core-endpoints plugin
+* Moved built-in endpoints into local.core-endpoints plugin
+* Added login, logout and user information endpoints - requires plugin to activate
 
 Release History
 ---------------
