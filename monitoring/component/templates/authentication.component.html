@@ -1,10 +1,25 @@
 <template for="authentication">
     {{#if enabled}}
-    <a href="/auth/login-broker">
-        <button type="button" class="btn btn-primary">
-            <span class="glyphicon glyphicon-user"></span>
-            <span>Login</span>
-        </button>
-    </a>
+        {{#if user}}
+        <a href="/auth/user">
+            <button type="button" class="btn btn-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <span>{{user.name}}</span>
+            </button>
+        </a>
+        <a href="/auth/logout">
+            <button type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-remove-circle"></span>
+                <span>Logout</span>
+            </button>
+        </a>
+        {{else}}
+        <a href="/auth/login-broker">
+            <button type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-user"></span>
+                <span>Login</span>
+            </button>
+        </a>
+        {{/if}}
     {{/if}}
 </template>

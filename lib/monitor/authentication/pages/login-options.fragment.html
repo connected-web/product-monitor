@@ -1,0 +1,17 @@
+<jumbotron>
+    <h1>Authentication</h1>
+    <p>The following authentication methods have been enabled on this server:</p>
+    <login-options data-source-url="/auth/login-options"></login-options>
+</jumbotron>
+
+<template for="login-options">
+    {{#each options}}
+        <h2 class="{{@key}}"><label>{{@key}}</label> : <a href="{{this}}">{{this}}</a></h2>
+    {{/each}}
+</template>
+
+<style for="login-options">
+login-options > h2 > label {
+    text-transform: capitalize;
+}
+</style>
