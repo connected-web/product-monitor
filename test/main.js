@@ -1,7 +1,11 @@
 var colors = require('colors');
 var request = require('request');
 var monitor = require('../lib/product-monitor');
-var SUCCESS = 0, FAILED = 1;
+var SUCCESS = 0,
+  FAILED = 1;
+
+var tick = '\u2713';
+var cross = '\u2717';
 
 start();
 
@@ -32,10 +36,10 @@ function runTest() {
 
 function thenConfirmTestResult(error, response, body) {
   if (!error && response.statusCode === 200) {
-    console.log(" \u2713 Passed basic URL Test".green);
+    console.log(` ${tick} Passed basic URL Test`.green);
     finish(SUCCESS);
   } else {
-    console.log(" \u2717 Failed basic URL Test".red);
+    console.log(` ${cross} Failed basic URL Test`.red);
   }
   finish(FAILED);
 }
