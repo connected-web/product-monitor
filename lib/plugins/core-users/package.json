@@ -1,0 +1,23 @@
+{
+  "name": "product-monitor.plugin.core-users",
+  "version": "1.0.0",
+  "description": "Core users database for Product Monitor, for storing common user auth information",
+  "main": "lib/plugin.js",
+  "dependencies": {
+    "chai": "^3.4.1",
+    "lodash": "^4.0.0",
+    "mocha": "^2.3.4",
+    "promise-path": "^1.0.0"
+  },
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha"
+  },
+  "keywords": [
+    "product-monitor",
+    "plugin",
+    "users",
+    "auth"
+  ],
+  "author": "John Beech",
+  "license": "ISC"
+}
