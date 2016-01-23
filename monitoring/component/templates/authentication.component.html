@@ -33,7 +33,7 @@ $(function() {
         $('meta').each(function(i, el) {
             var $el = $(this);
             if($el.attr('name') === 'authRequired' && $el.attr('content') === 'true') {
-                window.location = '/auth/login-broker';
+                window.location = '/auth/login-broker?redirect=' + window.location.pathname;
             }
         });
     }
