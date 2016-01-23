@@ -23,3 +23,25 @@
         {{/if}}
     {{/if}}
 </template>
+
+<script type="text/javascript">
+$(function() {
+  var AuthComponent = Component.configure("authentication");
+
+  AuthComponent.on('preRenderStep', function(instance) {
+    if(instance.data && instance.data.enabled && !instance.data.user) {
+        $('meta').each(function(i, el) {
+            var $el = $(this);
+            if($el.attr('name') === 'authRequired' && $el.attr('content') === 'true') {
+                window.location = '/auth/login-broker';
+            }
+        });
+    }
+  });
+
+  AuthComponent.apply(function(instance) {
+    instance.render();
+  });
+
+});
+</script>
