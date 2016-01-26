@@ -1,0 +1,18 @@
+<meta name="authRequired" content="true" />
+
+<jumbotron>
+    <h1>User Details</h1>
+    <user-details data-source-url="/auth/user"></user-details>
+</jumbotron>
+
+<template for="user-details">
+    {{#each user}}
+        <h2 class="{{@key}}"><label>{{@key}}</label> : <a href="{{this}}">{{this}}</a></h2>
+    {{/each}}
+</template>
+
+<style for="login-options">
+login-options > h2 > label {
+    text-transform: capitalize;
+}
+</style>
