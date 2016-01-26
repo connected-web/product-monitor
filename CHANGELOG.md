@@ -2,13 +2,16 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
+* None at present
+
+Release History
+---------------
+### Release 2.1.0
 * Added plugin support
 * Moved built-in endpoints into local.core-endpoints plugin
 * Added authentication support, including login, logout and user information endpoints - requires a plugin to activate
 * Added auth requirements to server management endpoints
 
-Release History
----------------
 ### Release 2.0.5
 * Scan for `<h1>` tags to generate navigation titles from `.content.html` files
 * If no `<h1>` tag is found, a beautified version of file id is used instead
