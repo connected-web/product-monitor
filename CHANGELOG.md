@@ -2,10 +2,13 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* Created preflight model so that plugins can dynamically add middleware to existing routes
+* None at present
 
 Release History
 ---------------
+### Release 2.1.2
+* Created preflight model so that plugins can dynamically add middleware to existing routes
+
 ### Release 2.1.1
 * Changed path used to serve content for `/external` and `/fonts`
 * Created plugins model
