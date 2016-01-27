@@ -2,13 +2,14 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* Created plugins model
-* Created `/api/plugins/list` endpoint
+* Created preflight model so that plugins can dynamically add middleware to existing routes
 
 Release History
 ---------------
 ### Release 2.1.1
 * Changed path used to serve content for `/external` and `/fonts`
+* Created plugins model
+* Created `/api/plugins/list` endpoint
 
 ### Release 2.1.0
 * Added plugin support
