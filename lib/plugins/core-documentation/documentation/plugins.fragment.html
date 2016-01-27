@@ -1,0 +1,28 @@
+<meta name="authRequired" content="true" />
+
+<h1>Plugins</h1>
+
+<plugins-list data-source-url="/api/plugins/list"></plugins-list>
+
+<template for="plugins-list">
+    {{#each types}}
+    <h2>{{name}}</h2>
+    <div class="plugin type">
+        {{#each list}}
+        <panel title="{{info.name}}">
+            <b>Library</b>
+            <span>{{plugin.library}}</span>
+        </panel>
+        {{/each}}
+    </div>
+    {{/each}}
+</template>
+
+<template for="panel">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">{{title}}</h3></div>
+        <div class="panel-body">
+            {{content}}
+        </div>
+    </div>
+</template>
