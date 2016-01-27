@@ -2,7 +2,8 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* None at present
+* Created plugins model
+* Created `/api/plugins/list` endpoint
 
 Release History
 ---------------
