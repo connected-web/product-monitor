@@ -7,6 +7,9 @@ Product Monitor Changelog
 
 Release History
 ---------------
+### Release 2.1.1
+* Changed path used to serve content for `/external` and `/fonts`
+
 ### Release 2.1.0
 * Added plugin support
 * Moved built-in endpoints into local.core-endpoints plugin
