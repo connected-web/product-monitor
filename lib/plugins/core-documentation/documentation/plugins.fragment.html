@@ -9,20 +9,45 @@
     <h2>{{name}}</h2>
     <div class="plugin type">
         {{#each list}}
-        <panel title="{{info.name}}">
-            <b>Library</b>
-            <span>{{plugin.library}}</span>
-        </panel>
+        <div class="plugin entry">
+            {{#if error}}
+            <plugin-error title="{{info.name}}" message="{{error.message}}" exception="{{error.exception}}"></plugin-error>
+            {{else}}
+            <panel title="{{info.name}}">
+                <b>Library</b>
+                <span>{{plugin.library}}</span>
+            </panel>
+            {{/if}}
+        </div>
         {{/each}}
     </div>
     {{/each}}
 </template>
 
-<template for="panel">
-    <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title">{{title}}</h3></div>
+<template for="panel" type="default" icon="cog">
+    <div class="panel panel-{{type}}">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <icon>{{icon}}</icon> {{title}}</h3>
+        </div>
         <div class="panel-body">
             {{content}}
         </div>
     </div>
 </template>
+
+<template for="plugin-error">
+    <panel type="danger" title="{{title}}" icon="remove">
+        <p>{{message}}</p>
+        {{#if exception}}
+        <span class="exception">{{exception}}</span>{{/if}}
+    </panel>
+</template>
+
+<style for="panel">
+    panel .panel-title icon {
+        margin-left: -4px;
+        vertical-align: middle;
+        display: inline-block;
+    }
+</style>
