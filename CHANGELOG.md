@@ -3,6 +3,7 @@ Product Monitor Changelog
 
 ### Unreleased Changes
 * Added plugins page
+* Added error handling and messaging for different types of bad plugins
 
 Release History
 ---------------
