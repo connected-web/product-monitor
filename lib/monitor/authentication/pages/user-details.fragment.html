@@ -1,4 +1,4 @@
-<meta name="authRequired" content="true" />
+<meta name="rolesRequired" content="named" />
 
 <jumbotron>
     <h1>User Details</h1>
@@ -7,12 +7,28 @@
 
 <template for="user-details">
     {{#each user}}
-        <h2 class="{{@key}}"><label>{{@key}}</label> : <a href="{{this}}">{{this}}</a></h2>
+    <h3 class="{{@key}}">
+        <label>{{@key}}</label> : <a href="{{this}}">{{this}}</a>
+    </h3>
+    {{/each}}
+    <h2>Enabled roles</h2>
+    {{#each roles}}
+    <role class="{{@this}}">
+        <h3>
+            <label>{{@this}}</label>
+        </h3>
+    </role>
     {{/each}}
 </template>
 
 <style for="login-options">
-login-options > h2 > label {
-    text-transform: capitalize;
-}
+    login-options > h2 > label {
+        text-transform: capitalize;
+    }
+</style>
+
+<style for="role">
+    role > label {
+        text-transform: capitalize;
+    }
 </style>

@@ -1,47 +1,69 @@
 <template for="authentication">
-    {{#if enabled}}
-        {{#if user}}
-        <a href="/docs/user-details">
-            <button type="button" class="btn btn-info">
-                <span class="glyphicon glyphicon-user"></span>
-                <span>{{user.name}}</span>
-            </button>
-        </a>
-        <a href="/auth/logout">
-            <button type="button" class="btn btn-primary">
-                <span class="glyphicon glyphicon-remove-circle"></span>
-                <span>Logout</span>
-            </button>
-        </a>
-        {{else}}
-        <a href="/auth/login-broker">
-            <button type="button" class="btn btn-primary">
-                <span class="glyphicon glyphicon-user"></span>
-                <span>Login</span>
-            </button>
-        </a>
-        {{/if}}
-    {{/if}}
+    {{#if enabled}}{{#if user}}
+    <a href="/docs/user-details">
+        <button type="button" class="btn btn-info">
+            <span class="glyphicon glyphicon-user"></span>
+            <span>{{user.name}}</span>
+        </button>
+    </a>
+    <a href="/auth/logout">
+        <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-remove-circle"></span>
+            <span>Logout</span>
+        </button>
+    </a>
+    {{else}}
+    <a href="/auth/login-broker">
+        <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-user"></span>
+            <span>Login</span>
+        </button>
+    </a>
+    {{/if}}{{/if}}
 </template>
 
 <script type="text/javascript">
-$(function() {
-  var AuthComponent = Component.configure("authentication");
+    $(function() {
+        var AuthComponent = Component.configure("authentication");
 
-  AuthComponent.on('preRenderStep', function(instance) {
-    if(instance.data && instance.data.enabled && !instance.data.user) {
-        $('meta').each(function(i, el) {
-            var $el = $(this);
-            if($el.attr('name') === 'authRequired' && $el.attr('content') === 'true') {
-                window.location = '/auth/login-broker?redirect=' + window.location.pathname;
+        var metaDataProcessors = {
+            rolesRequired: rolesRequiredMetaDataProcessor
+        };
+
+        function rolesRequiredMetaDataProcessor(instance, $el) {
+            var requiredRoles = $el.attr('content').split(',');
+            var userRoles = instance.data.roles || [];
+            if (requiredRoles.length > 0 && arrayContainsOneOf(userRoles, requiredRoles) === false) {
+                // Redirect if the user doesn't have the correct role
+                var redirectPath = (instance.data.user) ? '/docs/user-details' : '/auth/login-broker?redirect=' + window.location.pathname;
+
+                window.location = redirectPath;
+            }
+        }
+
+        function arrayContainsOneOf(array, values) {
+            for (var i = 0; i < values.length; i++) {
+                var value = values[i];
+                if (array.indexOf(value) !== -1) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        AuthComponent.on('preRenderStep', function(instance) {
+            if (instance.data) {
+                $('meta').each(function(i, el) {
+                    var $el = $(this);
+                    var name = $el.attr('name');
+                    var metaDataProcessor = metaDataProcessors[name] || function(instance, $el) {};
+                    metaDataProcessor(instance, $el);
+                });
             }
         });
-    }
-  });
 
-  AuthComponent.apply(function(instance) {
-    instance.render();
-  });
-
-});
+        AuthComponent.apply(function(instance) {
+            instance.render();
+        });
+    });
 </script>
