@@ -2,11 +2,16 @@ Product Monitor Changelog
 =========================
 
 ### Unreleased Changes
-* Added plugins page
-* Added error handling and messaging for different types of bad plugins
+* None at present
 
 Release History
 ---------------
+### Release 2.2.0
+* Added plugins page
+* Added error handling and messaging for different types of bad plugins
+* Added role based authentication
+* Fixed Sparkline plugin to use locally served JS library
+
 ### Release 2.1.2
 * Created preflight model so that plugins can dynamically add middleware to existing routes
 
