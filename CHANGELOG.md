@@ -6,6 +6,10 @@ Product Monitor Changelog
 
 Release History
 ---------------
+### Release 2.2.1
+* Allowed `named` users to restart the server
+* Added `emailable` role to users with an email
+
 ### Release 2.2.0
 * Added plugins page
 * Added error handling and messaging for different types of bad plugins
