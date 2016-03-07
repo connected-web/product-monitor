@@ -1,11 +1,10 @@
-<meta name="rolesRequired" content="named" />
-
 <jumbotron>
     <h1>User Details</h1>
     <user-details data-source-url="/auth/user"></user-details>
 </jumbotron>
 
 <template for="user-details">
+    {{#if roles.named}}
     {{#each user}}
     <h3 class="{{@key}}">
         <label>{{@key}}</label> : <a href="{{this}}">{{this}}</a>
@@ -19,6 +18,9 @@
         </h3>
     </role>
     {{/each}}
+    {{else}}
+        <p>User does not have basic permissions.</p>
+    {{/if}}
 </template>
 
 <style for="login-options">
