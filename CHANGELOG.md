@@ -6,6 +6,11 @@ Product Monitor Changelog
 
 Release History
 ---------------
+### Release 2.2.2
+* Added `d3` and `c3` graphing libraries
+* Included `d3` and `c3` css to default page template
+* Created `c3-donut` component
+
 ### Release 2.2.1
 * Allowed `named` users to restart the server
 * Added `emailable` role to users with an email
