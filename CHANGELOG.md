@@ -6,6 +6,14 @@ Product Monitor Changelog
 
 Release History
 ---------------
+### Release 2.2.3
+* Fixed bugs in `c3-donut`
+* Created documentation for `c3-donut` in Component Showcase
+* Fixed formatting issues in Component Showcase
+* Created `/api/exampleGraphs` endpoint to support `c3-donut`
+* Added `colors` attribute support to `c3-donut`
+* Added `title` data attribute support to `c3-donut`
+
 ### Release 2.2.2
 * Added `d3` and `c3` graphing libraries
 * Included `d3` and `c3` css to default page template
