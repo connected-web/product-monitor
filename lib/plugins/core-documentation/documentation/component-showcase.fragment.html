@@ -11,12 +11,12 @@
 
     <p>The code to make this work looks like:</p>
     <markdown>
-```html
+        ```html
 <status-checker data-url="/">Can monitor its own server</status-checker>
 <status-checker data-url="https://google.com" data-contains="Google">Can monitor google</status-checker>
 <status-checker data-url="/api/generateStatusCode?statusCode=404">Can monitor for 404's</status-checker>
 <status-checker data-url="http://not-a-real-dns-entry/">Can monitor DNS not found errors</status-checker>
-```
+        ```
     </markdown>
 </example>
 
@@ -31,13 +31,12 @@
 
     <p>The code to make this work looks like:</p>
     <markdown>
-```html
+        ```html
 <status-button data-url="/">Monitor {{statusCode}}</status-button>
 <status-button data-url="https://google.com?#safe=off&q=product-monitor">Google {{statusCode}}</status-button>
 <status-button data-url="/api/generateStatusCode?statusCode=404">Not Found? {{statusCode}}</status-button>
 <status-button data-url="http://not-a-real-dns-entry/">A Bad DNS? {{statusCode}}</status-button>
-</code>
-```
+        ```
     </markdown>
 
     <p>The Status Button also be used to check if a page contains <b>expected content</b>:</p>
@@ -53,7 +52,7 @@
 
     <p>The code to make this work looks like:</p>
     <markdown>
-```html
+        ```html
 <status-button data-url="/docs/create-your-own" data-contains="Create your own">Page Title</status-button>
 <status-button data-url="/docs/create-your-own" data-contains="Step 1">Step 1</status-button>
 <status-button data-url="/docs/create-your-own" data-contains="Step 2">Step 2</status-button>
@@ -61,7 +60,7 @@
 <status-button data-url="/docs/create-your-own" data-contains="Step X">Step X</status-button>
 <status-button data-url="/docs/create-your-own" data-contains="Step Y">Step Y</status-button>
 <status-button data-url="/docs/create-your-own" data-contains="Step Z">Step Z</status-button>
-```
+        ```
     </markdown>
 
     <p>Finally, you can also provide a HTTP method type, such as GET, POST, PUT or DELETE, and have the server send that type of response (without data) to the target URL.</p>
@@ -71,6 +70,37 @@
         <status-button data-url="http://www.google.com?test=delete" data-method="delete">DELETE</status-button>
         <status-button data-url="http://www.google.com?test=sync" data-method="sync">SYNC</status-button>
     </p>
+</example>
+
+<example name="C3 Donut">
+    <p>A wrapper for the <a href="http://c3js.org/samples/chart_donut.html">C3 Donut</a>. Can be fed via a data-source-url, customised using a colors attribute, and sized using CSS.</p>
+    <p>
+        <c3-donut data-source-url="/api/exampleGraphs/donut">External Data</c3-donut>
+        <c3-donut colors="red,green,blue">Custom Colours</c3-donut>
+    </p>
+
+    <p>The code to make this work looks like:</p>
+    <markdown>
+        ```html
+<c3-donut data-source-url="/api/exampleGraphs/donut">External Data</c3-donut>
+<c3-donut colors="red,green,blue">Custom Colours</c3-donut>
+        ```
+    </markdown>
+
+    <p>The expected data source should return something like:</p>
+    <markdown>
+        ```json
+
+{
+    columns: [
+        ["http 500", 0.2],
+        ["http 200", 1.4],
+        ["http 301", 2.5]
+    ],
+    title: "Donut Graph Data"
+}
+        ```
+    </markdown>
 </example>
 
 <example name="Monitor Status">
@@ -85,54 +115,54 @@
             <p>The code to make this work looks like:</p>
             <markdown>
                 ```html
-                <monitor-status data-source-url="/api/monitorStatus">Mommy, are you there?</monitor-status>
+<monitor-status data-source-url="/api/monitorStatus">Mommy, are you there?</monitor-status>
                 ```
             </markdown>
 </example>
 
 <example name="Markdown">
     <markdown>
-Markdown content
-----------------
-Can be rendered:
+## Markdown content
+
+### Can be rendered
 * Like so
 * Just by
-* Adding `<markdown></markdown>` tags For example:
+* Adding `<markdown></markdown>` tags
 
+#### For example:
 ```html
 <markdown>
-Markdown content
-----------------
-Can be rendered:
+## Markdown content
+
+### Can be rendered
 * Like so
 * Just by
 * Adding `<markdown></markdown>` tags
 </markdown>
 ```
 
-Tables:
-<markdown>
-| Key | Value |
-| ----- | ------- |
-| Work | As well |
-| Like | So :) |
-</markdown>
+### Markdown Tables
 
-For example:
-```md
 | Key   | Value   |
 | ----- | ------- |
 | Work  | As well |
 | Like  | So :)   |
+
+#### For example:
+```html
+<markdown>
+    | Key   | Value   |
+    | ----- | ------- |
+    | Work  | As well |
+    | Like  | So :)   |
+</markdown>
 ```
 
-Code highlighting provided by Highlight JS:
+### Code highlighting provided by Highlight JS:
 ```js
 // Synchronous highlighting with highlight.js
 if(typeof hljs !== "undefined") {
-    marked.setOptions({ highlight: function (code) {
-        return hljs.highlightAuto(code).value; }
-    });
+    marked.setOptions({ highlight: function (code) { return hljs.highlightAuto(code).value; }});
 }
 ```
     </markdown>
@@ -147,12 +177,12 @@ if(typeof hljs !== "undefined") {
 
     <p>The code to make this work looks like:</p>
     <markdown>
-```html
+        ```html
 <example name="Name of the example">
     <p>We need to go deeper.</p>
     <status-checker data-url="https://www.google.com?s=nested-status-checker">Nested status checker</status-checker>
 </example>
-```
+        ```
     </markdown>
 </example>
 
