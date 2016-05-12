@@ -6,6 +6,10 @@ Product Monitor Changelog
 
 Release History
 ---------------
+
+### Release 2.2.4
+* Update node dependencies to address potential vulnerabilities
+
 ### Release 2.2.3
 * Fixed bugs in `c3-donut`
 * Created documentation for `c3-donut` in Component Showcase
