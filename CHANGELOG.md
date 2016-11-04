@@ -7,6 +7,9 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 2.2.5
+* Security fix; download external libraries and fonts over HTTPS instead of HTTP
+
 ### Release 2.2.4
 * Update node dependencies to address potential vulnerabilities
 
