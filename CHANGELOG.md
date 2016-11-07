@@ -7,6 +7,10 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 2.2.6
+* Basic user permissions page updated
+* Example `server.js` now accepts port as supplied parameter
+
 ### Release 2.2.5
 * Security fix; download external libraries and fonts over HTTPS instead of HTTP
 
