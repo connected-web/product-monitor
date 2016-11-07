@@ -3,7 +3,7 @@ var express = require('express');
 var monitor = require('./lib/product-monitor');
 
 var app = monitor({
-  "serverPort": 8080,
+  "serverPort": process.argv.slice(2)[0] || 8080,
   "modulePath": "monitoring",
   "userContentPath": "user-content",
   "apiCache": {
