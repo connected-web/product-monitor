@@ -4,6 +4,7 @@
 </jumbotron>
 
 <template for="user-details">
+    {{#if user.name}}
     {{#each user}}
     <h3 class="{{@key}}">
         <label>{{@key}}</label> : <a href="{{this}}">{{this}}</a>
@@ -18,6 +19,10 @@
         </h3>
     </role>
     {{/each}}
+    {{else}}
+      <h2>User does not have basic permissions</h2>
+      <p>(Requires name)</p>
+    {{/if}}
 </template>
 
 <style for="login-options">
