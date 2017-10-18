@@ -1,4 +1,4 @@
-var monitor = require('product-monitor');
+var monitor = require('product-monitor')
 
 /* To use a custom config, loaded from a file, you could try:
   var customConfig = require('./myConfig.json');
@@ -6,10 +6,10 @@ var monitor = require('product-monitor');
 */
 
 var optionalServerConfig = {
-  "productInformation": {
-    "title": "Example Monitor"
+  'productInformation': {
+    'title': 'Example Monitor'
   },
-  "userContentPath": "user-content"
-};
+  'userContentPath': 'user-content'
+}
 
-var server = monitor(optionalServerConfig);
+var server = monitor(optionalServerConfig)
