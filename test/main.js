@@ -31,7 +31,7 @@ function thenComprehend (error) {
 
 function runTest () {
   console.log('Running smoke test on server:')
-  request('http://localhost:8080/api/monitorStatus', thenConfirmTestResult)
+  request('http://localhost:9000/api/monitorStatus', thenConfirmTestResult)
 }
 
 function thenConfirmTestResult (error, response, body) {
