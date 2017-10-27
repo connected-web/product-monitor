@@ -1,18 +1,17 @@
-var colors = require('colors')
-var request = require('request')
-var monitor = require('../lib/product-monitor')
-var SUCCESS = 0,
-  FAILED = 1
+const request = require('request')
+const monitor = require('../lib/product-monitor')
+const SUCCESS = 0
+const FAILED = 1
 
-var tick = '\u2713'
-var cross = '\u2717'
+const tick = '\u2713'
+const cross = '\u2717'
 
 start()
 
 function start () {
   monitor({
-    'modulePath': '../monitoring',
-    'userContentPath': 'user-content'
+    modulePath: '../monitoring',
+    userContentPath: 'user-content'
   }, thenListen)
 }
 
