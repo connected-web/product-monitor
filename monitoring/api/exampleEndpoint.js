@@ -1,28 +1,22 @@
-var endpoint = function () {}
+const endpoint = {}
 
-var server = false;
-
-endpoint.route = '/api/exampleEndpoint/:name';
-endpoint.cacheDuration = '1 hour';
+endpoint.route = '/api/exampleEndpoint/:name'
+endpoint.cacheDuration = '1 hour'
 endpoint.description = 'An example endpoint to act as a template for creating your own.'
 
-endpoint.configure = function (config) {
-  server = config.server;
-}
+endpoint.configure = function (config) {}
 
 endpoint.render = function (req, res) {
-  var data = {};
+  // Read parameter from route
+  const name = req.params.name || false
 
-  // read parameter from route
-  var name = req.params.name || false;
-
-  // form response
-  var data = {
+  // Form response
+  const data = {
     suppliedName: name
-  };
+  }
 
-  // send response
-  res.jsonp(data);
+  // Send response
+  res.jsonp(data)
 }
 
-module.exports = endpoint;
+module.exports = endpoint

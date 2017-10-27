@@ -20,7 +20,8 @@
   "scripts": {
     "install": "node lib/install/download-libraries.js",
     "start": "node server.js",
-    "test": "node test/main.js"
+    "test": "node test/main.js",
+    "posttest": "standard --fix"
   },
   "repository": {
     "type": "git",
@@ -57,6 +58,7 @@
   ],
   "devDependencies": {
     "product-monitor.plugin.local-auth": "^1.0.1",
-    "product-monitor.plugin.sample": "^1.0.0"
+    "product-monitor.plugin.sample": "^1.0.0",
+    "standard": "^10.0.3"
   }
 }
