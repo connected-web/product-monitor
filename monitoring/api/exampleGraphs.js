@@ -1,6 +1,4 @@
-var endpoint = function () {}
-
-var server = false
+const endpoint = {}
 
 endpoint.routes = ['/api/exampleGraphs/:name', '/api/exampleGraphs/', '/api/exampleGraphs']
 endpoint.cacheDuration = '1 hour'
@@ -25,24 +23,20 @@ var graphs = {
   }
 }
 
-endpoint.configure = function (config) {
-  server = config.server
-}
+endpoint.configure = function (config) {}
 
 endpoint.render = function (req, res) {
-  var data = {}
+  // Read parameter from route
+  const name = req.params.name || undefined
 
-  // read parameter from route
-  var name = req.params.name || undefined
-
-  // form response
-  var data = graphs[name] || {
+  // Form response
+  const data = graphs[name] || {
     error: true,
     message: 'No graph found with the name ' + name,
     advice: Object.keys(graphs).map((key) => `Try /api/exampleGraphs/${key}`)
   }
 
-  // send response
+  // Send response
   res.jsonp(data)
 }
 
