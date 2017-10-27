@@ -1,10 +1,11 @@
 // Require dependencies
-var assert = require('assert')
-var ncp = require('ncp').ncp
+const assert = require('assert')
+const path = require('path')
+const { ncp } = require('ncp')
 ncp.limit = 16
 
 // Load package.json from the module root
-var packageJson = require(__dirname + '/../../package.json')
+const packageJson = require(path.join(__dirname, '../../package.json'))
 
 // Confirm that package.json has the expected properties
 assert.ok(packageJson, 'Unable to find package.json')
@@ -16,7 +17,7 @@ function copyTo (source, destination, path) {
 
   ncp(source, destination, function (err) {
     if (err) {
-      return console.error(err)
+      return console.error('[Install Local NPM for Example Monitor]', err)
     } else {
       console.log('Copied ' + path + ' done!')
     }
@@ -24,17 +25,17 @@ function copyTo (source, destination, path) {
 }
 
 // Copy files from module root, to example-monitor directory
-var files = packageJson.files
-files.map(function (path) {
-  var source = path
-  var destination = __dirname + '/../example-monitor/node_modules/product-monitor/' + path
-  copyTo(source, destination, path)
+const files = packageJson.files
+files.map(function (filepath) {
+  const source = filepath
+  const destination = path.join(__dirname, '../example-monitor/node_modules/product-monitor/', filepath)
+  copyTo(source, destination, filepath)
 })
 
 // Copy package dependencies from module root, to example-monitor directory
-var dependencies = packageJson.dependencies
-for (path in dependencies) {
-  var source = 'node_modules/' + path
-  var destination = __dirname + '/../example-monitor/node_modules/product-monitor/node_modules/' + path
-  copyTo(source, destination, path)
-};
+const dependencies = packageJson.dependencies
+for (let filepath in dependencies) {
+  var source = path.join('node_modules/', filepath)
+  var destination = path.join(__dirname, '../example-monitor/node_modules/product-monitor/node_modules/', filepath)
+  copyTo(source, destination, filepath)
+}
