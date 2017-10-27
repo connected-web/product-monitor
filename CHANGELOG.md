@@ -7,6 +7,10 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 2.2.7
+* Apply standard linting across all project
+* Start using `let` and `const` variables across project
+
 ### Release 2.2.6
 * Basic user permissions page updated
 * Example `server.js` now accepts port as supplied parameter
