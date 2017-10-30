@@ -7,6 +7,13 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 2.3.0
+* Add `config.sharedClientServerInstanceId` property to allow a custom versioned identifier
+
+### Release 2.2.7
+* Apply standard linting across all project
+* Start using `let` and `const` variables across project
+
 ### Release 2.2.6
 * Basic user permissions page updated
 * Example `server.js` now accepts port as supplied parameter

@@ -15,5 +15,5 @@ monitor({
   },
   npmUpdate: {
     disableUpdates: false
-  }
+  sharedClientServerInstanceId: 'abcdef0'
 })

@@ -6,3 +6,5 @@ user-content
 monitoring/external
 monitoring/fonts
 users
+
+*.log
