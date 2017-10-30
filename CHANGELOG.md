@@ -7,6 +7,9 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 2.3.1
+* Use `config.sharedClientServerInstanceId` as part of the restart command
+
 ### Release 2.3.0
 * Add `config.sharedClientServerInstanceId` property to allow a custom versioned identifier
 
