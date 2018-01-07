@@ -14,6 +14,7 @@ monitor({
     title: 'Dev Monitor'
   },
   npmUpdate: {
-    disableUpdates: false
-  sharedClientServerInstanceId: 'abcdef0'
+    disableUpdates: false,
+    sharedClientServerInstanceId: 'abcdef0'
+  }
 })
