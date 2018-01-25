@@ -10,34 +10,34 @@ Uses a pattern of HTML/JavaScript components connected to custom JSON /api/ endp
 How to get started
 ------------------
 
-### How to create your own product monitor via NPM
+### How to create your own product monitor
 
-To use the latest release of `product-monitor` from NPM (https://www.npmjs.com/package/product-monitor) you can create your own NodeJS project as follows:
+1\. Run `mkdir my-product-monitor && cd my-product-monitor` to start in a new folder
 
-1\. Run `npm init` and enter in your project defaults
+2\. Run `npm init --yes` to create new default project
 
-2\. Run `npm install product-monitor --save`  
+3\. Run `npm install product-monitor --save`  
 
-3\. Create your own server.js file:  
+4\. Create your own server.js file:  
 ```js
-var monitor = require('product-monitor');
-var server = monitor({
+const monitor = require('product-monitor')
+const server = monitor({
   "serverPort": 8080,
   "productInformation": {
     "title": "My Product Monitor",
   },
   "userContentPath": "config"
-});
+})
 ```
-4\. Run your server using the command `node server.js`, you should see the following output:
+5\. Run your server using the command `node server.js`, you should see the following output:
 ```sh
 ...
 
 [My Product Monitor Listening] on http://localhost:8080
 ```
-5\.	Visit http://localhost:8080 to see the monitor in action
+6\.	Visit http://localhost:8080 to see the monitor in action
 
-6\. Now that your server is running, read the supplied documentation, and try out the examples!
+7\. Now that your server is running, read the supplied documentation, and try out the examples!
 
 ![Product Monitor Example](images/product-monitor-documentation-example.png)
 
