@@ -7,6 +7,9 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 2.4.0
+* Fix tests to run with node `v10.15.0` up from `v6.12.3`
+
 ### Release 2.3.4
 * Run npm audit fix
 
