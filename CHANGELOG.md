@@ -7,11 +7,14 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 2.3.4
+* Run npm audit fix
+
 ### Release 2.3.3
 * Fix issue where required content templates are not created during first time install
 
 ### Release 2.3.2
-* Remove references to Promise.accept
+* Remove references to `Promise.accept`
 
 ### Release 2.3.1
 * Use `config.sharedClientServerInstanceId` as part of the restart command
