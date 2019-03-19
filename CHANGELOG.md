@@ -7,6 +7,9 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 2.4.1
+* Fix ensureExists; relies on `EEXIST` message to behave correctly
+
 ### Release 2.4.0
 * Fix tests to run with node `v10.15.0` up from `v6.12.3`
 
