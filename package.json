@@ -60,7 +60,7 @@
     "images/favicon.ico"
   ],
   "devDependencies": {
-    "product-monitor.plugin.local-auth": "^1.0.1",
+    "product-monitor.plugin.local-auth": "^1.2.1",
     "product-monitor.plugin.sample": "^1.0.0",
     "standard": "^10.0.3"
   }
