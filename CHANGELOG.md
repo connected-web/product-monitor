@@ -7,6 +7,9 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 3.0.0
+* Remove octo-credit dependency due to license issues
+
 ### Release 2.4.1
 * Fix ensureExists; relies on `EEXIST` message to behave correctly
 
