@@ -16,20 +16,30 @@ http://omnipotent.net/jquery.sparkline/#s-docs
 -->
 
 <script for="sparkline" type="text/javascript">
-    $(function() {
-        SparklineComponent = Component.configure('sparkline');
+$(function() {
+  SparklineComponent = Component.configure('sparkline');
 
-        SparklineComponent.on('renderComplete', function(instance) {
-            // Map attributes to properties, non-exhaustive...
-            var config = {
-                enableTagOptions: true,
-                tagOptionPrefix: 'spark',
-            };
-            $(instance.element).sparkline('html', config);
-        });
+  SparklineComponent.on('renderComplete', function(instance) {
+    // Map attributes to properties, non-exhaustive...
+    var config = {
+      enableTagOptions: true,
+      tagOptionPrefix: 'spark'
+    }
 
-        SparklineComponent.apply(function(instance) {
-            instance.render();
-        });
-    });
+    initSparkline(instance.element, config)
+  })
+
+  SparklineComponent.apply(function(instance) {
+    instance.render()
+  })
+
+  function initSparkline(element, config) {
+    try {
+      $(element).sparkline('html', config)
+    }
+    catch (ex) {
+      console.log('Unable render sparkline', element, config, ex, 'please check the order that JS scripts are loaded into the page; check for duplicates e.g. 2x jQuery versions.')
+    }
+  }
+})
 </script>
