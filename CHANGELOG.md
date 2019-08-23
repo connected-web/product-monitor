@@ -7,6 +7,10 @@ Product Monitor Changelog
 Release History
 ---------------
 
+### Release 3.0.1
+* Upgrade web-component-js to 1.2.8 to fix sparkline flakiness
+* Users will need to rerun `npm install` on dependent projects to download the updated script from the new URL
+
 ### Release 3.0.0
 * Remove octo-credit dependency due to license issues
 
