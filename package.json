@@ -31,25 +31,25 @@
     "url": "https://github.com/connected-web/product-monitor"
   },
   "dependencies": {
-    "apicache": "^1.4.0",
-    "body-parser": "^1.15.1",
-    "cheerio": "^0.22.0",
-    "colors": "^1.1.2",
-    "cookie-parser": "^1.4.0",
-    "express": "^4.13.3",
-    "express-session": "^1.13.0",
-    "glob": "^5.0.15",
-    "handlebars": "^4.1.2",
+    "apicache": "^1.5.3",
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "glob": "^7.1.6",
+    "handlebars": "^4.7.6",
     "lodash": "^4.17.19",
     "md5-node": "^1.0.1",
     "ncp": "^2.0.0",
-    "passport": "^0.3.2",
-    "path": "^0.11.14",
-    "path-parse": "^1.0.5",
-    "promise-path": "^1.2.2",
+    "passport": "^0.4.1",
+    "path": "^0.12.7",
+    "path-parse": "^1.0.6",
+    "promise-path": "^1.4.0",
     "recursive-readdir-sync": "^1.0.6",
-    "request": "^2.88.0",
-    "utils-merge": "^1.0.0"
+    "request": "^2.88.2",
+    "utils-merge": "^1.0.1"
   },
   "analyze": true,
   "license": "ISC",
@@ -60,7 +60,7 @@
   ],
   "devDependencies": {
     "product-monitor.plugin.local-auth": "^1.2.1",
-    "product-monitor.plugin.sample": "^1.0.0",
-    "standard": "^10.0.3"
+    "product-monitor.plugin.sample": "^1.0.1",
+    "standard": "^14.3.4"
   }
 }
