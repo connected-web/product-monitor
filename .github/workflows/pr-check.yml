@@ -20,7 +20,7 @@ jobs:
     - name: Install npm dependencies
       run: npm install
 
-    - name: Run default tests
+    - name: Run build steps
       run: npm build -s
 
     - name: Run default tests
